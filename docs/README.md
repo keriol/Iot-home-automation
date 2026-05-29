@@ -33,3 +33,7 @@
 ## Worklog
 
 - [May 2026](../WORKLOG/2026-05.md)
+
+## Diagrams
+
+- [Architecture Diagram](diagrams/architecture.md)
