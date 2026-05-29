@@ -1,30 +1,35 @@
 # Architecture Diagram
 
-This diagram describes the high-level architecture of the platform.
+```mermaid
+flowchart TD
+    User[User]
 
-User
- ├─ Voice Assistants
- │   └─ Home Assistant
- │       ├─ MQTT
- │       ├─ Node-RED
- │       ├─ Python Helpers
- │       ├─ Smart Lighting
- │       ├─ Smart Plugs
- │       ├─ TV & Home Theater
- │       ├─ Appliances
- │       └─ Cameras
- │
- ├─ Dashboards
- │   └─ Home Assistant
- │
- └─ Remote Access
-     ├─ Tailscale VPN
-     └─ Cloudflare Tunnel
+    User --> Voice[Voice Assistants]
+    User --> Dashboard[Home Assistant Dashboard]
+    User --> Remote[Remote Access]
 
-Python Helpers
- ├─ Plex API
- └─ Energy Telemetry
+    Voice --> HA[Home Assistant]
+    Dashboard --> HA
 
-MQTT
- ├─ Energy Sensors
- └─ Presence Sensors
+    HA --> MQTT[MQTT Broker]
+    HA --> NR[Node-RED]
+    HA --> PY[Python Helpers]
+
+    MQTT --> Energy[Energy Sensors]
+    MQTT --> Presence[BLE Presence]
+
+    PY --> Plex[Plex API]
+    PY --> ZCS[Energy Telemetry]
+
+    HA --> Lights[Hue Lighting]
+    HA --> Plugs[Tapo Smart Plugs]
+    HA --> Media[TV and Home Theater]
+    HA --> Appliances[Smart Appliances]
+    HA --> Cameras[RTSP Cameras]
+
+    Remote --> Tailscale[Tailscale VPN]
+    Remote --> Cloudflare[Cloudflare Tunnel]
+
+    Tailscale --> HA
+    Cloudflare --> HA
+```
