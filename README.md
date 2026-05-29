@@ -43,3 +43,15 @@ This project follows an AI-assisted engineering workflow.
 Architecture decisions, implementation and validation remain human-driven, while AI is used as a technical copilot for research, troubleshooting, documentation, roadmap management and knowledge preservation.
 
 The project maintains a continuously updated project model, architecture documentation, roadmap, worklogs and case studies to support long-term development.
+
+## AI-Assisted Development
+
+This project is developed using a Human + AI engineering workflow.
+
+ChatGPT is used as a technical copilot for research, troubleshooting, documentation, architecture review and project knowledge management.
+
+Final architecture decisions, implementation, validation and production ownership remain human-driven.
+
+- [AI Collaboration](docs/AI_COLLABORATION.md)
+- [AI-Assisted Development Flow](docs/diagrams/ai-assisted-development-flow.md)
+- [ADR-005 - AI-Assisted Development Workflow](docs/adr/ADR-005-ai-assisted-development.md)
