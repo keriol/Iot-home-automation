@@ -140,3 +140,16 @@ Future versions may track:
 - Voice commands
 - Energy entities
 
+
+---
+
+## Live Platform Statistics
+
+| Metric | Value |
+|---|---|
+| Running Docker Containers | 5 |
+| Home Assistant Automations | 3 |
+| Home Assistant Scripts | 4 |
+| Home Assistant YAML Files | 50 |
+
+These values were collected from the live self-hosted environment and may evolve over time.
