@@ -1,0 +1,19 @@
+# /etc/systemd/system/zcs-energy-poller.service
+[Unit]
+Description=ZCS Energy MQTT Poller
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=server
+WorkingDirectory=/home/server/solarman-test
+ExecStartPre=/bin/sleep 20
+ExecStart=/home/server/solarman-test/venv/bin/python /home/server/solarman-test/zcs_energy_poller.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

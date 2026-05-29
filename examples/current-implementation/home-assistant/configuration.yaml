@@ -1,0 +1,119 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.17.0.0/16
+
+intent_script:
+  PlayPlexMedia:
+    action:
+      - action: script.plex_play_dynamic_media
+        data:
+          plex_library: "{{ library }}"
+          plex_title: "{{ title }}"
+          plex_type: episode
+    speech:
+      text: "Avvio {{ title }} da {{ library }} su Plex."
+
+  SearchPlexMedia:
+    speech:
+      text: "Ricerca Plex non ancora configurata."
+      
+      
+mqtt:
+  sensor:
+    - name: "ZCS PV Power"
+      unique_id: zcs_pv_power
+      state_topic: "home/zcs/energy/pv_power"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+
+    - name: "ZCS Grid Export"
+      unique_id: zcs_grid_export
+      state_topic: "home/zcs/energy/grid_export"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+
+    - name: "ZCS House Consumption"
+      unique_id: zcs_house_consumption
+      state_topic: "home/zcs/energy/house_consumption"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+
+    - name: "ZCS Battery SOC"
+      unique_id: zcs_battery_soc
+      state_topic: "home/zcs/energy/battery_soc"
+      unit_of_measurement: "%"
+      device_class: battery
+      state_class: measurement
+
+    - name: "ZCS Battery Voltage"
+      unique_id: zcs_battery_voltage
+      state_topic: "home/zcs/energy/battery_voltage"
+      unit_of_measurement: "V"
+      device_class: voltage
+      state_class: measurement
+
+    - name: "ZCS Grid Voltage"
+      unique_id: zcs_grid_voltage
+      state_topic: "home/zcs/energy/grid_voltage"
+      unit_of_measurement: "V"
+      device_class: voltage
+      state_class: measurement
+
+    - name: "ZCS Output Voltage"
+      unique_id: zcs_output_voltage
+      state_topic: "home/zcs/energy/output_voltage"
+      unit_of_measurement: "V"
+      device_class: voltage
+      state_class: measurement
+
+sensor:
+  - platform: integration
+    source: sensor.zcs_pv_power
+    name: ZCS PV Energy
+    unique_id: zcs_pv_energy
+    unit_prefix: k
+    unit_time: h
+    round: 3
+    method: left
+
+  - platform: integration
+    source: sensor.zcs_grid_export
+    name: ZCS Grid Export Energy
+    unique_id: zcs_grid_export_energy
+    unit_prefix: k
+    unit_time: h
+    round: 3
+    method: left
+    
+homeassistant:
+  customize:
+    sensor.zcs_pv_energy:
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: kWh
+
+services:
+  homeassistant:
+    network_mode: host
+    privileged: true
+    volumes:
+      - /run/dbus:/run/dbus:ro
+      - /etc/localtime:/etc/localtime:ro
+    sensor.zcs_grid_export_energy:
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: kWh

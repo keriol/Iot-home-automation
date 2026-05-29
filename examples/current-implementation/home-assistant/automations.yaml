@@ -1,0 +1,119 @@
+- id: '1777118883558'
+  alias: Spegni home theater
+  description: Quando il Bravia viene spento, attende 45 minuti e poi spegne la presa
+    Dolby solo se la TV è ancora spenta e la safe-power non è in corso.
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.sony_xr_55a80j_2
+    from: 'on'
+    to: 'off'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.tv_safe_power_running
+    state: 'off'
+  actions:
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  - condition: state
+    entity_id: media_player.sony_xr_55a80j_2
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.tv_safe_power_running
+    state: 'off'
+  - condition: state
+    entity_id: switch.presa_dolby
+    state: 'on'
+  - action: switch.turn_off
+    target:
+      entity_id: switch.presa_dolby
+  mode: restart
+- id: '1777123428427'
+  alias: Accendi home theater prima del Bravia
+  description: 'Se il Bravia viene acceso mentre la presa Dolby è spenta, accende
+    prima il Dolby, spegne il Bravia e tenta di riaccenderlo finché torna ON.
+
+    '
+  triggers:
+  - trigger: state
+    entity_id: media_player.sony_xr_55a80j_2
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.tv_safe_power_running
+    state: 'off'
+  - condition: state
+    entity_id: switch.presa_dolby
+    state: 'off'
+  actions:
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.tv_safe_power_running
+  - action: media_player.turn_off
+    target:
+      entity_id: media_player.sony_xr_55a80j_2
+  - action: switch.turn_on
+    target:
+      entity_id: switch.presa_dolby
+  - wait_template: '{{ is_state(''switch.presa_dolby'', ''on'') }}'
+    timeout: 00:00:20
+    continue_on_timeout: true
+  - wait_template: '{{ is_state(''media_player.sony_xr_55a80j_2'', ''off'') }}'
+    timeout: 00:00:20
+    continue_on_timeout: true
+  - delay: 00:00:03
+  - repeat:
+      sequence:
+      - action: media_player.turn_on
+        target:
+          entity_id: media_player.sony_xr_55a80j_2
+      - wait_template: '{{ is_state(''media_player.sony_xr_55a80j_2'', ''on'') }}'
+        timeout: 00:00:02
+        continue_on_timeout: true
+      until:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: media_player.sony_xr_55a80j_2
+          state: 'on'
+        - condition: template
+          value_template: '{{ repeat.index >= 15 }}'
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.tv_safe_power_running
+  mode: single
+- id: '1777130980561'
+  alias: Plex - Movie Night I Goonies
+  description: Accende la TV, apre Plex e avvia I Goonies sulla Bravia.
+  triggers: []
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: media_player.sony_xr_55a80j_2
+      state: 'off'
+    then:
+    - action: media_player.turn_on
+      target:
+        entity_id: media_player.sony_xr_55a80j_2
+    - delay:
+        seconds: 15
+  - action: remote.turn_on
+    target:
+      device_id: 652ca94b234a853572e758d72a8a63e6
+    data:
+      activity: com.plexapp.android
+  - delay:
+      seconds: 8
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+    data:
+      media:
+        media_content_id: '{"library_name":"Film","title":"I Goonies"}'
+        media_content_type: movie
+        metadata: {}
+  mode: single

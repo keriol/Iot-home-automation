@@ -1,0 +1,175 @@
+plex_play_dynamic_media:
+  alias: Plex - Play Dynamic Media
+  description: Avvia Plex sulla Bravia e riproduce un contenuto dinamico.
+  fields:
+    plex_library:
+      name: Libreria Plex
+      example: Anime
+    plex_title:
+      name: Titolo
+      example: One Piece
+    plex_type:
+      name: Tipo contenuto
+      example: episode
+  sequence:
+  - if:
+    - condition: state
+      entity_id: media_player.sony_xr_55a80j_2
+      state: 'off'
+    then:
+    - action: media_player.turn_on
+      target:
+        entity_id: media_player.sony_xr_55a80j_2
+    - delay:
+        seconds: 15
+  - action: remote.turn_on
+    target:
+      device_id: 652ca94b234a853572e758d72a8a63e6
+    data:
+      activity: com.plexapp.android
+  - delay:
+      seconds: 8
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ plex_type | lower in [''episode'', ''serie'', ''series'',
+          ''tv''] }}'
+      sequence:
+      - action: media_player.play_media
+        target:
+          entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+        data:
+          media_content_type: EPISODE
+          media_content_id: '{"library_name":"{{ plex_library }}","show_name":"{{
+            plex_title }}","continuous":"1"}
+
+            '
+    default:
+    - action: media_player.play_media
+      target:
+        entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+      data:
+        media_content_type: movie
+        media_content_id: '{"library_name":"{{ plex_library }}","title":"{{ plex_title
+          }}"}
+
+          '
+  mode: single
+plex_play_auto_library:
+  alias: Plex - Play Auto Library
+  description: Cerca un contenuto Plex su più librerie.
+  fields:
+    plex_title:
+      name: Titolo
+      example: One Piece
+    plex_library:
+      name: Libreria opzionale
+      example: Anime
+  sequence:
+  - if:
+    - condition: template
+      value_template: '{{ plex_library | default('''') | length > 0 }}'
+    then:
+    - action: script.plex_play_dynamic_media
+      data:
+        plex_library: '{{ plex_library }}'
+        plex_title: '{{ plex_title }}'
+        plex_type: episode
+    else:
+    - action: script.plex_play_dynamic_media
+      continue_on_error: true
+      data:
+        plex_library: Anime
+        plex_title: '{{ plex_title }}'
+        plex_type: episode
+    - action: script.plex_play_dynamic_media
+      continue_on_error: true
+      data:
+        plex_library: Programmi TV
+        plex_title: '{{ plex_title }}'
+        plex_type: episode
+    - action: script.plex_play_dynamic_media
+      continue_on_error: true
+      data:
+        plex_library: Film
+        plex_title: '{{ plex_title }}'
+        plex_type: movie
+  mode: single
+plex_search_media:
+  alias: Plex - Search Media
+  description: Cerca un contenuto su Plex.
+  fields:
+    plex_query:
+      name: Ricerca
+      example: One Piece
+  sequence:
+  - action: media_player.search_media
+    target:
+      entity_id: media_player.server_keriol_home
+    data:
+      search_query: '{{ plex_query }}'
+      media_content_type: ''
+    response_variable: plex_results
+  - action: persistent_notification.create
+    data:
+      title: Risultati Plex
+      message: '{{ plex_results }}
+
+        '
+  mode: single
+plex_play_auto_library_2:
+  alias: Plex - Play Auto Library
+  description: Prova a riprodurre un titolo Plex cercando prima in Anime, poi Programmi
+    TV, poi Film.
+  fields:
+    plex_title:
+      name: Titolo
+      example: One Piece
+  sequence:
+  - action: script.plex_play_dynamic_media
+    continue_on_error: true
+    data:
+      plex_library: Anime
+      plex_title: '{{ plex_title }}'
+      plex_type: episode
+  - delay:
+      seconds: 4
+  - if:
+    - condition: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+      state: playing
+    then:
+    - stop: Riproduzione avviata da Anime
+  - action: script.plex_play_dynamic_media
+    continue_on_error: true
+    data:
+      plex_library: Programmi TV
+      plex_title: '{{ plex_title }}'
+      plex_type: episode
+  - delay:
+      seconds: 4
+  - if:
+    - condition: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+      state: playing
+    then:
+    - stop: Riproduzione avviata da Programmi TV
+  - action: script.plex_play_dynamic_media
+    continue_on_error: true
+    data:
+      plex_library: Film
+      plex_title: '{{ plex_title }}'
+      plex_type: movie
+  - delay:
+      seconds: 4
+  - if:
+    - condition: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh2
+      state: playing
+    then:
+    - stop: Riproduzione avviata da Film
+  - action: persistent_notification.create
+    data:
+      title: Plex
+      message: Non ho trovato o non sono riuscito ad avviare {{ plex_title }}.
+  mode: single
