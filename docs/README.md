@@ -37,3 +37,9 @@
 ## Diagrams
 
 - [Architecture Diagram](diagrams/architecture.md)
+
+## AI-Assisted Workflow
+
+- [AI Collaboration](AI_COLLABORATION.md)
+- [AI-Assisted Development Flow](diagrams/ai-assisted-development-flow.md)
+- [ADR-005 - AI-Assisted Development Workflow](adr/ADR-005-ai-assisted-development.md)
