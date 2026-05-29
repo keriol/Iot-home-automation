@@ -6,10 +6,10 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=server
-WorkingDirectory=/home/server/solarman-test
+User=home-automation
+WorkingDirectory=/opt/home-automation/energy-poller
 ExecStartPre=/bin/sleep 20
-ExecStart=/home/server/solarman-test/venv/bin/python /home/server/solarman-test/zcs_energy_poller.py
+ExecStart=/opt/home-automation/energy-poller/venv/bin/python /opt/home-automation/energy-poller/zcs_energy_poller.py
 Restart=always
 RestartSec=30
 StandardOutput=journal
