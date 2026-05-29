@@ -82,3 +82,9 @@ The project serves as:
 - A continuous learning project
 - A public portfolio demonstrating real-world automation, integration and infrastructure skills
 
+
+## Repository Scope
+
+The underlying smart-home environment evolved before this repository existed.
+
+This repository documents the structured project phase: the moment the platform started being managed as an engineering project with architecture documentation, roadmap, worklogs, public-safe examples, metrics, case studies and AI-assisted development practices.
