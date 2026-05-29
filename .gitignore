@@ -1,0 +1,60 @@
+# Secrets / credentials
+secrets.yaml
+.env
+.env.*
+*token*
+*secret*
+credentials*
+auth*
+*.key
+*.pem
+*.crt
+*.p12
+
+# Home Assistant runtime/private files
+.storage/
+home-assistant_v2.db*
+home-assistant.log*
+*.log
+*.db
+*.sqlite
+*.sqlite3
+backups/
+*.tar
+*.tar.gz
+*.zip
+
+# MQTT / Mosquitto
+mosquitto/config/passwd
+mosquitto/data/
+mosquitto/log/
+
+# Node-RED
+node-red/.config*
+node-red/.sessions.json
+node-red/flows_cred.json
+node-red/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Cloudflare / VPN
+cloudflared/
+cert.pem
+tailscale/
+wg*.conf
+
+# Local/private
+private/
+local/
+scratch/
+tmp/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
