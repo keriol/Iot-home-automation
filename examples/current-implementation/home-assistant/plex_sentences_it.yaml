@@ -1,0 +1,48 @@
+language: it
+
+intents:
+  SearchPlexMedia:
+    data:
+      - sentences:
+          - "cerca su plex {title}"
+          - "cerca {title} su plex"
+
+  PlayPlexResult:
+    data:
+      - sentences:
+          - "riproduci risultato {number}"
+          - "avvia risultato {number}"
+
+  ResumePlexMedia:
+    data:
+      - sentences:
+          - "riprendi {title} su plex"
+          - "riproduci {title} su plex"
+          - "continua {title} su plex"
+
+lists:
+  title:
+    wildcard: true
+
+  number:
+    values:
+      - in: "uno"
+        out: "1"
+      - in: "due"
+        out: "2"
+      - in: "tre"
+        out: "3"
+      - in: "quattro"
+        out: "4"
+      - in: "cinque"
+        out: "5"
+      - in: "1"
+        out: "1"
+      - in: "2"
+        out: "2"
+      - in: "3"
+        out: "3"
+      - in: "4"
+        out: "4"
+      - in: "5"
+        out: "5"
