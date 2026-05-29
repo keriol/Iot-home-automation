@@ -105,7 +105,7 @@ plex_search_media:
   sequence:
   - action: media_player.search_media
     target:
-      entity_id: media_player.server_keriol_home
+      entity_id: media_player.media_server
     data:
       search_query: '{{ plex_query }}'
       media_content_type: ''
