@@ -36,3 +36,22 @@ A local Home Assistant orchestration layer gives better control, safer mappings,
 - No personal entity names committed.
 - No public endpoints committed.
 - Examples use placeholders.
+
+## Extension - Dynamic Assist catalog advice
+
+- Added dynamic Home Assistant Assist intent for washing machine program advice.
+- Assist can now answer category/search-style catalog questions using the local Italian hOn catalog.
+- Validated query:
+  - "che programmi ho per le macchie ostinate?"
+- Confirmed response from local catalog:
+  - Macchie di sangue
+  - Macchie di cioccolato
+  - Colorato antimacchia
+  - Macchie di frutta
+  - Rimuovi macchie e odori di animali domestici
+  - Togli macchie
+  - Macchie di vino
+- Added/validated a dedicated `stains` catalog category.
+- Fixed earlier category mismatch where stain-related programs were incorrectly grouped with pet-related programs.
+- Decision: no additional Alexa debug triggers for every category.
+- Next objective: make Alexa return the same dynamic catalog answers currently provided by Assist.
