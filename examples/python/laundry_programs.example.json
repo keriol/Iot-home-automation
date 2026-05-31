@@ -1,0 +1,27 @@
+[
+  {
+    "code": "iot_wash_perfect_white_steam",
+    "name_it": "Bianco perfetto + Vapore",
+    "categories": ["whites", "steam"]
+  },
+  {
+    "code": "iot_wash_whites_44",
+    "name_it": "Bianchi 44",
+    "categories": ["whites", "rapid"]
+  },
+  {
+    "code": "iot_wash_blood_stains",
+    "name_it": "Macchie di sangue",
+    "categories": ["stains"]
+  },
+  {
+    "code": "iot_wash_wine_stains",
+    "name_it": "Macchie di vino",
+    "categories": ["stains"]
+  },
+  {
+    "code": "iot_wash_stains_remover",
+    "name_it": "Togli macchie",
+    "categories": ["stains"]
+  }
+]
