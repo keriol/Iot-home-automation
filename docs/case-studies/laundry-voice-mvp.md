@@ -88,3 +88,31 @@ Validated MVP flows:
 - Add custom Alexa Skill through HTTPS tunnel for dynamic commands.
 - Add PV-aware laundry recommendation.
 - Add richer program categories and synonyms.
+
+## Extension - Dynamic catalog advice through Assist
+
+After validating fixed Alexa routine triggers for washing machine status and white laundry programs, the catalog layer was extended to support dynamic Assist questions.
+
+Instead of creating one Alexa trigger per category, Home Assistant Assist can pass the user query to the local Python catalog helper.
+
+Validated example:
+
+- "what programs do I have for stubborn stains?"
+
+The local catalog returned stain-related washing programs using Italian program names from the hOn translation files.
+
+This confirmed that the catalog should be treated as a searchable local knowledge source, not only as a set of hardcoded categories.
+
+## Updated decision
+
+Avoid creating a large number of Alexa debug triggers for each catalog category.
+
+Use Assist as the dynamic query layer today.  
+Use a future Alexa Custom Skill or equivalent HTTPS intent bridge to make Alexa answer the same dynamic catalog questions directly.
+
+## Updated future work
+
+- Expose dynamic catalog questions to Alexa.
+- Reuse the same Python catalog helper for Assist and Alexa.
+- Keep Emulated Hue only for simple trigger-style commands.
+- Use Custom Alexa Skill / HTTPS endpoint for natural commands with parameters.

@@ -1,0 +1,42 @@
+# Sanitized Home Assistant example - Dynamic laundry catalog advice through Assist
+# Replace helper/script paths and entity names with local equivalents.
+# Do not commit tokens, device IDs, public endpoints, private IPs, or personal names.
+
+shell_command:
+  laundry_voice_query: "python3 /config/laundry_voice_query.py \"{{ query }}\""
+
+command_line:
+  - sensor:
+      name: Laundry Catalog Speech
+      unique_id: laundry_catalog_speech
+      command: "cat /config/laundry_speech.txt 2>/dev/null || echo 'No laundry catalog answer is available yet.'"
+      scan_interval: 3600
+
+intent_script:
+  LaundryProgramAdvice:
+    action:
+      - action: shell_command.laundry_voice_query
+        data:
+          query: "{{ query }}"
+      - delay: "00:00:01"
+      - action: homeassistant.update_entity
+        target:
+          entity_id: sensor.laundry_catalog_speech
+    speech:
+      text: "{{ states('sensor.laundry_catalog_speech') }}"
+
+# custom_sentences/it/laundry.yaml
+language: it
+intents:
+  LaundryProgramAdvice:
+    data:
+      - sentences:
+          - "che programmi ho per {query}"
+          - "quali programmi ho per {query}"
+          - "programmi per {query}"
+          - "consigliami programmi per {query}"
+          - "che programma posso usare per {query}"
+          - "che programma mi consigli per {query}"
+        lists:
+          query:
+            wildcard: true
