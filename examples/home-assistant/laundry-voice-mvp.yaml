@@ -1,0 +1,45 @@
+# Sanitized Home Assistant example - Laundry voice MVP
+# Replace placeholder entity IDs with local ones.
+# Do not commit tokens, device IDs, public endpoints, private IPs, or personal names.
+
+command_line:
+  - sensor:
+      name: Laundry Runtime Speech
+      unique_id: laundry_runtime_speech
+      command: "python3 /config/laundry_runtime_status.py"
+      scan_interval: 3600
+
+input_boolean:
+  alexa_laundry_status:
+    name: Washing Machine Status
+    icon: mdi:washing-machine
+
+  alexa_laundry_white_programs:
+    name: White Laundry Programs
+    icon: mdi:washing-machine
+
+emulated_hue:
+  host_ip: <HA_LAN_IP>
+  listen_port: 80
+  expose_by_default: false
+  exposed_domains:
+    - input_boolean
+  entities:
+    input_boolean.alexa_laundry_status:
+      name: "Washing Machine Status"
+      hidden: false
+    input_boolean.alexa_laundry_white_programs:
+      name: "White Laundry Programs"
+      hidden: false
+
+intent_script:
+  LaundryRuntimeStatus:
+    action:
+      - action: homeassistant.update_entity
+        target:
+          entity_id: sensor.laundry_runtime_speech
+    speech:
+      text: "{{ states('sensor.laundry_runtime_speech') }}"
+
+shell_command:
+  laundry_announce_white_programs: "python3 /config/laundry_announce_query.py 'what white laundry programs are available?'"
