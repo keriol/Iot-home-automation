@@ -1,0 +1,16 @@
+[Unit]
+Description=Example Alexa Home Assistant Bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=homeassistant
+WorkingDirectory=/opt/alexa-ha-bridge
+Environment="PATH=/opt/alexa-ha-bridge/venv/bin"
+ExecStart=/opt/alexa-ha-bridge/venv/bin/uvicorn app_sanitized:app --host 0.0.0.0 --port 5055
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

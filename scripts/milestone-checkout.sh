@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /home/server/home-automation-portfolio
+
+cat > docs/PROJECT_MODEL.md <<'EOF'
 HOME AUTOMATION PROJECT MODEL (<8K)
 
 STARTUP
@@ -230,3 +236,14 @@ NEXT
 9. Additional portfolio case studies.
 10. Screenshot gallery.
 11. PUBLIC snapshot export.
+EOF
+
+./scripts/export-project-model.sh
+
+echo
+echo "Model chars:"
+wc -m docs/PROJECT_MODEL.md docs/project-model/project-model-public.md
+
+echo
+echo "Git status:"
+git status --short
