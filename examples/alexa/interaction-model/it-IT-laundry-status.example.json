@@ -1,0 +1,39 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "maggiordomo demo",
+      "intents": [
+        {
+          "name": "LaundryStatusIntent",
+          "slots": [],
+          "samples": [
+            "quanto manca al bucato",
+            "quanto manca alla lavatrice",
+            "stato lavatrice",
+            "a che punto è il bucato",
+            "quanto tempo manca alla lavatrice",
+            "dimmi quanto manca al bucato",
+            "controlla la lavatrice"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}
