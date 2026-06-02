@@ -1,23 +1,32 @@
-# Voice Flow Diagram
+# Voice Flow
 
 ```mermaid
 flowchart LR
+    User[User voice command]
 
-    User[User]
-    Alexa[Alexa Devices]
-    Assist[Home Assistant Assist]
-    HA[Home Assistant]
-    Intent[Intent Scripts]
-    Python[Python Helpers]
-    Plex[Plex API]
-    TV[Android TV Plex Client]
+    User --> Alexa[Alexa]
+    User --> Assist[Home Assistant Assist]
 
-    User --> Alexa
-    User --> Assist
-    Alexa --> HA
+    Alexa --> AlexaDevices[Alexa Devices integration]
+    Alexa --> EmulatedHue[Emulated Hue triggers]
+    Alexa --> CustomSkill[Alexa Custom Skill]
+
+    AlexaDevices --> TTS[Echo TTS / text / sound]
+    EmulatedHue --> HARoutines[Home Assistant routines]
+
+    CustomSkill --> CF[Cloudflare Tunnel HTTPS]
+    CF --> FastAPI[FastAPI Alexa bridge]
+    FastAPI --> HA[Home Assistant REST API]
+
     Assist --> HA
-    HA --> Intent
-    Intent --> Python
-    Python --> Plex
-    Plex --> TV
+
+    HA --> Laundry[hOn washing machine]
+    HA --> Plex[Plex helpers]
+    HA --> Theater[Home theater automations]
+    HA --> Energy[Energy / PV logic]
+
+    Laundry --> LaundryStatus[Laundry status]
+    Plex --> PlexPlayback[Plex search / playback]
+    Theater --> SafePower[Safe-power logic]
+    Energy --> Notifications[Future proactive notifications]
 ```

@@ -58,3 +58,4 @@ tmp/
 Thumbs.db
 .vscode/
 .idea/
+*.py[cod]
