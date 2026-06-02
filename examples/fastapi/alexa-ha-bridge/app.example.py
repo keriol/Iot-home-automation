@@ -71,7 +71,9 @@ def is_unknown(value: str | None) -> bool:
     if value is None:
         return True
 
-    return str(value).strip().lower() in {
+    normalized = str(value).strip().lower()
+
+    return normalized in {
         "",
         "unknown",
         "unavailable",
@@ -163,6 +165,8 @@ async def alexa_laundry(request: Request) -> dict[str, Any]:
 
     intent_name = request_data.get("intent", {}).get("name")
 
+    # Temporary compatibility mapping for template-based skills.
+    # Final interaction model should use LaundryStatusIntent only.
     if intent_name in ["LaundryStatusIntent", "HelloWorldIntent"]:
         try:
             return alexa_response(build_laundry_status_text())
