@@ -1,35 +1,74 @@
-# Architecture Diagram
+# Architecture
 
 ```mermaid
 flowchart TD
     User[User]
 
-    User --> Voice[Voice Assistants]
-    User --> Dashboard[Home Assistant Dashboard]
-    User --> Remote[Remote Access]
+    subgraph Voice["Voice Layer"]
+        Alexa[Alexa]
+        Assist[Home Assistant Assist]
+        Echo[Echo devices]
+    end
 
-    Voice --> HA[Home Assistant]
-    Dashboard --> HA
+    subgraph Public["Public Integration Layer"]
+        CF[Cloudflare Tunnel HTTPS]
+        FastAPI[FastAPI bridge]
+    end
 
-    HA --> MQTT[MQTT Broker]
-    HA --> NR[Node-RED]
-    HA --> PY[Python Helpers]
+    subgraph Private["Private Access Layer"]
+        VPN[Tailscale VPN]
+    end
 
-    MQTT --> Energy[Energy Sensors]
-    MQTT --> Presence[BLE Presence]
+    subgraph Core["Home Automation Core"]
+        HA[Home Assistant Docker]
+        MQTT[Mosquitto MQTT]
+        NodeRED[Node-RED]
+    end
 
-    PY --> Plex[Plex API]
-    PY --> ZCS[Energy Telemetry]
+    subgraph Services["Local Services"]
+        Plex[Plex API]
+        Python[Python helpers]
+        QNAP[QNAP NAS]
+    end
 
-    HA --> Lights[Hue Lighting]
-    HA --> Plugs[Tapo Smart Plugs]
-    HA --> Media[TV and Home Theater]
-    HA --> Appliances[Smart Appliances]
-    HA --> Cameras[RTSP Cameras]
+    subgraph Devices["Devices and Integrations"]
+        Laundry[hOn washing machine]
+        Theater[Bravia / Dolby / Tapo plug]
+        Lights[Hue / Magic Home LED]
+        Climate[Tapo H100 / T310 / Tuya]
+        Energy[ZCS / PV / Battery]
+        Cameras[Imou RTSP]
+        Presence[BT500 / Bermuda]
+    end
 
-    Remote --> Tailscale[Tailscale VPN]
-    Remote --> Cloudflare[Cloudflare Tunnel]
+    User --> Alexa
+    User --> Assist
+    User --> VPN
 
-    Tailscale --> HA
-    Cloudflare --> HA
+    Alexa --> Echo
+    Alexa --> CF
+    CF --> FastAPI
+    FastAPI --> HA
+
+    Assist --> HA
+    VPN --> HA
+    VPN --> QNAP
+    VPN --> NodeRED
+
+    HA --> MQTT
+    HA --> NodeRED
+    HA --> Python
+    HA --> Plex
+
+    HA --> Laundry
+    HA --> Theater
+    HA --> Lights
+    HA --> Climate
+    HA --> Energy
+    HA --> Cameras
+    HA --> Presence
+
+    MQTT --> HA
+    NodeRED --> HA
+    Python --> HA
 ```

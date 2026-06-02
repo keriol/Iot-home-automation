@@ -43,6 +43,45 @@ Alexa
 → Alexa voice response
 ```
 
+## MVP Outcome
+
+The custom Alexa skill was successfully validated end-to-end.
+
+Validated user flow:
+
+```text
+Alexa, ask Alfred The Butler how much time is left on the washing machine
+```
+
+Current result:
+
+```text
+The washing machine is currently not connected.
+```
+
+or, when available:
+
+```text
+Washing machine program: <program name>
+Remaining time: <remaining time>
+```
+
+Additional work completed after the initial bridge validation:
+
+- Assistant persona renamed from Albert to Alfred.
+- Added custom launch response.
+- Added Supported Features intent.
+- Added LaundryStatusIntent.
+- Refactored the FastAPI bridge into smaller modules:
+  - configuration
+  - Home Assistant client
+  - Alexa response helpers
+  - laundry service
+  - Alfred response helper
+- Added SSML-based Alfred responses.
+- Validated custom intent routing through the Alexa Developer Console.
+- Validated LaundryStatusIntent end-to-end.
+
 ## Issues Found
 
 ### Wrong endpoint path
