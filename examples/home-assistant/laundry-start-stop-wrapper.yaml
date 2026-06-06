@@ -1,0 +1,53 @@
+# Laundry start/stop wrapper examples
+#
+# Public-safe example.
+# Replace example entities and identifiers with your own Home Assistant entities.
+#
+# Design:
+# - Python/FastAPI owns voice handling, catalog lookup, validation and default parameters.
+# - Home Assistant owns the physical hOn action wrapper and device targeting.
+# - Do not expose Home Assistant directly to the internet.
+
+script:
+  laundry_start_program:
+    alias: Laundry - Start program
+    description: >
+      Start a validated hOn washing-machine program using a program code and
+      default parameters provided by the voice bridge.
+    mode: single
+
+    fields:
+      program_code:
+        name: Program code
+        description: Internal hOn program code from the validated local catalog.
+        required: true
+        selector:
+          text:
+
+      program_parameters:
+        name: Program parameters
+        description: Default hOn parameters from the validated local catalog.
+        required: true
+        selector:
+          object:
+
+    sequence:
+      - action: hon.start_program
+        target:
+          entity_id: sensor.example_washing_machine_program_name
+        data:
+          device: EXAMPLE_HON_INTERNAL_DEVICE_ID
+          program: "{{ program_code }}"
+          parameters: "{{ program_parameters }}"
+
+  laundry_stop_program:
+    alias: Laundry - Stop program
+    description: >
+      Optional wrapper for stopping the washing machine. The voice bridge may
+      call this script instead of calling the hOn service directly.
+    mode: single
+
+    sequence:
+      - action: hon.turn_off
+        data:
+          device: EXAMPLE_HON_INTERNAL_DEVICE_ID

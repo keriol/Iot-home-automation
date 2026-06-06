@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "maggiordomo demo",
+      "invocationName": "alfred demo",
       "intents": [
         {
           "name": "LaundryStatusIntent",
@@ -13,7 +13,118 @@
             "a che punto è il bucato",
             "quanto tempo manca alla lavatrice",
             "dimmi quanto manca al bucato",
-            "controlla la lavatrice"
+            "controlla la lavatrice",
+            "come sta la lavatrice"
+          ]
+        },
+        {
+          "name": "LaundryLastIntent",
+          "slots": [],
+          "samples": [
+            "quando è finito l'ultimo bucato",
+            "quando ho fatto l'ultimo bucato",
+            "ultimo bucato",
+            "dimmi l'ultimo bucato",
+            "quanto tempo fa è finito il bucato"
+          ]
+        },
+        {
+          "name": "LaundryAvailableProgramsIntent",
+          "slots": [],
+          "samples": [
+            "quali programmi ho",
+            "quali programmi sono disponibili",
+            "che programmi lavatrice ho",
+            "elenca i programmi lavatrice",
+            "dimmi i programmi disponibili"
+          ]
+        },
+        {
+          "name": "LaundryProgramsByCategoryIntent",
+          "slots": [
+            {
+              "name": "LaundryCategory",
+              "type": "LaundryCategory"
+            }
+          ],
+          "samples": [
+            "quali programmi ho per {LaundryCategory}",
+            "che programmi ho per {LaundryCategory}",
+            "quale programma ho per {LaundryCategory}",
+            "dimmi i programmi per {LaundryCategory}",
+            "elenca i programmi per {LaundryCategory}"
+          ]
+        },
+        {
+          "name": "LaundrySearchProgramsIntent",
+          "slots": [
+            {
+              "name": "LaundryKeyword",
+              "type": "LaundryKeyword"
+            }
+          ],
+          "samples": [
+            "cerca programmi per {LaundryKeyword}",
+            "quali programmi ho per {LaundryKeyword}",
+            "che programmi ho per {LaundryKeyword}",
+            "trova programmi con {LaundryKeyword}",
+            "cerca programmi con {LaundryKeyword}"
+          ]
+        },
+        {
+          "name": "LaundryStartIntent",
+          "slots": [
+            {
+              "name": "LaundryProgram",
+              "type": "LaundryProgram"
+            }
+          ],
+          "samples": [
+            "avvia {LaundryProgram}",
+            "fai partire {LaundryProgram}",
+            "avvia il programma {LaundryProgram}",
+            "fai partire il programma {LaundryProgram}",
+            "avvia la lavatrice con {LaundryProgram}",
+            "fai partire la lavatrice con {LaundryProgram}",
+            "lancia {LaundryProgram}",
+            "inizia {LaundryProgram}"
+          ]
+        },
+        {
+          "name": "LaundryStopIntent",
+          "slots": [],
+          "samples": [
+            "ferma la lavatrice",
+            "interrompi il bucato",
+            "annulla il lavaggio",
+            "spegni la lavatrice",
+            "ferma il programma della lavatrice",
+            "blocca la lavatrice"
+          ]
+        },
+        {
+          "name": "SupportedFeaturesIntent",
+          "slots": [],
+          "samples": [
+            "cosa puoi fare",
+            "quali funzioni supporti",
+            "che cosa sai fare",
+            "aiuto funzioni",
+            "dimmi cosa puoi fare"
+          ]
+        },
+        {
+          "name": "AlfredExitIntent",
+          "slots": [],
+          "samples": [
+            "grazie Alfred",
+            "grazie",
+            "a posto così",
+            "basta così",
+            "chiudi",
+            "non mi serve altro",
+            "va bene così",
+            "puoi andare"
           ]
         },
         {
@@ -33,7 +144,149 @@
           "samples": []
         }
       ],
-      "types": []
+      "types": [
+        {
+          "name": "LaundryProgram",
+          "values": [
+            {
+              "name": {
+                "value": "Bianco perfetto più Vapore",
+                "synonyms": [
+                  "bianco perfetto con vapore",
+                  "bianco perfetto più vapore",
+                  "programma bianco perfetto con vapore",
+                  "programma bianco perfetto più vapore"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Bianchi",
+                "synonyms": [
+                  "programma bianchi",
+                  "lavaggio bianchi"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Colorati",
+                "synonyms": [
+                  "programma colorati",
+                  "lavaggio colorati"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Togli macchie",
+                "synonyms": [
+                  "programma macchie",
+                  "anti macchia",
+                  "antimacchia"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Rapido",
+                "synonyms": [
+                  "programma rapido",
+                  "lavaggio rapido"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "LaundryCategory",
+          "values": [
+            {
+              "name": {
+                "value": "bianchi",
+                "synonyms": [
+                  "bianco",
+                  "i bianchi",
+                  "per i bianchi"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "colorati",
+                "synonyms": [
+                  "colori",
+                  "i colorati",
+                  "per i colorati"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "macchie",
+                "synonyms": [
+                  "macchia",
+                  "antimacchia",
+                  "le macchie",
+                  "per le macchie"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "vapore",
+                "synonyms": [
+                  "con vapore"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "delicati",
+                "synonyms": [
+                  "delicato",
+                  "per delicati"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "LaundryKeyword",
+          "values": [
+            {
+              "name": {
+                "value": "bianchi"
+              }
+            },
+            {
+              "name": {
+                "value": "colorati"
+              }
+            },
+            {
+              "name": {
+                "value": "macchie"
+              }
+            },
+            {
+              "name": {
+                "value": "vapore"
+              }
+            },
+            {
+              "name": {
+                "value": "camicie"
+              }
+            },
+            {
+              "name": {
+                "value": "lenzuola"
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 }

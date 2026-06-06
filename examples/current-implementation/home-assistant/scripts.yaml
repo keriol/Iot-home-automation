@@ -24,7 +24,7 @@ plex_play_dynamic_media:
         seconds: 15
   - action: remote.turn_on
     target:
-      device_id: 652ca94b234a853572e758d72a8a63e6
+      device_id: EXAMPLE_HOME_ASSISTANT_DEVICE_ID
     data:
       activity: com.plexapp.android
   - delay:

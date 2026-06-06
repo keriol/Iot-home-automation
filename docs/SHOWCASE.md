@@ -10,6 +10,10 @@ The goal is to demonstrate practical engineering decisions, real-world integrati
 
 # 1. Plex Voice Control
 
+## Status
+
+Validated implementation.
+
 ## Objective
 
 Control media playback using natural language voice commands.
@@ -43,40 +47,64 @@ A conversational media experience integrated into the smart-home platform.
 
 ---
 
-# 2. Local Solar Energy Telemetry
+# 2. Alfred Laundry Voice Control
+
+## Status
+
+Validated MVP.
 
 ## Objective
 
-Collect local photovoltaic and battery data without relying exclusively on vendor cloud services.
+Expose washing-machine status, program catalog queries and controlled start/stop commands through an Alexa Custom Skill without exposing Home Assistant directly.
 
 ## Technologies
 
-- Python
-- MQTT
-- Home Assistant
-- Solar inverter integration
+- Alexa Custom Skill
+- Cloudflare Tunnel
+- FastAPI
+- Home Assistant REST API
+- hOn washing machine integration
+- Home Assistant script wrapper
 
 ## Features
 
-- Local telemetry collection
-- MQTT publication
-- Battery monitoring
-- Energy dashboards
+- Laundry status query
+- Last laundry query
+- Real program catalog integration
+- Category-based program lookup
+- Validated program start by voice
+- Remote stop command by voice
+- Session-based Alfred UX with explicit exit intent
 
 ## Engineering Challenges
 
-- Proprietary protocols
-- Data discovery
-- Sensor mapping
-- Telemetry validation
+- Alexa intent and slot routing
+- Safe appliance command validation
+- Program name normalization without fuzzy matching
+- hOn cloud/integration state lag
+- Alexa session timing and follow-up UX
+- Public HTTPS bridge without exposing Home Assistant
+
+## Safety Decisions
+
+- Unknown programs are rejected.
+- Appliance control does not use fuzzy matching.
+- Program start requires a validated catalog entry.
+- Start uses default parameters from the local catalog.
+- Alexa start/stop responses are quick and do not claim final success from dispatch alone.
+- Laundry status remains the source of truth after start/stop commands.
 
 ## Outcome
 
-Ownership of energy data and support for future energy-aware automations.
+A voice-controlled appliance workflow that demonstrates secure public integration, local orchestration and safety-aware command handling.
 
 ---
 
 # 3. Home Theater Safe-Power Workflow
+
+## Status
+
+Validated implementation.
 
 ## Objective
 
@@ -107,7 +135,51 @@ Reliable home theater startup without manual intervention.
 
 ---
 
-# 4. BLE Presence Detection
+# 4. Local Solar Energy Telemetry
+
+## Status
+
+Work in progress. Real telemetry still needs validation and correction.
+
+## Objective
+
+Collect local photovoltaic and battery data without relying exclusively on vendor cloud services.
+
+## Technologies
+
+- Python
+- MQTT
+- Home Assistant
+- Solar inverter integration
+
+## Target Features
+
+- Local telemetry collection
+- MQTT publication
+- Battery monitoring
+- Energy dashboards
+- Import/export visibility
+- Energy-aware automations
+
+## Engineering Challenges
+
+- Proprietary protocols
+- Data discovery
+- Register mapping
+- Sensor validation
+- Long-term statistics
+
+## Current Outcome
+
+The architecture direction is defined, but real photovoltaic/ZCS telemetry is not yet production-ready.
+
+---
+
+# 5. BLE Presence Detection
+
+## Status
+
+Work in progress. Presence is not reliable yet.
 
 ## Objective
 
@@ -120,52 +192,63 @@ Determine home occupancy using Bluetooth Low Energy devices.
 - Home Assistant
 - Bluetooth adapters
 
-## Features
+## Target Features
 
 - Device detection
 - Presence estimation
 - Occupancy foundation
+- Empty-home automations
 
 ## Engineering Challenges
 
 - Signal instability
+- Adapter compatibility
 - Device variability
 - False positives
 - State stabilization
 
-## Outcome
+## Current Outcome
 
-Foundation for context-aware automations.
+BLE presence remains a validation track and should not yet be treated as a reliable automation trigger.
 
 ---
 
-# 5. PV-Aware Laundry Automation
+# 6. PV-Aware Laundry Automation
+
+## Status
+
+Future feature.
 
 ## Objective
 
-Use available renewable energy to suggest optimal appliance usage.
+Use renewable energy and home context to suggest optimal appliance usage.
 
 ## Technologies
 
 - Home Assistant
 - Energy telemetry
 - Appliance integration
+- Presence detection
+- Notification workflow
 
-## Features
+## Target Features
 
 - Battery state awareness
 - Occupancy awareness
+- Laundry freshness reminders
 - Smart recommendations
+- Notify-first automation
 
 ## Engineering Challenges
 
-- Cross-domain automation
-- Context evaluation
-- User-friendly notifications
+- Requires reliable energy telemetry
+- Requires reliable presence
+- Requires safe appliance control hardening
+- Needs user-friendly notification timing
 
-## Outcome
+## Current Outcome
 
-A practical example of energy-aware home automation.
+The concept is documented, but implementation depends on stabilizing real PV data, reliable presence and safer appliance-control verification.
 
 ---
 
@@ -179,4 +262,3 @@ Across all implementations, the project consistently applies:
 - Human-centered automation
 - Security-aware remote access
 - AI-assisted engineering workflow
-
