@@ -43,3 +43,17 @@
 - [AI Collaboration](AI_COLLABORATION.md)
 - [AI-Assisted Development Flow](diagrams/ai-assisted-development-flow.md)
 - [ADR-005 - AI-Assisted Development Workflow](adr/ADR-005-ai-assisted-development.md)
+
+## Alfred Laundry Deep Dive
+
+Recent public-safe documentation for the Alfred the Butler laundry workflow:
+
+- [Alexa Laundry Async Verification Diagrams](diagrams/alexa-laundry-async-verification.md)
+- [Alfred Laundry Portfolio Analysis](analysis/alfred-laundry-voice-ux-and-async-verification.md)
+- [Alfred Laundry Voice UX and Async Verification Lessons](lessons-learned/alfred-laundry-voice-ux-and-async-verification.md)
+- [Alexa Custom Skill Laundry MVP Case Study](case-studies/alexa-custom-skill-laundry-mvp.md)
+
+Sanitized Python examples:
+
+- [Laundry Async Verification](../examples/alexa-ha-bridge/laundry_async_verification_sanitized.py)
+- [Laundry Search Pagination](../examples/alexa-ha-bridge/laundry_search_pagination_sanitized.py)
