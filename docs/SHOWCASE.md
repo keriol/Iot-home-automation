@@ -262,3 +262,28 @@ Across all implementations, the project consistently applies:
 - Human-centered automation
 - Security-aware remote access
 - AI-assisted engineering workflow
+
+## Alfred the Butler - Laundry Voice Workflow
+
+Alfred the Butler exposes a washing-machine workflow through an Alexa Custom Skill and a FastAPI bridge.
+
+Highlights:
+
+- public HTTPS skill endpoint without exposing Home Assistant directly
+- validated laundry program catalog
+- Italian voice queries
+- true keyword search
+- paginated spoken results
+- cautious start and stop commands
+- asynchronous verification against real appliance state
+- hOn refresh before each verification attempt
+- manual verification fallback after timeout
+
+This case study demonstrates real-world IoT integration concerns:
+
+- cloud latency
+- generic device states
+- voice UX constraints
+- appliance safety
+- public and private boundary separation
+- user trust through cautious feedback

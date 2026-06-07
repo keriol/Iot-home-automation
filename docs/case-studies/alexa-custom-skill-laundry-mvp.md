@@ -272,3 +272,54 @@ Do not commit:
 - Home Assistant device IDs
 - hOn internal device identifiers
 - private hostnames or IP addresses
+
+## 2026-06-07 Extension - Voice UX and Async Appliance Verification
+
+### Goal
+
+Improve the laundry Custom Skill from a command dispatcher into a cautious voice workflow that can handle slow and generic appliance state updates.
+
+### What changed
+
+- Added reprompts to keep Alfred sessions open after functional responses.
+- Added launch and fallback guidance for "che cosa puoi fare".
+- Implemented true keyword search across the laundry program catalog.
+- Added voice pagination for long result lists.
+- Added program-name fallback when hOn reports generic names.
+- Added asynchronous start and stop verification.
+- Refreshed hOn state before every verification attempt.
+- Added manual-verification fallback if confirmation is not reached within the verification window.
+
+### Async verification behavior
+
+Alfred no longer claims success from dispatch alone.
+
+The bridge now:
+
+1. sends the command,
+2. replies immediately,
+3. verifies in the background,
+4. refreshes hOn before each check,
+5. polls every 15 seconds up to 90 seconds,
+6. notifies only after the expected state is observed,
+7. asks for manual verification if no confirmation arrives.
+
+### Verified results
+
+Start behavior:
+
+- first check not confirmed
+- later check confirmed the washer as running
+- notification included requested program and estimated remaining time
+
+Stop behavior:
+
+- early checks still saw the washer running
+- later check confirmed the washer as stopped
+- notification reported the washer as stopped
+
+### Lesson
+
+For physical appliance control, command dispatch and confirmed state must be treated as separate events.
+
+This makes the voice assistant more trustworthy and avoids false success messages.
