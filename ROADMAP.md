@@ -51,3 +51,29 @@
 - [ ] Architecture diagrams
 - [ ] Case studies
 - [ ] Sanitized examples
+
+## 2026-06-07 Update - Alfred Laundry Workflow
+
+The Alfred the Butler laundry workflow has progressed beyond the initial voice-query phase.
+
+Completed:
+
+- Alexa Custom Skill laundry status and remaining-time query
+- validated laundry program catalog
+- true keyword search across program names, codes and categories
+- paginated spoken results for long catalog searches
+- validated remote start for allowlisted programs
+- remote stop command
+- hOn generic program-name fallback using an Alfred/Home Assistant helper
+- asynchronous start and stop verification
+- hOn state refresh before each verification attempt
+- verification polling every 15 seconds up to 90 seconds
+- manual verification fallback if the expected state is not confirmed
+
+Remaining roadmap items:
+
+- validate active-cycle menu during more real washing cycles
+- clean Alexa Developer Console model for help, yes/no and exit routing
+- connect proactive laundry prompts to stronger presence/home-context logic
+- add PV-aware laundry suggestions
+- monitor upstream hOn behavior for remote-start program naming

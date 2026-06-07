@@ -67,7 +67,7 @@ Values are intentionally approximate and periodically updated.
 | Assist Integration | Active |
 | Voice Announcements | Active |
 | Plex Voice Control | Active |
-| Custom Skill | Planned |
+| Custom Skill | MVP validated |
 
 ---
 
@@ -153,3 +153,25 @@ Future versions may track:
 | Home Assistant YAML Files | 50 |
 
 These values were collected from the live self-hosted environment and may evolve over time.
+
+
+## Alfred Laundry Workflow Metrics
+
+| Capability | Status |
+|---|---|
+| Alexa Custom Skill laundry bridge | MVP validated |
+| Laundry status query | Operational |
+| Remaining-time query | Operational |
+| Validated program catalog | Operational |
+| True keyword program search | Operational |
+| Voice pagination for long results | Operational |
+| Validated remote start | MVP validated |
+| Remote stop | MVP validated |
+| Generic hOn program-name fallback | Operational |
+| Async start verification | Validated |
+| Async stop verification | Validated |
+| hOn refresh before verification | Validated |
+| Manual verification fallback | Implemented |
+| Presence-aware proactive prompts | Planned |
+| PV-aware laundry suggestions | Planned |
+

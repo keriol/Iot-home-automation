@@ -1,6 +1,6 @@
 # Home Automation Project Status
 
-Last Updated: 2026-06-06
+Last Updated: 2026-06-07
 
 ## Infrastructure
 
@@ -86,8 +86,8 @@ Last Updated: 2026-06-06
 | Laundry Remote Start MVP | ✅ |
 | Laundry Remote Stop MVP | ✅ |
 | Safe Control Hardening | 🔄 |
-| Async Start/Stop Verification | 🔄 |
-| True Keyword Program Search | 🔄 |
+| Async Start/Stop Verification | ✅ |
+| True Keyword Program Search | ✅ |
 | PV-Aware Laundry Reminder | 🔄 |
 
 ## Cameras and Security
@@ -128,9 +128,9 @@ Last Updated: 2026-06-06
 
 1. Backup baseline
 2. Cloudflare Access policy
-3. Alexa Developer Console cleanup
-4. True laundry keyword search
-5. Async laundry start/stop verification notifications
+3. Alexa Developer Console cleanup for help, yes/no and exit routing
+4. Validate active-cycle laundry menu during real running cycles
+5. Connect proactive laundry prompts to presence/home-context logic
 6. Bluetooth/presence stabilization
 7. Real PV/ZCS telemetry validation
 8. Empty home logic
@@ -152,4 +152,35 @@ Last Updated: 2026-06-06
 
 - Bluetooth presence is not reliable yet.
 - Real photovoltaic/ZCS telemetry still needs validation and correction.
-- Laundry start/stop is an MVP and still needs async verification and safer control hardening.
+- Laundry start/stop now includes asynchronous verification; safer control hardening remains a follow-up.
+
+## 2026-06-07 Update - Alfred Laundry Workflow
+
+The Alfred the Butler laundry workflow has moved from MVP command handling to a validated voice-driven appliance workflow.
+
+Completed:
+
+- Alexa Custom Skill laundry session with reprompts
+- launch and fallback help guidance
+- true keyword search across the laundry program catalog
+- paginated spoken search results
+- validated remote start for allowlisted catalog programs
+- remote stop command
+- hOn generic program-name fallback through a Home Assistant helper
+- asynchronous start and stop verification
+- hOn state refresh before each verification attempt
+- 15-second verification polling up to 90 seconds
+- manual verification fallback if expected state is not confirmed
+- living-room Echo notification for async verification results
+
+Validated behavior:
+
+- start verification may fail on the first check while hOn lags, then later confirms the washer is running
+- stop verification may require multiple checks, then later confirms the washer is stopped
+
+Remaining:
+
+- validate active-cycle menu during more real washing cycles
+- clean Alexa Developer Console model for help, yes/no and exit routing
+- connect proactive prompts to stronger presence/home-context logic
+- monitor upstream hOn behavior for remote-start program naming
