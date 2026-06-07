@@ -29,6 +29,7 @@
 ## Case Studies
 
 - [Bravia and Dolby Safe Power](case-studies/bravia-dolby-safe-power.md)
+- [Alexa Custom Skill Laundry MVP](case-studies/alexa-custom-skill-laundry-mvp.md)
 
 ## Worklog
 

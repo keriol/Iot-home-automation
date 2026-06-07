@@ -49,3 +49,20 @@ This project demonstrates the ability to:
 - Document architecture and decisions clearly
 - Use AI as a structured engineering copilot
 - Maintain a public-safe technical portfolio
+
+## Alfred Laundry Workflow Skills
+
+| Area | Skills Demonstrated |
+|---|---|
+| Voice UX | Alexa Custom Skill sessions, reprompts, help discovery, yes/no pagination |
+| Backend Integration | FastAPI bridge design, request routing, intent handling |
+| Home Assistant | REST API integration, service calls, helper entities, script wrappers |
+| Appliance Control | validated start/stop workflows, allowlisted commands, cautious control language |
+| Async Processing | background verification, polling windows, retry logic, timeout fallback |
+| State Validation | separating command dispatch from confirmed physical state |
+| Catalog Search | keyword search, scoring, stop words, category aliases, voice pagination |
+| Safety | no fuzzy matching for physical control, connected/remote-enabled checks |
+| Notifications | Echo/Home Assistant notification routing, release vs debug targets |
+| Documentation | public-safe case study, diagrams, lessons learned, sanitized Python examples |
+| Security Awareness | no Home Assistant direct exposure, no secrets or raw payloads in public docs |
+
