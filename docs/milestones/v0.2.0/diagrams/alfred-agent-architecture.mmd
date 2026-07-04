@@ -1,0 +1,21 @@
+flowchart LR
+    U[User] --> FE[Alexa / Web / App / Telegram]
+    FE --> API[FastAPI]
+    API --> CORE[Alfred Core]
+
+    CORE --> ROUTER[Deterministic Router]
+    CORE --> PLANNER[AI Planner Fallback]
+
+    ROUTER --> REG[Tool Registry]
+    PLANNER --> REG
+
+    REG --> L[Laundry READ Tools]
+    REG --> S[Server READ Tool]
+    REG --> R[RSVP READ Tools]
+    REG --> P[Future Plex Tools]
+    REG --> N[Future Notification Tool]
+    REG --> A[Future ACTION Tools]
+
+    A --> C{Explicit confirmation}
+    C --> HA[Home Assistant Physical Commands]
+    HA --> V[State verification]

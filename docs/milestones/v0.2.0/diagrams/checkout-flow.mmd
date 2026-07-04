@@ -1,0 +1,13 @@
+flowchart TD
+    A[Start checkout] --> B[Verify services]
+    B --> C[Compile bridge]
+    C --> D[Restart service]
+    D --> E[Test Alfred endpoints]
+    E --> F[Test legacy Alexa endpoints]
+    F --> G[Update private model]
+    G --> H[Export public model]
+    H --> I[Validate model under 8K]
+    I --> J[Sanitize scan]
+    J --> K[Generate milestone docs and stats]
+    K --> L[Review diff]
+    L --> M[Commit milestone]
