@@ -1,249 +1,200 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(cd "$(dirname "$0")/.." cd /home/server/home-automation-portfoliocd /home/server/home-automation-portfolio pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
 
-cat > docs/PROJECT_MODEL.md <<'EOF'
-HOME AUTOMATION PROJECT MODEL (<8K)
+MILESTONE_NAME="${1:-Project milestone}"
+MILESTONE_VERSION="${2:-0.2.0}"
+VERSION_TAG="v${MILESTONE_VERSION#v}"
+TODAY="$(date +%Y-%m-%d)"
+TODAY_COMPACT="$(date +%Y%m%d)"
+STAMP="$(date +%Y%m%d-%H%M%S)"
 
-STARTUP
-- Verify HA/MQTT/Node-RED/cloudflared healthy.
-- Backup before risky changes.
-- One feature at a time.
-- Review priorities.
-- Keep short worklog.
-- Local-first, public-safe, no secrets.
-- Update PRIVATE model before PUBLIC snapshot.
+PUBLIC_MODEL="docs/project-model/project-model-public.md"
+DATED_PUBLIC_MODEL="docs/project-model/project-model-public-${TODAY_COMPACT}.md"
+PUBLIC_TEMPLATE="docs/project-model/public-template.md"
+PRIVATE_MODEL="docs/model/home-automation-project-model-private.md"
 
-STACK
+PUBLIC_RELEASE_DIR="docs/project-model/releases"
+PRIVATE_RELEASE_DIR="docs/model/releases"
+PUBLIC_RELEASE_MODEL="${PUBLIC_RELEASE_DIR}/project-model-public-${VERSION_TAG}.md"
+PRIVATE_RELEASE_MODEL="${PRIVATE_RELEASE_DIR}/home-automation-project-model-private-${VERSION_TAG}.md"
 
-Core:
-[x] Home Assistant Docker
-[x] Mosquitto MQTT Docker
-[x] Node-RED
-[x] HACS
-[x] Python helpers/scripts
-[x] Plex API
-[x] QNAP NAS
-
-Voice:
-[x] Alexa Devices integration
-[x] Echo TTS/text/sound
-[x] Home Assistant Assist
-[x] Plex voice control
-[x] Laundry voice status query
-[x] Laundry program catalog voice query
-[x] Emulated Hue Alexa triggers
-[x] Cloudflare HTTPS endpoint
-[x] FastAPI Alexa bridge MVP
-[x] Persistent Alexa bridge service
-[ ] Custom Alexa Skill
-[ ] Safe appliance control
-
-Network:
-[x] LAN
-[x] Tailscale VPN
-[x] Cloudflare Tunnel
-[x] HTTPS endpoint
-[x] Alexa bridge hostname
-[x] cloudflared autorestart
-[x] AdGuard Home
-[x] Emulated Hue on host port 80
-[ ] Cloudflare Access policy
-
-Devices:
-[x] Hue
-[x] Magic Home LED
-[x] Broadlink
-[x] Sonoff/eWeLink
-[x] Tuya thermostats
-[x] Imou RTSP
-[x] hOn washing machine
-[x] Tapo smart plug
-[x] Dolby smart power
-[x] Echo Pop TTS
-
-Energy:
-[x] ZCS local telemetry
-[x] Battery SOC
-[x] MQTT sensors
-[x] PV production dashboard
-[x] Grid export dashboard
-[ ] Grid import
-[ ] Charge/discharge tracking
-[ ] Long-term statistics
-[ ] Surplus notifications
-
-Presence:
-[x] BT500 BLE adapter
-[x] Bermuda
-[x] Primary phone pilot
-[ ] Secondary phone pilot
-[ ] delay_off stabilization
-[ ] casa_vuota logic
-
-Climate:
-[x] Tapo H100
-[x] T310 sensor
-[ ] Bedroom dashboard
-[ ] Bedroom automations
-
-Security:
-[ ] Vacation mode
-[ ] Alerts
-
-Frigate:
-[ ] Indoor pilot
-
-Home Theater:
-[x] Safe-power logic
-[x] Plex voice
-[x] Tapo migration
-[x] eARC mitigation
-[ ] Cinema scenes
-[ ] Bravia automation
-
-Smart Appliances:
-[x] hOn integration
-[x] Laundry Assist query
-[x] Laundry Alexa query
-[x] Italian program catalog
-[x] White laundry routines
-[x] HTTPS bridge foundation
-[ ] Safe remote start
-[ ] Safe stop/pause
-[ ] PV-aware reminders
-
-Dashboards:
-[x] Energy v1
-[ ] Security
-[ ] Climate
-[ ] Advanced energy
-
-Backup:
-[ ] QNAP incremental backup
-
-Portfolio:
-[x] Public GitHub repository
-[x] Architecture docs
-[x] ADR docs
-[x] Mermaid diagrams
-[x] Skills matrix
-[x] Showcase
-[x] Metrics
-[x] Sanitized examples
-[x] AI workflow docs
-[x] Worklog structure
-[x] Project model export
-[x] Laundry Voice MVP case study
-[x] Alexa HTTPS Bridge case study
-[ ] Additional case studies
-[ ] Screenshot gallery
-
-ARCHITECTURE
-- HA = orchestration/dashboard.
-- Python = complex/stateful logic, APIs, catalogs.
-- Node-RED = visual multi-event flows.
-- MQTT = event bus.
-- One owner per feature.
-- Avoid duplicated logic.
-
-VOICE STRATEGY
-- Assist handles local intents.
-- Alexa Devices handles TTS/text/sound.
-- Emulated Hue provides local Alexa triggers.
-- Alexa routines trigger HA workflows.
-- HTTPS bridge validated via Cloudflare + FastAPI.
-- Bridge enables future Alexa Custom Skill.
-- Bridge reusable for Plex search/playback and appliance catalogs.
-- Prefer HA-owned laundry catalog over native hOn/Alexa mappings.
-
-LAUNDRY MVP (2026-05-31)
-- Runtime status helper created.
-- Program catalog extracted and translated.
-- Assist laundry status intent working.
-- Echo Pop laundry announcements working.
-- Emulated Hue enabled on port 80.
-- Alexa routines validated.
-- White program catalog served from HA.
-
-Rules:
-- If remaining_time <= 0, avoid stale runtime data.
-- Voice names use Italian translations.
-- Start commands use internal hOn codes only.
-- No fuzzy matching for start/stop commands.
-
-ALEXA HTTPS BRIDGE MVP (2026-06-01)
-- FastAPI bridge created.
-- Home Assistant REST integration validated.
-- Laundry status endpoint implemented.
-- Cloudflare hostname published.
-- HTTPS endpoint validated externally.
-- Persistent systemd deployment completed.
-- End-to-end path validated:
-
-  Alexa
-  → HTTPS
-  → Cloudflare Tunnel
-  → FastAPI
-  → Home Assistant
-
-Bridge rules:
-- Do not expose HA directly.
-- Read-only first.
-- Appliance control requires allowlists and safety validation.
-
-REMOTE ACCESS
-
-Private:
-- Tailscale/VPN for admin access.
-- Prefer VPN over exposed management services.
-
-Public:
-- Cloudflare Tunnel for HTTPS endpoints.
-- Alexa HTTPS bridge validated.
-- Future use: Alexa Skill, webhooks, RSVP APIs.
-
-PORTFOLIO RULES
-- Public-safe docs only.
-- Never commit secrets, tokens, .storage, DBs, logs, backups, IDs, private endpoints, Wi-Fi names or credentials.
-- Document decisions, not only code.
-- Prefer sanitized real examples.
-- Worklog separate from model.
-- Keep model under 8K chars.
-
-CHECKOUT PROCEDURE
-1. Update worklog.
-2. Update diagrams if architecture changed.
-3. Add sanitized examples.
-4. Add/update case studies.
-5. Update PRIVATE model.
-6. Save PRIVATE model.
-7. Export PUBLIC snapshot.
-8. Verify no sensitive data.
-9. Commit.
-10. Push.
-
-NEXT
-1. Alexa Developer Console Custom Skill.
-2. LaundryStatusIntent integration.
-3. Laundry catalog intents.
-4. Plex HTTPS voice integration.
-5. Safe remote start validation.
-6. Safe stop/pause validation.
-7. Presence stabilization.
-8. Energy validation.
-9. Additional portfolio case studies.
-10. Screenshot gallery.
-11. PUBLIC snapshot export.
-EOF
-
-./scripts/export-project-model.sh
-
+echo "== Milestone checkout =="
+echo "Milestone: ${MILESTONE_NAME}"
+echo "Version: ${VERSION_TAG}"
+echo "Date: ${TODAY}"
+echo "Repo: ${ROOT_DIR}"
 echo
-echo "Model chars:"
-wc -m docs/PROJECT_MODEL.md docs/project-model/project-model-public.md
 
-echo
-echo "Git status:"
+echo "== Git status before checkout =="
 git status --short
+echo
+
+echo "== Verify export script =="
+test -x scripts/export-project-model.sh || chmod +x scripts/export-project-model.sh
+echo "OK: scripts/export-project-model.sh"
+echo
+
+echo "== Export public project model =="
+bash scripts/export-project-model.sh
+echo
+
+echo "== Verify required model files =="
+test -f "$PUBLIC_MODEL"
+test -f "$PUBLIC_TEMPLATE"
+
+if [ ! -f "$DATED_PUBLIC_MODEL" ]; then
+  echo "WARN: expected dated public model not found: $DATED_PUBLIC_MODEL"
+  echo "Available dated models:"
+  ls -1 docs/project-model/project-model-public-*.md 2>/dev/null || true
+else
+  echo "OK: $DATED_PUBLIC_MODEL"
+fi
+
+if [ -f "$PRIVATE_MODEL" ]; then
+  echo "OK: $PRIVATE_MODEL"
+else
+  echo "WARN: private model not found: $PRIVATE_MODEL"
+fi
+echo
+
+echo "== Character count =="
+wc -m "$PUBLIC_TEMPLATE" "$PUBLIC_MODEL"
+[ -f "$DATED_PUBLIC_MODEL" ] && wc -m "$DATED_PUBLIC_MODEL"
+[ -f "$PRIVATE_MODEL" ] && wc -m "$PRIVATE_MODEL"
+echo
+
+echo "== Public model must mention current architecture =="
+grep -RIn "Alfred Agent MVP\|Tool Registry\|AI planner fallback\|Registered tools only" "$PUBLIC_MODEL"
+echo
+
+echo "== Public model must not contain old active-state markers =="
+if grep -RInE "\[ \] Custom Alexa Skill|\[ \] Safe appliance control|Plex voice control" "$PUBLIC_MODEL"; then
+  echo "ERROR: public model still contains old/superseded model markers." >&2
+  exit 1
+fi
+echo "OK: no old public model markers found."
+echo
+
+echo "== Create versioned model release =="
+mkdir -p "$PUBLIC_RELEASE_DIR" "$PRIVATE_RELEASE_DIR"
+
+cp "$PUBLIC_MODEL" "$PUBLIC_RELEASE_MODEL"
+echo "Created: $PUBLIC_RELEASE_MODEL"
+
+if [ -f "$PRIVATE_MODEL" ]; then
+  cp "$PRIVATE_MODEL" "$PRIVATE_RELEASE_MODEL"
+  echo "Created: $PRIVATE_RELEASE_MODEL"
+fi
+
+cat > docs/project-model/VERSION <<VERSION
+${VERSION_TAG}
+VERSION
+
+echo "Updated: docs/project-model/VERSION"
+echo
+
+echo "== Update public model changelog =="
+CHANGELOG="docs/project-model/CHANGELOG.md"
+touch "$CHANGELOG"
+
+if ! grep -q "## ${VERSION_TAG} - ${TODAY}" "$CHANGELOG"; then
+  TMP_CHANGELOG="$(mktemp)"
+  cat > "$TMP_CHANGELOG" <<CHANGELOG_ENTRY
+# Project Model Changelog
+
+## ${VERSION_TAG} - ${TODAY}
+
+${MILESTONE_NAME}
+
+- Marks the Alfred Agent MVP documentation baseline.
+- Updates public model from legacy smart-home snapshot to agent-oriented architecture.
+- Adds Tool Registry, deterministic-first routing, AI planner fallback and safety permission model.
+- Keeps public snapshot sanitized and under the 8K target.
+
+CHANGELOG_ENTRY
+
+  if grep -q "^# Project Model Changelog" "$CHANGELOG"; then
+    tail -n +2 "$CHANGELOG" >> "$TMP_CHANGELOG"
+  else
+    cat "$CHANGELOG" >> "$TMP_CHANGELOG"
+  fi
+
+  mv "$TMP_CHANGELOG" "$CHANGELOG"
+  echo "Updated: $CHANGELOG"
+else
+  echo "Changelog already contains ${VERSION_TAG} - ${TODAY}"
+fi
+echo
+
+echo "== Public sanitize scan =="
+SANITIZE_PATTERN='keriolhome\.online|/home/server|OPENAI|TOKEN|SECRET|PASSWORD|Camilla|Antony|notify\.|media_player\.|switch\.|input_boolean\.|sensor\.|binary_sensor\.|button\.|rsvp\.|alexa\.'
+
+if grep -RInE "$SANITIZE_PATTERN" \
+  docs/project-model docs/adr examples scripts \
+  --exclude-dir=.git \
+  --exclude-dir=__pycache__ \
+  --exclude='*.pyc' \
+  --exclude='*.bak-*'; then
+  echo
+  echo "WARNING: sanitize scan found matches."
+  echo "Review whether they are expected sanitized placeholders/examples or need cleanup."
+else
+  echo "OK: sanitize scan clean."
+fi
+echo
+
+echo "== Milestone worklog note =="
+mkdir -p worklog
+NOTE_FILE="worklog/milestone-${VERSION_TAG}-${STAMP}.md"
+
+cat > "$NOTE_FILE" <<NOTE
+# Milestone ${VERSION_TAG} - ${TODAY}
+
+${MILESTONE_NAME}
+
+## Summary
+
+This milestone marks the Alfred Agent MVP documentation baseline.
+
+## Checkout summary
+
+- Private model updated before public snapshot.
+- Public project model exported through scripts/export-project-model.sh.
+- Versioned public model release created.
+- Versioned private model release created when available.
+- Public model checked for Alfred Agent architecture.
+- Old public model markers checked.
+- Sanitize scan executed.
+- Diff/stat reviewed before commit.
+
+## Versioned artifacts
+
+- ${PUBLIC_RELEASE_MODEL}
+- ${PRIVATE_RELEASE_MODEL}
+- docs/project-model/VERSION
+- docs/project-model/CHANGELOG.md
+
+## Next
+
+- Add Plex READ tool.
+- Add Alexa free-text bridge to AlfredCore.ask.
+- Add ADR for Alfred Agent Tool Registry architecture.
+NOTE
+
+echo "Created: $NOTE_FILE"
+echo
+
+echo "== Diff stat =="
+git diff --stat
+echo
+
+echo "== Git status after checkout =="
+git status --short
+echo
+
+echo "== Suggested commit =="
+echo "git add docs/model docs/project-model history scripts/milestone-checkout.sh worklog"
+echo "git commit -m \"Milestone ${VERSION_TAG}: ${MILESTONE_NAME}\""
