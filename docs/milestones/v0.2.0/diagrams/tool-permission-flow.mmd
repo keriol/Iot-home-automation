@@ -1,0 +1,24 @@
+flowchart TD
+    Q[User request] --> D{Deterministic route?}
+
+    D -->|yes| T[Select registered tool]
+    D -->|no| AI[AI planner fallback]
+
+    AI --> T
+
+    T --> E{Tool exists?}
+    E -->|no| NO[Say no suitable tool exists]
+    E -->|yes| P{Permission level}
+
+    P -->|READ| RUN[Run tool]
+    P -->|ACTION| CONF[Ask or verify confirmation]
+    P -->|DANGEROUS| CONF
+
+    CONF -->|confirmed| RUN
+    CONF -->|not confirmed| STOP[Do not execute]
+
+    RUN --> PHY{Physical command?}
+    PHY -->|yes| VER[Verify physical state]
+    PHY -->|no| OUT[Return result]
+
+    VER --> OUT[Return cautious result]
