@@ -18,7 +18,7 @@ Optional date override:
 
 Default private path:
 
-/home/server/project-model-private/project-model-private.md
+$HOME/project-model-private/project-model-private.md
 
 Override with:
 
