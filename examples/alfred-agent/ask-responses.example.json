@@ -1,0 +1,29 @@
+[
+  {
+    "message": "How is the home server doing?",
+    "ok": true,
+    "mode": "deterministic",
+    "tools_used": ["get_server_status"],
+    "elapsed_ms": 27,
+    "response": "The server is reachable. Main services are active. Docker containers detected: 7."
+  },
+  {
+    "message": "Has Guest Example confirmed?",
+    "ok": true,
+    "mode": "deterministic",
+    "tools_used": ["get_rsvp_guest_status"],
+    "arguments": {
+      "name": "Guest Example"
+    },
+    "elapsed_ms": 62,
+    "response": "Yes, Guest Example confirmed attendance. Associated people: Guest Example, Plus One Example."
+  },
+  {
+    "message": "How is Plex doing?",
+    "ok": true,
+    "mode": "ai_no_tool",
+    "tools_used": [],
+    "elapsed_ms": 4200,
+    "response": "I do not have a suitable tool for this request yet."
+  }
+]

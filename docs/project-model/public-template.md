@@ -2,310 +2,228 @@
 
 ## Overview
 
-Local-first smart-home and IoT platform built with Home Assistant, MQTT, Python, Node-RED and AI-assisted engineering practices.
+Local-first smart-home and IoT platform built with Home Assistant, MQTT, Python/FastAPI, Node-RED, Docker and AI-assisted engineering practices.
 
 The project focuses on:
 
 - Voice automation
-- Energy monitoring
-- Presence detection
+- Smart appliance integration
 - Media automation
 - Secure remote access
-- Smart appliance integration
+- Energy monitoring
+- Presence detection
+- Camera/security roadmap
 - Public-safe documentation and portfolio storytelling
 
 ## Principles
 
 - Local-first whenever possible.
 - Use VPN/Tailscale for private administration.
-- Use Cloudflare Tunnel for public integration endpoints.
+- Use Cloudflare Tunnel only for narrow public integration endpoints.
 - Do not expose Home Assistant directly.
-- Public HTTPS endpoints must be narrow, explicit and bridge-owned.
 - One owner layer per feature.
 - Avoid duplicated logic across Home Assistant, Python, Node-RED and MQTT.
 - Notify first, automate later.
-- Never commit secrets, tokens, debug payloads, private endpoints, real device IDs or personal data.
+- Never commit secrets, tokens, debug payloads, private endpoints, real device IDs, personal data or raw logs.
+
+## Vision
+
+Alfred the Butler is the AI Agent layer of the home automation platform.
+
+Alfred is not the smart-home software itself. Alfred knows how to talk to the smart-home services through tools.
+
+User-facing entrypoints can include:
+
+- Alexa
+- Web
+- Telegram or chat interfaces
+- Dashboards
+- Future automations
+
+Alexa remains a frontend. Alfred owns routing, tool selection and orchestration.
 
 ## Stack
 
 Working:
 
 - Home Assistant Docker
-- Mosquitto MQTT Docker
+- Mosquitto MQTT
 - Node-RED
 - HACS
-- Python helpers/scripts
-- Plex API
-- QNAP NAS
-- Alexa Devices integration
-- Echo TTS/text/sound
+- Python/FastAPI
+- Plex API experiments
+- QNAP/NAS integrations
+- Alexa custom skill MVP
+- Echo TTS/text notifications
 - Home Assistant Assist
-- Emulated Hue Alexa triggers
 - Cloudflare Tunnel
-- FastAPI Alexa bridge
-- hOn washing machine
-- Tapo smart plug
-- Hue
-- Magic Home LED
-- Broadlink
-- Sonoff/eWeLink
-- Tuya thermostats
-- Imou RTSP
-- ZCS local telemetry
-- Battery SOC
-- MQTT sensors
-- PV production dashboard
-- Grid export dashboard
+- Tailscale
+- hOn washing machine integration
+- Smart plugs, lights, media and appliance integrations
 
 Planned:
 
-- Cloudflare Access policy
-- Safe appliance control
-- Presence stabilization
-- Security dashboard
-- Climate dashboard
-- Frigate indoor pilot
-- QNAP incremental backup
-- Additional portfolio case studies
-- Screenshot gallery
+- Alfred Agent Alexa integration
+- Plex tools
+- Bambu Lab tools
+- UPS tools
+- Energy tools
+- Presence tools
+- Camera/security tools
+- NAS tools
+- Calendar/weather tools
+- Tool dashboard with health, logs and AI cost overview
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Alexa[Alexa Custom Skill] --> CF[Cloudflare Tunnel HTTPS]
-    CF --> API[FastAPI Bridge]
-    API --> HA[Home Assistant REST API]
-    HA --> Devices[Smart Home Entities]
-```
+Main target architecture:
+
+    User -> Alexa/Web/Telegram/App -> FastAPI -> Alfred Agent -> Tool Registry -> Integrations
 
 Layer ownership:
 
-- Home Assistant: orchestration, dashboards and simple automations.
-- Python/FastAPI: complex logic, public bridge APIs, external voice integration and catalog parsing.
-- Node-RED: visual multi-event flows when YAML would become hard to maintain.
-- MQTT: stable event bus for sensors and decoupled integrations.
+- Home Assistant: orchestration, dashboards, simple automations and physical commands.
+- Python/FastAPI: Alfred Core, APIs, Tool Registry, validation, planning and workflows.
+- Node-RED: visual multi-event flows.
+- MQTT: event bus for decoupled integrations.
 
-## Voice Strategy
+## Alfred Agent
 
-Working:
+Implemented MVP:
 
-- Alexa Devices integration for TTS/text/sound.
-- Home Assistant Assist for local intents.
-- Emulated Hue for local Alexa-triggered routines.
-- HTTPS bridge through Cloudflare + FastAPI.
-- Laundry status query through Alexa Custom Skill MVP.
-- Plex voice control through Home Assistant helpers.
+- Alfred Core
+- Tool Registry
+- Tool metadata
+- deterministic-first routing
+- AI planner fallback
+- compact JSONL request logging
+- /alfred/ask
+- /alfred/tools
+- /alfred/ai/status
 
-Roadmap:
+Tool metadata:
 
-- Clean Alexa interaction model.
-- Add laundry catalog intents.
-- Add Plex HTTPS voice integration.
-- Add safe appliance control only after allowlists and safety validation.
-- Future assistant platform name: Maggiordomo.
-- Assistant persona/alias: Albert.
+- name
+- description
+- parameters
+- category
+- permission level
+- timeout
 
-## Alexa Custom Skill MVP
+Permission levels:
 
-Completed:
+- READ: safe read-only tools
+- ACTION: changes state and requires explicit rules/allowlist
+- DANGEROUS: risky actions requiring explicit confirmation
 
-- Custom Alexa skill created in Alexa Developer Console.
-- Invocation name validated in development.
-- HTTPS endpoint configured through Cloudflare Tunnel.
-- FastAPI bridge runs persistently through systemd/Uvicorn on port 5055.
-- Alexa-compatible route added:
-  - `POST /alexa`
-- Compatibility route kept:
-  - `POST /alexa/laundry`
-- Health/status routes added:
-  - `GET /`
-  - `GET /health`
-  - `GET /laundry/status`
-- Alexa LaunchRequest validated end-to-end.
-- Session kept open after launch using `shouldEndSession=false`.
-- Laundry status query validated through Alexa Custom Skill.
-- Cloudflare wildcard certificate required Alexa wildcard certificate setting.
-- Temporary workaround: starter `HelloWorldIntent` maps to laundry status until interaction model cleanup.
+## Current Tool Examples
 
-Public endpoint format:
+Initial READ tools:
 
-```text
-https://<public-alexa-bridge-host>/alexa
-```
+- get_laundry_status
+- search_laundry_programs(keyword)
+- get_server_status
+- get_rsvp_summary
+- get_rsvp_guest_status(name)
 
-Security rules:
+Planned tools:
 
-- Do not commit the real endpoint.
-- Do not commit Alexa debug JSON.
-- Do not commit user IDs, device IDs, skill IDs, access tokens or Home Assistant tokens.
+- get_plex_status
+- search_plex_media
+- start_plex_scan
+- get_bambu_status
+- get_home_overview
+- presence tools
+- camera/security tools
+- energy tools
+- NAS tools
 
-Future Alexa checklist:
+## AI Strategy
 
-1. Set invocation name.
-2. Set HTTPS endpoint.
-3. Select correct SSL certificate type.
-4. Save.
-5. Build model.
-6. Test.
+Known requests use deterministic routing first.
 
-## Laundry MVP
+AI is used only as fallback or planner when the request is ambiguous or requires broader reasoning.
 
-Completed:
+Observed MVP behavior:
 
-- hOn washing machine integrated in Home Assistant.
-- Runtime status helper created.
-- Program catalog extracted and translated.
-- Assist laundry status intent working.
-- Echo laundry announcements working.
-- Alexa Custom Skill can query laundry status through HTTPS bridge.
-- White laundry program catalog served from Home Assistant.
+- deterministic server status replies are near real-time
+- deterministic RSVP lookups are near real-time
+- deterministic laundry status/search is near real-time
+- AI fallback works but is slower, so it is not the primary path for known Alexa requests
+- initial MVP testing cost was negligible
+
+## Voice UX
+
+Alexa remains the main voice frontend.
+
+Current skill flows remain compatible with existing Alexa intents.
+
+Future Alfred Agent voice flow:
+
+    Alexa -> Cloudflare HTTPS -> FastAPI -> Alfred Agent -> Tools
+
+For slow AI or multi-tool flows, Alexa may use a progressive response:
+
+    Un momento, apro il cruscotto della casa.
+
+This should not be used for fast deterministic replies.
+
+## Laundry
+
+Laundry is exposed through Alfred tools.
 
 Rules:
 
-- If remaining time is empty or zero, avoid stale runtime data.
-- Voice names use Italian translations.
-- Start commands must use internal hOn codes only.
-- No fuzzy matching for start/stop commands.
-- Appliance control remains read-only until safety checks are implemented.
+- exact validated aliases only
+- no fuzzy start/stop
+- backend validation before physical commands
+- Home Assistant owns physical wrappers
+- dispatch is not physical success
+- verify state after commands
+- keep responses cautious when integration data is stale
 
-## Plex Voice Control
+## RSVP
 
-Working:
+RSVP is exposed through Alfred tools.
 
-- Plex integrated with Home Assistant and Bravia.
-- Search and playback helpers available.
-- Assist commands can search, play a selected result and resume media.
-- Series resume logic:
-  - resume partially watched episode
-  - else first unwatched episode
-  - else first episode
+Public-safe rule:
 
-Roadmap:
+- examples must use fake guest names
+- no real guest data
+- no emails
+- no phone numbers
+- no raw RSVP payloads
+- no private paths
 
-- Reuse HTTPS bridge pattern for future Plex Custom Skill intents.
-- Keep naming public-safe and avoid implying official Plex ownership.
+## Server Health
 
-## Home Theater
+Server status is exposed as a READ-only Alfred tool.
 
-Working:
+It reports high-level health such as uptime, load, disk usage, memory usage, service status and Docker container count.
 
-- Bravia TV integrated.
-- Tapo smart plug migrated into Dolby/home theater safe-power role.
-- Old indirect Alexa text-command path removed for Dolby power.
-- Safe-power logic uses direct Home Assistant switch control.
-- Bravia/Dolby eARC mitigation tested successfully.
+## Security
 
-Roadmap:
+- Private access through VPN/Tailscale.
+- Public integrations through narrow Cloudflare Tunnel routes.
+- Home Assistant is not directly exposed.
+- Tool execution is permission-based.
+- READ before ACTION.
+- DANGEROUS actions require explicit confirmation.
+- Public docs must stay sanitized.
 
-- Cinema scenes.
-- Bravia automation refinement.
-- Plex-aware lighting scenes.
+## Roadmap
 
-## Energy
+Next steps:
 
-Working:
+1. Document Alfred Agent MVP with ADR, worklog and examples.
+2. Wire generic Alexa requests to Alfred Agent safely.
+3. Add Plex READ tools.
+4. Add home overview/cruscotto multi-tool.
+5. Add progressive Alexa response for slow AI/multi-tool requests.
+6. Add dashboard for tools, logs, health and AI cost.
+7. Add Bambu, UPS, energy, ESP32, NAS, calendar and weather tools.
+8. Add presence and video surveillance as Alfred tools.
 
-- ZCS local telemetry.
-- Battery SOC.
-- MQTT sensors.
-- PV production dashboard.
-- Grid export dashboard.
+## Motto
 
-Planned:
-
-- Grid import.
-- Charge/discharge tracking.
-- Long-term statistics.
-- Surplus notifications.
-- Maggiordomo proactive notifications.
-
-Example future notification:
-
-```text
-Hai una notifica da Maggiordomo! Stai regalando corrente all'Enel.
-```
-
-## Presence
-
-Working:
-
-- BLE adapter.
-- Bermuda.
-- Primary phone pilot.
-
-Planned:
-
-- Secondary phone pilot.
-- delay_off stabilization.
-- casa_vuota logic.
-
-## Security and Cameras
-
-Working:
-
-- Imou RTSP present.
-
-Planned:
-
-- Vacation mode.
-- Alerts.
-- Security dashboard.
-- Frigate indoor pilot.
-
-## Climate
-
-Working:
-
-- Tapo H100.
-- Tapo T310 sensor.
-
-Planned:
-
-- Bedroom dashboard.
-- Bedroom automations.
-
-## Portfolio Rules
-
-Include:
-
-- Architecture docs.
-- ADR docs.
-- Mermaid diagrams.
-- Case studies.
-- Sanitized examples.
-- AI workflow docs.
-- Worklog structure.
-- Public-safe project model snapshots.
-
-Exclude:
-
-- secrets.yaml
-- `.storage`
-- Home Assistant DB/logs/backups
-- tokens
-- real endpoints
-- device IDs
-- private hostnames/IPs
-- Wi-Fi names
-- NAS paths
-- Node-RED credentials
-- Alexa debug payloads
-- personal data
-
-## Next
-
-1. Clean Alexa interaction model:
-   - create/verify `LaundryStatusIntent`
-   - move laundry utterances there
-   - remove or empty template `HelloWorldIntent`
-   - rebuild and retest
-2. Add Plex HTTPS voice intents.
-3. Add laundry catalog intents.
-4. Validate safe remote start.
-5. Validate safe stop/pause.
-6. Stabilize presence.
-7. Validate energy import/export logic.
-8. Add Maggiordomo proactive notifications.
-9. Add more portfolio case studies.
-10. Add screenshot gallery.
+Alfred is not the software of the house. Alfred is the one who knows how to talk to every software of the house.

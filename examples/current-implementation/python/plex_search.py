@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 from html import unescape
 
 PLEX_URL = "http://PLEX_SERVER_HOST:32400"
-SERVER_ID = "0ac36193628143fe7cb3bff16aab516e1be5e2f1"
+SERVER_ID = os.environ.get("PLEX_SERVER_ID", "example-server-id")
 TOKEN_FILE = "/config/PLEX_TOKEN_FILE"
 OUT_FILE = "/config/plex_search_results.json"
 

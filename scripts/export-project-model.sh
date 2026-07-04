@@ -5,7 +5,7 @@ DATE="${1:-$(date +%F)}"
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-PRIVATE_DIR="${PRIVATE_MODEL_DIR:-/home/server/project-model-private}"
+PRIVATE_DIR="${PRIVATE_MODEL_DIR:-$HOME/project-model-private}"
 PUBLIC_DIR="$REPO_ROOT/docs/project-model"
 
 PRIVATE_MODEL="$PRIVATE_DIR/project-model-private.md"

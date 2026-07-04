@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "tools": [
+    {
+      "name": "get_laundry_status",
+      "description": "Returns the current washing machine status.",
+      "category": "laundry",
+      "permission": "READ",
+      "timeout_seconds": 10,
+      "parameters": {}
+    },
+    {
+      "name": "search_laundry_programs",
+      "description": "Searches washing machine programs by keyword or category.",
+      "category": "laundry",
+      "permission": "READ",
+      "timeout_seconds": 10,
+      "parameters": {
+        "keyword": {
+          "type": "string",
+          "description": "Keyword or category to search."
+        }
+      }
+    },
+    {
+      "name": "get_server_status",
+      "description": "Returns home server status.",
+      "category": "server",
+      "permission": "READ",
+      "timeout_seconds": 5,
+      "parameters": {}
+    },
+    {
+      "name": "get_rsvp_summary",
+      "description": "Returns the current RSVP summary.",
+      "category": "rsvp",
+      "permission": "READ",
+      "timeout_seconds": 5,
+      "parameters": {}
+    },
+    {
+      "name": "get_rsvp_guest_status",
+      "description": "Searches a guest in RSVP data and returns confirmation status.",
+      "category": "rsvp",
+      "permission": "READ",
+      "timeout_seconds": 5,
+      "parameters": {
+        "name": {
+          "type": "string",
+          "description": "Guest full name."
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd /home/server/home-automation-portfolio
+cd "$(cd "$(dirname "$0")/.." cd /home/server/home-automation-portfoliocd /home/server/home-automation-portfolio pwd)"
 
 cat > docs/PROJECT_MODEL.md <<'EOF'
 HOME AUTOMATION PROJECT MODEL (<8K)
