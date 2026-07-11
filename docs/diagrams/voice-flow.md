@@ -1,62 +1,111 @@
 # Voice Flow
 
-~~mermaid
+```mermaid
 flowchart LR
     User[User voice command]
 
-    User --> Alexa[Alexa]
-    User --> Assist[Home Assistant Assist]
+    subgraph Frontends
+        Alexa[Alexa]
+        Assist[Home Assistant Assist]
+    end
 
-    Alexa --> AlexaDevices[Alexa Devices integration]
-    Alexa --> EmulatedHue[Emulated Hue triggers]
-    Alexa --> CustomSkill[Alexa Custom Skill]
+    subgraph AlexaPath["Alexa Custom Skill"]
+        Skill[Alfred the Butler]
+        Tunnel[Cloudflare Tunnel HTTPS]
+        API[FastAPI /alexa]
+        IntentType{Intent type}
+        FreeText[AlfredFreeTextIntent]
+        Legacy[Legacy deterministic intent]
+    end
 
-    AlexaDevices --> TTS[Echo TTS / text / sound]
-    EmulatedHue --> HARoutines[Home Assistant routines]
+    subgraph AlfredLayer["Alfred Agent Layer"]
+        Alfred[Alfred Core]
+        Registry[Tool Registry]
+        Domain[Registered Domain Tool]
+        Giorgio[Giorgio Speech / SSML]
+    end
 
-    CustomSkill --> CF[Cloudflare Tunnel HTTPS]
-    CF --> FastAPI[FastAPI Alexa bridge]
+    subgraph LegacyPath["Legacy Compatibility Path"]
+        LegacyHandler[Legacy Handler]
+        Safety[Validation and Safety Checks]
+        HAWrapper[Home Assistant Physical Wrapper]
+    end
 
-    FastAPI --> Alfred[Alfred session UX]
-    Alfred --> IntentRouter[Intent routing]
-    IntentRouter --> LaundryStatus[Laundry status intent]
-    IntentRouter --> LaundryCatalog[Laundry catalog intents]
-    IntentRouter --> LaundryControl[Laundry start / stop intents]
-    IntentRouter --> PlexFuture[Future Plex HTTPS intents]
+    subgraph ProactivePath["Separate Proactive Path"]
+        Event[Domain Event]
+        Queue[Queue / Dispatcher]
+        Osvaldo[Osvaldo Policy]
+        Delivery[Shared HA Delivery]
+    end
 
-    LaundryStatus --> HA[Home Assistant REST API]
-    LaundryCatalog --> ProgramCatalog[Validated local program catalog]
-    LaundryControl --> ProgramCatalog
-    LaundryControl --> SafetyChecks[Connection / remote / running-state checks]
-    SafetyChecks --> HAScript[Home Assistant script wrapper]
+    HA[Home Assistant]
+    AlexaResponse[Alexa Response]
+    Session{Session control}
+    Open[Keep Session Open]
+    Close[Close Session]
 
-    HA --> Laundry[hOn washing machine entities]
-    HAScript --> LaundryAction[hOn start / stop services]
-    LaundryAction --> Laundry
+    User --> Alexa
+    User --> Assist
+
+    Alexa --> Skill
+    Skill --> Tunnel
+    Tunnel --> API
+    API --> IntentType
+
+    IntentType -->|Free text| FreeText
+    IntentType -->|Known legacy intent| Legacy
+
+    FreeText --> Alfred
+    Alfred --> Registry
+    Registry --> Domain
+    Domain --> Alfred
+    Alfred --> Giorgio
+
+    Legacy --> LegacyHandler
+    LegacyHandler --> Safety
+    Safety --> HAWrapper
+    HAWrapper --> HA
+    LegacyHandler --> Giorgio
+
+    Giorgio --> AlexaResponse
+    AlexaResponse --> Session
+    Session -->|Normal response| Open
+    Session -->|Exit, thanks or timeout| Close
 
     Assist --> HA
+    Registry --> HA
 
-    HA --> Plex[Plex helpers]
-    HA --> Theater[Home theater automations]
-    HA --> Energy[Energy / PV validation track]
-    HA --> Presence[Presence validation track]
+    Event --> Queue
+    Queue --> Osvaldo
+    Osvaldo -->|Allow| Giorgio
+    Osvaldo -->|Defer| Queue
+    Osvaldo -->|Deny| NoDelivery[No Delivery]
+    Giorgio --> Delivery
+    Delivery --> HA
+```
 
-    Plex --> PlexPlayback[Plex search / playback]
-    Theater --> SafePower[Safe-power logic]
-    Energy --> FutureEnergyNotifications[Future proactive energy notifications]
-    Presence --> FutureOccupancy[Future reliable occupancy logic]
+## Interactive Voice Flow
 
-    Alfred --> ExitIntent[Explicit exit intent]
-    ExitIntent --> SessionClose[Close Alexa session]
-~~
+Alexa is a frontend. Free-text requests are forwarded to Alfred Core, which selects a registered tool through the Tool Registry.
 
-## Notes
+Known legacy intents remain available for compatibility and deterministic physical-control workflows.
 
-- Alexa Custom Skill traffic enters through a public HTTPS bridge, not directly through Home Assistant.
-- Alfred keeps the Alexa session open after functional responses.
-- Alfred closes the session only on explicit exit phrases or Alexa timeout.
-- Laundry start/stop uses quick command dispatch for Alexa UX.
-- Laundry status remains the verification source of truth after command dispatch.
-- Laundry control uses a validated local catalog and deterministic aliases, not fuzzy matching.
-- Home Assistant owns the physical hOn command wrapper.
-- Energy/PV and presence flows are shown as validation tracks, not completed automation foundations.
+Giorgio renders the spoken response for both Alfred and supported legacy handlers.
+
+## Proactive Voice Flow
+
+Unsolicited domain events do not use the interactive request path.
+
+They pass through the queue or dispatcher and Osvaldo, which may allow, defer or deny delivery before Giorgio renders the message.
+
+## Rules
+
+- `AlfredFreeTextIntent` forwards the free-text query to Alfred Core.
+- Known requests use deterministic routing before AI fallback.
+- Home Assistant owns physical device wrappers.
+- Physical command dispatch is not considered success.
+- Device state must be verified whenever supported.
+- Interactive responses do not require Osvaldo approval.
+- Proactive notifications must pass through Osvaldo.
+- Normal responses keep the Alexa session open.
+- Exit, thanks and timeout close the session.

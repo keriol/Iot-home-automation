@@ -15,6 +15,7 @@
 ## Architecture
 
 - [Architecture Overview](architecture/overview.md)
+- [Alfred Ecosystem](architecture/alfred-ecosystem.md)
 - [Docker Stack](architecture/docker-stack.md)
 - [Server Paths](architecture/server-paths.md)
 
@@ -38,6 +39,7 @@
 ## Diagrams
 
 - [Architecture Diagram](diagrams/architecture.md)
+- [Alfred Ecosystem Flow](diagrams/alfred-ecosystem-flow.md)
 
 ## AI-Assisted Workflow
 
