@@ -1,10 +1,12 @@
 # Home Automation Portfolio
 
-Public-safe documentation repository for a personal smart-home platform built around Home Assistant, MQTT, Node-RED, Python helpers, voice assistants, secure remote access and energy monitoring.
+Public-safe documentation repository for a local-first smart-home platform built around Home Assistant, MQTT, Node-RED, Python/FastAPI services and the Alfred agent and tool architecture.
 
 ## Goals
 
 - Local-first smart home orchestration
+- Agent-based access through Alfred and registered tools
+- Policy-driven proactive notifications
 - Secure private access through VPN
 - Public HTTPS integration layer for selected services
 - Voice-controlled media and home automations
@@ -15,6 +17,8 @@ Public-safe documentation repository for a personal smart-home platform built ar
 ## Core Stack
 
 - Home Assistant Docker
+- Python / FastAPI
+- Alfred Core and Tool Registry
 - Mosquitto MQTT Docker
 - Node-RED
 - Python helper scripts
@@ -26,6 +30,9 @@ Public-safe documentation repository for a personal smart-home platform built ar
 
 ## Main Case Studies
 
+- Alfred Agent and Tool Registry architecture
+- Osvaldo proactive notification policy
+- Charon media and Plex curation
 - Bravia + Dolby safe-power automation
 - Plex voice control through Assist and helper scripts
 - ZCS photovoltaic local telemetry through MQTT
@@ -56,7 +63,35 @@ Final architecture decisions, implementation, validation and production ownershi
 - [AI-Assisted Development Flow](docs/diagrams/ai-assisted-development-flow.md)
 - [ADR-005 - AI-Assisted Development Workflow](docs/adr/ADR-005-ai-assisted-development.md)
 
-## Current Highlight - Alfred the Butler Laundry Workflow
+## Current Architecture - Alfred Ecosystem
+
+Keriol Home separates orchestration, speech, proactive policy and domain expertise into explicit components:
+
+- **Alfred** is the user-facing agent and registered-tool orchestrator.
+- **Giorgio** renders Alfred speech and SSML.
+- **Osvaldo** decides whether proactive notifications are allowed, deferred, aggregated or denied.
+- **Charon** provides Plex and media-domain intelligence.
+
+Interactive requests follow:
+
+    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+
+Proactive events follow:
+
+    Domain Event -> Queue or Dispatcher -> Osvaldo -> Giorgio -> Shared Home Assistant Delivery
+
+Home Assistant remains responsible for physical orchestration and device wrappers. Alfred coordinates capabilities but does not replace the smart-home core.
+
+Relevant documentation:
+
+- [Architecture Overview](docs/architecture/overview.md)
+- [Alfred Ecosystem](docs/architecture/alfred-ecosystem.md)
+- [Architecture Diagram](docs/diagrams/architecture.md)
+- [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
+- [ADR-007 - Alfred Agent and Tool Registry](docs/adr/ADR-007-alfred-agent-tool-registry.md)
+- [ADR-006 - Proactive Notification Policy](docs/adr/ADR-006-proactive-notification-policy.md)
+
+## Featured Case Study - Alfred Laundry Workflow
 
 The laundry workflow is now one of the most complete portfolio-grade features in this project.
 
