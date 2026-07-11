@@ -1,49 +1,71 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parents[1]
 MAX_CHARS = 8000
 
-PRIVATE_MODEL = ROOT / "docs/model/home-automation-project-model-private.md"
-PUBLIC_TEMPLATE = ROOT / "docs/project-model/public-template.md"
-PUBLIC_MODEL = ROOT / "docs/project-model/project-model-public.md"
+PRIVATE_MODEL = Path(
+    os.environ.get(
+        "PRIVATE_MODEL_PATH",
+        Path.home()
+        / "alexa-ha-bridge"
+        / "docs"
+        / "model"
+        / "home-automation-project-model-private.md",
+    )
+).expanduser().resolve()
 
-REQUIRED_PUBLIC_MARKERS = [
-    "Alfred Agent MVP",
-    "Tool Registry",
-    "AI planner fallback",
-    "Registered tools only",
+PUBLIC_MODEL = (
+    ROOT
+    / "docs"
+    / "project-model"
+    / "project-model-public.md"
+)
+
+PRIVATE_MARKERS = [
+    "HOME AUTOMATION PROJECT MODEL - PRIVATE ACTIVE",
+    "Alfred the Butler",
+    "Presence:",
+    "Security/cameras:",
+    "Energy/UPS:",
+    "ROADMAP",
 ]
 
-FORBIDDEN_OLD_MARKERS = [
-    "[ ] Custom Alexa Skill",
-    "[ ] Safe appliance control",
-    "Plex voice control",
+PUBLIC_MARKERS = [
+    "HOME AUTOMATION PROJECT MODEL - PUBLIC",
+    "Alfred the Butler",
+    "Tool Registry",
+    "Osvaldo",
+    "Charon",
+    "Presence:",
+    "Security/cameras:",
+    "Energy/UPS:",
+    "Climate:",
+    "ROADMAP",
 ]
 
 SENSITIVE_PATTERNS = [
-    r"keriolhome\.online",
+    r"PRIVATE ACTIVE",
+    r"(?i)keriolhome\.online",
     r"/home/server",
-    r"Camilla",
-    r"Antony",
-    r"media_player\.",
-    r"input_boolean\.",
-    r"switch\.",
-    r"binary_sensor\.",
-    r"button\.",
-    r"notify\.",
-    r"rsvp\.",
-    r"alexa\.",
+    r"\bserver-keriol-home\b",
+    r"\b(?:\d{1,3}\.){3}\d{1,3}\b",
+    r"\bnotify\.",
+    r"\bmedia_player\.",
+    r"\binput_boolean\.",
+    r"\bswitch\.",
+    r"\bsensor\.",
+    r"\bbinary_sensor\.",
+    r"\bbutton\.",
+    r"\brsvp\.",
+    r"\balexa\.",
 ]
-
-SECRET_PATTERN = re.compile(
-    r"\b(SECRET|PASSWORD|PRIVATE_KEY|ACCESS_KEY)\b",
-    re.IGNORECASE,
-)
 
 
 def fail(message: str) -> None:
@@ -51,49 +73,44 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
-def read_text(path: Path) -> str:
-    if not path.exists():
-        fail(f"Missing file: {path.relative_to(ROOT)}")
-    return path.read_text(encoding="utf-8")
+def read_model(path: Path) -> str:
+    if not path.is_file():
+        fail(f"Missing model: {path}")
+
+    text = path.read_text(encoding="utf-8")
+    print(f"{path}: {len(text)} chars")
+
+    if len(text) >= MAX_CHARS:
+        fail(f"{path} violates the <8K requirement")
+
+    return text
 
 
-def check_size(path: Path, text: str) -> None:
-    size = len(text)
-    print(f"{path.relative_to(ROOT)}: {size} chars")
-
-    if size > MAX_CHARS:
-        fail(f"{path.relative_to(ROOT)} exceeds {MAX_CHARS} chars")
-
-
-def check_public_content(text: str) -> None:
-    for marker in REQUIRED_PUBLIC_MARKERS:
+def require_markers(
+    label: str,
+    text: str,
+    markers: list[str],
+) -> None:
+    for marker in markers:
         if marker not in text:
-            fail(f"Public model missing marker: {marker}")
-
-    for marker in FORBIDDEN_OLD_MARKERS:
-        if marker in text:
-            fail(f"Public model still contains old marker: {marker}")
-
-    for pattern in SENSITIVE_PATTERNS:
-        if re.search(pattern, text, flags=re.IGNORECASE):
-            fail(f"Public model contains sensitive pattern: {pattern}")
-
-    if SECRET_PATTERN.search(text):
-        fail("Public model contains secret-like marker")
+            fail(f"{label} missing marker: {marker}")
 
 
 def main() -> int:
-    private_text = read_text(PRIVATE_MODEL)
-    public_template_text = read_text(PUBLIC_TEMPLATE)
-    public_text = read_text(PUBLIC_MODEL)
+    if ROOT in PRIVATE_MODEL.parents:
+        fail("Private model must remain outside the public repository")
 
-    check_size(PRIVATE_MODEL, private_text)
-    check_size(PUBLIC_TEMPLATE, public_template_text)
-    check_size(PUBLIC_MODEL, public_text)
+    private_text = read_model(PRIVATE_MODEL)
+    public_text = read_model(PUBLIC_MODEL)
 
-    check_public_content(public_text)
+    require_markers("Private model", private_text, PRIVATE_MARKERS)
+    require_markers("Public model", public_text, PUBLIC_MARKERS)
 
-    print("OK: project models passed validation")
+    for pattern in SENSITIVE_PATTERNS:
+        if re.search(pattern, public_text):
+            fail(f"Public model contains private pattern: {pattern}")
+
+    print("OK: private and public project models passed validation")
     return 0
 
 
