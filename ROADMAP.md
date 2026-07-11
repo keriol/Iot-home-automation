@@ -1,79 +1,131 @@
 # Roadmap
 
-## Security and Access
+Keriol Home evolves as a local-first smart-home platform with Alfred providing one coherent interface to its services.
 
-- [x] Tailscale private access
-- [x] Cloudflare Tunnel HTTPS endpoint
-- [x] cloudflared autorestart
-- [ ] Cloudflare Access policy
-- [ ] Backup baseline
+The roadmap is organized by delivery horizon rather than by implementation history.
 
-## Energy
+## Current Foundation
 
-- [x] ZCS local telemetry
-- [x] Battery SOC
-- [x] MQTT sensors
-- [x] Energy Dashboard v1
-- [ ] Grid import
-- [ ] Battery charge/discharge
-- [ ] Long-term statistics
-- [ ] Surplus notifications
+- Home Assistant, MQTT and Node-RED orchestration
+- FastAPI and Alfred Core
+- Tool Registry with READ, ACTION and DANGEROUS permissions
+- Deterministic-first routing with AI fallback
+- Alexa custom-skill and free-text backend paths
+- Shared Giorgio speech rendering
+- Osvaldo proactive notification policy
+- Snoozable notification queue
+- Plex and Tautulli integration
+- Charon media-domain foundation
+- Laundry, RSVP and server READ tools
+- Confirmed Plex scan actions
+- Tailscale private access
+- Cloudflare Tunnel public integration layer
+- Public-safe documentation and model export
 
-## Presence
+## Near Term
 
-- [x] ASUS BT500 validated
-- [x] Bermuda installed
-- [x] Phone BLE pilot
-- [ ] Second phone BLE
-- [ ] delay_off stabilization
-- [ ] casa_vuota logic
-- [ ] Voice overrides
+### Voice and Agent
 
-## Media and Home Theater
+- Complete the Alexa Developer Console free-text model
+- Validate free-text behavior on supported Alexa devices
+- Keep legacy deterministic intents available during migration
+- Add a general Home Assistant notification tool
+- Review AI latency, logging and model-cost behavior
 
-- [x] Bravia/Dolby safe-power logic
-- [x] Native smart plug migration
-- [x] Plex voice control
-- [x] eARC mitigation
-- [ ] Cinema scenes
-- [ ] TV input automation
+### Appliances
 
-## Appliances
+- Register laundry start and stop as Alfred ACTION/DANGEROUS tools
+- Require explicit confirmation before physical control
+- Verify hOn and Home Assistant state after commands
+- Add PV-aware laundry suggestions when presence and energy inputs are reliable
 
-- [x] hOn washing machine integrated
-- [ ] Laundry voice query
-- [ ] Remote start research
-- [ ] PV-aware laundry reminder
+### Media and Charon
 
-## Portfolio
+- Add dedicated tests for Plex notification cooldown and `mark_notified`
+- Expand playback-offer handling
+- Build missing-title and catalog-quality analysis
+- Add recommendation workflows
+- Explore coordinated home-theater scenes
 
-- [x] Repository skeleton
-- [ ] Architecture diagrams
-- [ ] Case studies
-- [ ] Sanitized examples
+### Maintenance
 
-## 2026-06-07 Update - Alfred Laundry Workflow
+- Remove pre-Git backup files in a dedicated cleanup commit
+- Continue reducing duplicated integration logic
+- Keep private and public project models synchronized through the export pipeline
 
-The Alfred the Butler laundry workflow has progressed beyond the initial voice-query phase.
+## Platform Development
 
-Completed:
+### Presence and House Modes
 
-- Alexa Custom Skill laundry status and remaining-time query
-- validated laundry program catalog
-- true keyword search across program names, codes and categories
-- paginated spoken results for long catalog searches
-- validated remote start for allowlisted programs
-- remote stop command
-- hOn generic program-name fallback using an Alfred/Home Assistant helper
-- asynchronous start and stop verification
-- hOn state refresh before each verification attempt
-- verification polling every 15 seconds up to 90 seconds
-- manual verification fallback if the expected state is not confirmed
+- Build reliable person and home-presence states
+- Stabilize network and Bluetooth inputs
+- Add guest, empty-house and vacation modes
+- Expose presence through Alfred READ tools
+- Avoid critical automation until confidence is measurable
 
-Remaining roadmap items:
+### Operations and Observability
 
-- validate active-cycle menu during more real washing cycles
-- clean Alexa Developer Console model for help, yes/no and exit routing
-- connect proactive laundry prompts to stronger presence/home-context logic
-- add PV-aware laundry suggestions
-- monitor upstream hOn behavior for remote-start program naming
+- Add a dashboard for registered tools, health and logs
+- Track AI requests, latency and cost
+- Move persistent Alfred memory from JSON to SQLite
+- Add an AI Budget Manager with cache and usage controls
+
+### Network, NAS and Backup
+
+- Add NAS health and capacity tools
+- Expose backup status without revealing private paths
+- Monitor core network and tunnel availability
+- Keep runtime and database backups separate from Git history
+
+### Energy and UPS
+
+- Add READ tools for production, consumption and grid exchange
+- Add battery and UPS health visibility
+- Detect abnormal consumption and outage risk
+- Suggest useful actions during solar surplus
+- Integrate energy context into appliance recommendations
+
+### Calendar and Weather
+
+- Add live READ tools
+- Use current data rather than cached model knowledge
+- Support future planning and proactive workflows
+
+## Domain Expansion
+
+### Security and Cameras
+
+- Review and normalize the Home Assistant camera inventory
+- Validate ONVIF capabilities
+- Define a common camera-event model
+- Add a security dashboard
+- Pilot presence-aware alerts
+- Evaluate Frigate only where object detection adds clear value
+
+### Climate
+
+- Combine temperature, humidity, weather, presence and room usage
+- Start with advisory workflows
+- Introduce automation gradually and with conservative safeguards
+
+### Bambu and Maker
+
+- Add READ tools for printer state, job progress, temperatures and errors
+- Add confirmed pause and cancel actions
+- Route proactive print notifications through Osvaldo
+
+### Cross-Domain Automation
+
+- Use presence to improve notification timing
+- Combine energy surplus with appliance suggestions
+- Combine house modes with security and camera events
+- Coordinate media, lighting and room scenes
+- Keep proactive behavior quiet, useful and explainable
+
+## Documentation
+
+- Keep architecture, ADRs, diagrams and worklogs aligned with implementation
+- Document significant decisions rather than command-by-command noise
+- Use the private model for active project state and roadmap
+- Generate the public model through the sanitizing export script
+- Reserve milestone releases for major completed phases or architectural improvements
