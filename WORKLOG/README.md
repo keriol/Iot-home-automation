@@ -18,3 +18,13 @@ This worklog tracks the phase where the platform started being managed as an eng
 Worklogs focus on meaningful engineering changes, architectural decisions, lessons learned and outcomes.
 
 Minor experiments, temporary investigations and legacy home-lab history are intentionally omitted.
+
+## Canonical Structure
+
+`WORKLOG/` is the single worklog root.
+
+- Monthly summaries live directly under `WORKLOG/`.
+- Focused reports live under `WORKLOG/details/`.
+- Milestone reports live under `WORKLOG/milestones/`.
+
+The historical lowercase worklog directories were consolidated to avoid case-sensitive duplicates.
