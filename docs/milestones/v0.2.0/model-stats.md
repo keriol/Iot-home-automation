@@ -5,7 +5,7 @@ Version: v0.2.0
 
 | File | Characters |
 |---|---:|
-| docs/model/home-automation-project-model-private.md | 6485 |
+| External private source model (historical count, not published) | 6485 |
 | docs/project-model/public-template.md | 6857 |
 | docs/project-model/project-model-public.md | 6857 |
 | docs/project-model/project-model-public-2026-07-04.md | 6857 |

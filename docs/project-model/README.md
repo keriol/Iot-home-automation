@@ -2,37 +2,27 @@
 
 This directory contains public-safe project model snapshots.
 
-The private operational model is stored outside the repository and must never be committed.
+The active private model lives in the local-only Alfred repository and is never committed here.
 
-## Export Procedure
+## Export
 
 Run:
 
-./scripts/export-project-model.sh
+    ./scripts/export-project-model.sh
 
 Optional date override:
 
-./scripts/export-project-model.sh 2026-05-30
+    ./scripts/export-project-model.sh 2026-07-15
 
-## Private Model
+Default private source:
 
-Default private path:
+    $HOME/alexa-ha-bridge/docs/model/home-automation-project-model-private.md
 
-$HOME/project-model-private/project-model-private.md
+Override:
 
-Override with:
+    PRIVATE_MODEL_PATH=/custom/path/model.md \
+      ./scripts/export-project-model.sh
 
-PRIVATE_MODEL_DIR=/custom/private/path ./scripts/export-project-model.sh
+The exporter removes private-only sections, sanitizes infrastructure identifiers and validates both models against the strict `<8K` character limit.
 
-## Rules
-
-Public snapshots must not contain:
-
-- Secrets
-- Tokens
-- IP addresses
-- Domains
-- Entity IDs
-- Hostnames
-- Emails
-- Personal identifiers
+Every generated diff must be reviewed before commit and push.
