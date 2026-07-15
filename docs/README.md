@@ -26,6 +26,8 @@
 - [ADR-003 - Tailscale for Private Access](adr/ADR-003-tailscale-for-private-access.md)
 - [ADR-004 - Cloudflare Tunnel for Public Integrations](adr/ADR-004-cloudflare-tunnel-for-public-integrations.md)
 - [ADR-005 - AI-Assisted Development Workflow](adr/ADR-005-ai-assisted-development.md)
+- [ADR-006 - Proactive Notification Policy](adr/ADR-006-proactive-notification-policy.md)
+- [ADR-007 - Alfred Agent and Tool Registry](adr/ADR-007-alfred-agent-tool-registry.md)
 
 ## Case Studies
 
@@ -35,6 +37,7 @@
 ## Worklog
 
 - [May 2026](../WORKLOG/2026-05.md)
+- [July 2026](../WORKLOG/2026-07.md)
 
 ## Diagrams
 
@@ -42,6 +45,12 @@
 - [Alfred Ecosystem Flow](diagrams/alfred-ecosystem-flow.md)
 
 ## AI-Assisted Workflow
+
+## Planning and Checkout
+
+- [Umberto Development Ledger](analysis/umberto-development-ledger.md)
+- [Umberto Checkout Flow](diagrams/umberto-checkout-flow.md)
+- [Sanitized SQLite Ledger Example](../examples/umberto/development_ledger_sanitized.py)
 
 - [AI Collaboration](AI_COLLABORATION.md)
 - [AI-Assisted Development Flow](diagrams/ai-assisted-development-flow.md)

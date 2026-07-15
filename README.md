@@ -71,6 +71,7 @@ Keriol Home separates orchestration, speech, proactive policy and domain experti
 - **Giorgio** renders Alfred speech and SSML.
 - **Osvaldo** decides whether proactive notifications are allowed, deferred, aggregated or denied.
 - **Charon** provides Plex and media-domain intelligence.
+- **Umberto** tracks milestones, tasks, commit evidence and checkout work.
 
 Interactive requests follow:
 
@@ -90,6 +91,9 @@ Relevant documentation:
 - [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
 - [ADR-007 - Alfred Agent and Tool Registry](docs/adr/ADR-007-alfred-agent-tool-registry.md)
 - [ADR-006 - Proactive Notification Policy](docs/adr/ADR-006-proactive-notification-policy.md)
+- [Current Public Project Model](docs/project-model/project-model-public.md)
+- [Umberto Development Ledger](docs/analysis/umberto-development-ledger.md)
+- [Umberto Checkout Flow](docs/diagrams/umberto-checkout-flow.md)
 
 ## Featured Case Study - Alfred Laundry Workflow
 

@@ -21,6 +21,8 @@ The roadmap is organized by delivery horizon rather than by implementation histo
 - Tailscale private access
 - Cloudflare Tunnel public integration layer
 - Public-safe documentation and model export
+- Umberto Development Ledger with SQLite-backed tasks and commit evidence
+- Strict private-to-public project-model export and validation
 
 ## Near Term
 
@@ -52,6 +54,7 @@ The roadmap is organized by delivery horizon rather than by implementation histo
 - Remove pre-Git backup files in a dedicated cleanup commit
 - Continue reducing duplicated integration logic
 - Keep private and public project models synchronized through the export pipeline
+- Automate health checks, tests, evidence and documentation through Umberto checkout workflows
 
 ## Platform Development
 

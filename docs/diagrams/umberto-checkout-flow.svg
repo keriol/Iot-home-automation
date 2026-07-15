@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 920" role="img">
+<title>Umberto checkout flow</title>
+<rect width="1100" height="920" fill="white"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+<path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+</marker>
+</defs>
+<text x="275" y="45" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="bold">Current foundation</text>
+<text x="825" y="45" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="bold">Planned checkout</text>
+<rect x="80" y="85" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="121" text-anchor="middle" font-family="sans-serif" font-size="18">Session start</text>
+<rect x="80" y="190" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="226" text-anchor="middle" font-family="sans-serif" font-size="18">Read SQLite ledger</text>
+<line x1="275" y1="143" x2="275" y2="185" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="295" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="331" text-anchor="middle" font-family="sans-serif" font-size="18">Rank open tasks</text>
+<line x1="275" y1="248" x2="275" y2="290" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="400" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="436" text-anchor="middle" font-family="sans-serif" font-size="18">Recommend current task</text>
+<line x1="275" y1="353" x2="275" y2="395" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="505" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="541" text-anchor="middle" font-family="sans-serif" font-size="18">Human selects work</text>
+<line x1="275" y1="458" x2="275" y2="500" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="610" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="646" text-anchor="middle" font-family="sans-serif" font-size="18">Implementation and tests</text>
+<line x1="275" y1="563" x2="275" y2="605" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="715" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="275" y="751" text-anchor="middle" font-family="sans-serif" font-size="18">Record commit evidence</text>
+<line x1="275" y1="668" x2="275" y2="710" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="85" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="121" text-anchor="middle" font-family="sans-serif" font-size="18">Checkout automation</text>
+<rect x="630" y="190" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="226" text-anchor="middle" font-family="sans-serif" font-size="18">Service health checks</text>
+<line x1="825" y1="143" x2="825" y2="185" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="295" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="331" text-anchor="middle" font-family="sans-serif" font-size="18">Compile and test evidence</text>
+<line x1="825" y1="248" x2="825" y2="290" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="400" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="436" text-anchor="middle" font-family="sans-serif" font-size="18">Generate worklog and models</text>
+<line x1="825" y1="353" x2="825" y2="395" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="505" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="541" text-anchor="middle" font-family="sans-serif" font-size="18">Sanitize public documentation</text>
+<line x1="825" y1="458" x2="825" y2="500" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="610" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="646" text-anchor="middle" font-family="sans-serif" font-size="18">Review repository diffs</text>
+<line x1="825" y1="563" x2="825" y2="605" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="715" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="751" text-anchor="middle" font-family="sans-serif" font-size="18">Human approval</text>
+<line x1="825" y1="668" x2="825" y2="710" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="820" width="390" height="58" rx="10" fill="#f8f8f8" stroke="#222" stroke-width="2"/>
+<text x="825" y="856" text-anchor="middle" font-family="sans-serif" font-size="18">Commit and publish</text>
+<line x1="825" y1="773" x2="825" y2="815" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M470 743 C550 743 550 114 630 114" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text x="550" y="430" text-anchor="middle" font-family="sans-serif" font-size="16" transform="rotate(-90 550 430)">planned extension</text>
+</svg>
