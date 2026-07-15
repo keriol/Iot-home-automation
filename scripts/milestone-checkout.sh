@@ -8,18 +8,15 @@ MILESTONE_NAME="${1:-Project milestone}"
 MILESTONE_VERSION="${2:-0.2.0}"
 VERSION_TAG="v${MILESTONE_VERSION#v}"
 TODAY="$(date +%Y-%m-%d)"
-TODAY_COMPACT="$(date +%Y%m%d)"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 
 PUBLIC_MODEL="docs/project-model/project-model-public.md"
-DATED_PUBLIC_MODEL="docs/project-model/project-model-public-${TODAY_COMPACT}.md"
+DATED_PUBLIC_MODEL="docs/project-model/project-model-public-${TODAY}.md"
 PUBLIC_TEMPLATE="docs/project-model/public-template.md"
-PRIVATE_MODEL="docs/model/home-automation-project-model-private.md"
+PRIVATE_MODEL="${PRIVATE_MODEL_PATH:-$HOME/alexa-ha-bridge/docs/model/home-automation-project-model-private.md}"
 
 PUBLIC_RELEASE_DIR="docs/project-model/releases"
-PRIVATE_RELEASE_DIR="docs/model/releases"
 PUBLIC_RELEASE_MODEL="${PUBLIC_RELEASE_DIR}/project-model-public-${VERSION_TAG}.md"
-PRIVATE_RELEASE_MODEL="${PRIVATE_RELEASE_DIR}/home-automation-project-model-private-${VERSION_TAG}.md"
 
 echo "== Milestone checkout =="
 echo "Milestone: ${MILESTONE_NAME}"
@@ -38,7 +35,7 @@ echo "OK: scripts/export-project-model.sh"
 echo
 
 echo "== Export public project model =="
-bash scripts/export-project-model.sh
+PRIVATE_MODEL_PATH="$PRIVATE_MODEL" bash scripts/export-project-model.sh "$TODAY"
 echo
 
 echo "== Verify required model files =="
@@ -53,17 +50,14 @@ else
   echo "OK: $DATED_PUBLIC_MODEL"
 fi
 
-if [ -f "$PRIVATE_MODEL" ]; then
-  echo "OK: $PRIVATE_MODEL"
-else
-  echo "WARN: private model not found: $PRIVATE_MODEL"
-fi
+test -f "$PRIVATE_MODEL"
+echo "OK: external private source: $PRIVATE_MODEL"
 echo
 
 echo "== Character count =="
 wc -m "$PUBLIC_TEMPLATE" "$PUBLIC_MODEL"
 [ -f "$DATED_PUBLIC_MODEL" ] && wc -m "$DATED_PUBLIC_MODEL"
-[ -f "$PRIVATE_MODEL" ] && wc -m "$PRIVATE_MODEL"
+wc -m "$PRIVATE_MODEL"
 echo
 
 echo "== Public model must mention current architecture =="
@@ -79,15 +73,10 @@ echo "OK: no old public model markers found."
 echo
 
 echo "== Create versioned model release =="
-mkdir -p "$PUBLIC_RELEASE_DIR" "$PRIVATE_RELEASE_DIR"
+mkdir -p "$PUBLIC_RELEASE_DIR" WORKLOG/milestones
 
 cp "$PUBLIC_MODEL" "$PUBLIC_RELEASE_MODEL"
 echo "Created: $PUBLIC_RELEASE_MODEL"
-
-if [ -f "$PRIVATE_MODEL" ]; then
-  cp "$PRIVATE_MODEL" "$PRIVATE_RELEASE_MODEL"
-  echo "Created: $PRIVATE_RELEASE_MODEL"
-fi
 
 cat > docs/project-model/VERSION <<VERSION
 ${VERSION_TAG}
@@ -109,10 +98,10 @@ if ! grep -q "## ${VERSION_TAG} - ${TODAY}" "$CHANGELOG"; then
 
 ${MILESTONE_NAME}
 
-- Marks the Alfred Agent MVP documentation baseline.
-- Updates public model from legacy smart-home snapshot to agent-oriented architecture.
-- Adds Tool Registry, deterministic-first routing, AI planner fallback and safety permission model.
-- Keeps public snapshot sanitized and under the 8K target.
+- Records the current reviewed public documentation baseline.
+- Exports the current architecture from the local private source.
+- Validates the public snapshot and strict 8K character limit.
+- Keeps private operational content outside the public repository.
 
 CHANGELOG_ENTRY
 
@@ -147,8 +136,8 @@ fi
 echo
 
 echo "== Milestone worklog note =="
-mkdir -p worklog
-NOTE_FILE="worklog/milestone-${VERSION_TAG}-${STAMP}.md"
+mkdir -p WORKLOG/milestones
+NOTE_FILE="WORKLOG/milestones/milestone-${VERSION_TAG}-${STAMP}.md"
 
 cat > "$NOTE_FILE" <<NOTE
 # Milestone ${VERSION_TAG} - ${TODAY}
@@ -157,14 +146,14 @@ ${MILESTONE_NAME}
 
 ## Summary
 
-This milestone marks the Alfred Agent MVP documentation baseline.
+This milestone records a reviewed public documentation baseline.
 
 ## Checkout summary
 
 - Private model updated before public snapshot.
 - Public project model exported through scripts/export-project-model.sh.
 - Versioned public model release created.
-- Versioned private model release created when available.
+- Private source validated externally and not published.
 - Public model checked for Alfred Agent architecture.
 - Old public model markers checked.
 - Sanitize scan executed.
@@ -173,15 +162,12 @@ This milestone marks the Alfred Agent MVP documentation baseline.
 ## Versioned artifacts
 
 - ${PUBLIC_RELEASE_MODEL}
-- ${PRIVATE_RELEASE_MODEL}
 - docs/project-model/VERSION
 - docs/project-model/CHANGELOG.md
 
 ## Next
 
-- Add Plex READ tool.
-- Add Alexa free-text bridge to AlfredCore.ask.
-- Add ADR for Alfred Agent Tool Registry architecture.
+- Continue from the current development ledger and roadmap.
 NOTE
 
 echo "Created: $NOTE_FILE"
@@ -196,5 +182,5 @@ git status --short
 echo
 
 echo "== Suggested commit =="
-echo "git add docs/model docs/project-model history scripts/milestone-checkout.sh worklog"
+echo "git add docs/project-model WORKLOG scripts/milestone-checkout.sh"
 echo "git commit -m \"Milestone ${VERSION_TAG}: ${MILESTONE_NAME}\""

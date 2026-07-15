@@ -120,7 +120,7 @@ This milestone adds:
 
 ## Expected files
 
-- docs/model/home-automation-project-model-private.md
+- external private source model (validated locally, not published)
 - docs/project-model/public-template.md
 - docs/project-model/project-model-public.md
 - docs/project-model/project-model-public-2026-07-04.md

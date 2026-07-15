@@ -34,6 +34,18 @@ target = Path(sys.argv[2]).expanduser().resolve()
 
 text = source.read_text(encoding="utf-8")
 
+text, private_sections = re.subn(
+    r"(?ms)^PRIVATE BOUNDARY\n.*?(?=^UMBERTO\n)",
+    "",
+    text,
+)
+
+if private_sections != 1:
+    raise SystemExit(
+        "ERROR: expected one PRIVATE BOUNDARY section, "
+        f"found {private_sections}"
+    )
+
 private_title = (
     "HOME AUTOMATION PROJECT MODEL - PRIVATE ACTIVE (<8K)"
 )
