@@ -22,7 +22,6 @@ flowchart LR
         Alfred[Alfred Core]
         Registry[Tool Registry]
         Domain[Registered Domain Tool]
-        Giorgio[Giorgio Speech / SSML]
     end
 
     subgraph LegacyPath["Legacy Compatibility Path"]
@@ -59,15 +58,14 @@ flowchart LR
     Alfred --> Registry
     Registry --> Domain
     Domain --> Alfred
-    Alfred --> Giorgio
+    Alfred --> AlexaResponse
 
     Legacy --> LegacyHandler
     LegacyHandler --> Safety
     Safety --> HAWrapper
     HAWrapper --> HA
-    LegacyHandler --> Giorgio
+    LegacyHandler --> AlexaResponse
 
-    Giorgio --> AlexaResponse
     AlexaResponse --> Session
     Session -->|Normal response| Open
     Session -->|Exit, thanks or timeout| Close
@@ -77,10 +75,9 @@ flowchart LR
 
     Event --> Queue
     Queue --> Osvaldo
-    Osvaldo -->|Allow| Giorgio
+    Osvaldo -->|Allow| Delivery
     Osvaldo -->|Defer| Queue
     Osvaldo -->|Deny| NoDelivery[No Delivery]
-    Giorgio --> Delivery
     Delivery --> HA
 ```
 
@@ -90,13 +87,13 @@ Alexa is a frontend. Free-text requests are forwarded to Alfred Core, which sele
 
 Known legacy intents remain available for compatibility and deterministic physical-control workflows.
 
-Giorgio renders the spoken response for both Alfred and supported legacy handlers.
+Alexa response helpers render the spoken response for both Alfred and supported legacy handlers.
 
 ## Proactive Voice Flow
 
 Unsolicited domain events do not use the interactive request path.
 
-They pass through the queue or dispatcher and Osvaldo, which may allow, defer or deny delivery before Giorgio renders the message.
+They pass through the queue or dispatcher and Osvaldo, which may allow, defer or deny delivery before the shared delivery path handles the message.
 
 ## Rules
 

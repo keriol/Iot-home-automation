@@ -48,17 +48,17 @@ AI planning is a fallback for ambiguous language and future multi-tool workflows
 The Alfred ecosystem separates responsibilities:
 
 - Alfred owns request routing and tool execution.
-- Giorgio owns speech and SSML rendering.
+- Voice and SSML rendering remain frontend-specific.
 - Osvaldo owns proactive notification policy.
 - Charon owns media-domain and catalog intelligence.
 
 Interactive requests follow:
 
-    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
 
 Proactive events follow:
 
-    Domain Event -> Queue or Dispatcher -> Osvaldo -> Giorgio -> Shared Home Assistant Delivery
+    Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
 
 Direct responses to explicit user requests do not require Osvaldo's permission.
 
@@ -95,7 +95,7 @@ Registered ACTION capabilities include confirmed Plex library and path scans.
 
 The Plex update workflow can evaluate recent viewing, apply cooldown rules, send proactive notifications through Osvaldo and create playback offers.
 
-Shared Home Assistant delivery and Giorgio rendering are reusable services rather than Plex-specific helpers.
+Shared Home Assistant delivery is reusable rather than Plex-specific; Alexa response rendering remains frontend-specific.
 
 Laundry asynchronous verification, RSVP, Plex and snoozable notifications use the same proactive policy path.
 

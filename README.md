@@ -68,18 +68,17 @@ Final architecture decisions, implementation, validation and production ownershi
 Keriol Home separates orchestration, speech, proactive policy and domain expertise into explicit components:
 
 - **Alfred** is the user-facing agent and registered-tool orchestrator.
-- **Giorgio** renders Alfred speech and SSML.
 - **Osvaldo** decides whether proactive notifications are allowed, deferred, aggregated or denied.
 - **Charon** provides Plex and media-domain intelligence.
 - **Umberto** tracks milestones, tasks, commit evidence and checkout work.
 
 Interactive requests follow:
 
-    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
 
 Proactive events follow:
 
-    Domain Event -> Queue or Dispatcher -> Osvaldo -> Giorgio -> Shared Home Assistant Delivery
+    Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
 
 Home Assistant remains responsible for physical orchestration and device wrappers. Alfred coordinates capabilities but does not replace the smart-home core.
 

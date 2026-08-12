@@ -21,19 +21,11 @@ Purpose:
 - enforce tool permissions and confirmation rules;
 - keep domain logic outside the agent core.
 
-## Giorgio
+## Voice Rendering
 
-Giorgio is Alfred's speech renderer.
+Voice and SSML rendering are frontend-specific implementation details rather than independent Keriol Home components.
 
-It converts Alfred responses and proactive messages into SSML for supported voice frontends. It can render normal or whispered speech according to the applicable policy.
-
-Giorgio is not an independent agent. It does not select tools, make automation decisions or decide whether a notification should be delivered.
-
-Purpose:
-
-- give Alfred a consistent voice;
-- keep speech formatting separate from reasoning;
-- apply the selected speech mode without owning notification policy.
+Alexa response payloads may select a supported voice and rendering mode, but those parameters do not own routing, policy or delivery decisions.
 
 ## Osvaldo
 
@@ -82,7 +74,7 @@ A user explicitly asks Alfred for information or an action.
 
 Flow:
 
-Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
 
 Interactive replies are not blocked by proactive notification policy.
 
@@ -96,7 +88,7 @@ Domain Event -> Queue or Dispatcher -> Osvaldo
 
 Osvaldo may then:
 
-- allow delivery through Giorgio and shared Home Assistant delivery;
+- allow delivery through shared Home Assistant delivery;
 - defer the event to the snoozable queue;
 - deny delivery.
 
@@ -106,7 +98,7 @@ The originating domain describes the event. Osvaldo decides whether and when it 
 
 - Home Assistant owns physical orchestration and device wrappers.
 - Alfred owns request routing and tool execution.
-- Giorgio owns speech rendering.
+- Voice rendering remains frontend-specific.
 - Osvaldo owns proactive notification policy.
 - Charon owns media-domain intelligence.
 - Shared delivery owns the physical Home Assistant notification call.
