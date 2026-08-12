@@ -19,7 +19,6 @@ flowchart TD
         API[FastAPI]
         Alfred[Alfred Core]
         Registry[Tool Registry]
-        Giorgio[Giorgio]
     end
 
     subgraph Proactive
@@ -84,9 +83,8 @@ flowchart TD
     Charon --> Alfred
     HA --> Alfred
 
-    Alfred --> Giorgio
-    Giorgio --> Alexa
-    Giorgio --> Web
+    Alfred --> Alexa
+    Alfred --> Web
 
     Laundry --> Events
     RSVP --> Events
@@ -95,11 +93,10 @@ flowchart TD
 
     Events --> Queue
     Queue --> Osvaldo
-    Osvaldo -->|Allow| Giorgio
+    Osvaldo -->|Allow| Delivery
     Osvaldo -->|Defer| Snoozable
     Osvaldo -->|Deny| NoDelivery[No Delivery]
     Snoozable --> Osvaldo
-    Giorgio --> Delivery
     Delivery --> HA
 
     Assist --> HA
@@ -126,8 +123,8 @@ flowchart TD
 
 ## Reading the Diagram
 
-The interactive path starts from a frontend and reaches Alfred through FastAPI. Alfred selects a registered domain tool and Giorgio renders the response.
+The interactive path starts from a frontend and reaches Alfred through FastAPI. Alfred selects a registered domain tool and returns the response through the active frontend.
 
-The proactive path starts from a domain event. Osvaldo decides whether the event may be delivered, deferred or denied before Giorgio and the shared Home Assistant delivery service are involved.
+The proactive path starts from a domain event. Osvaldo decides whether the event may be delivered, deferred or denied before the shared Home Assistant delivery service is involved.
 
 Home Assistant remains responsible for physical orchestration and device wrappers. Alfred coordinates capabilities but does not replace the home-automation core.

@@ -11,7 +11,7 @@ The roadmap is organized by delivery horizon rather than by implementation histo
 - Tool Registry with READ, ACTION and DANGEROUS permissions
 - Deterministic-first routing with AI fallback
 - Alexa custom-skill and free-text backend paths
-- Shared Giorgio speech rendering
+- Shared frontend speech and SSML response helpers
 - Osvaldo proactive notification policy
 - Snoozable notification queue
 - Plex and Tautulli integration
