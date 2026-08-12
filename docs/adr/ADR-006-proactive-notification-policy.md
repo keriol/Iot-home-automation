@@ -25,11 +25,11 @@ Interactive responses and proactive notifications use separate paths.
 
 Interactive flow:
 
-    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
 
 Proactive flow:
 
-    Domain Event -> Queue or Dispatcher -> Osvaldo -> Giorgio -> Shared Home Assistant Delivery
+    Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
 
 Interactive responses do not require Osvaldo's permission.
 
@@ -43,7 +43,7 @@ Osvaldo owns proactive communication policy and may:
 
 The originating domain provides the event and its context. It does not own quiet hours, aggregation or physical notification delivery.
 
-Giorgio owns speech and SSML rendering but does not decide whether delivery is allowed.
+Alexa speech and SSML rendering is frontend-specific and does not decide whether delivery is allowed.
 
 Shared Home Assistant delivery owns the physical notification call but does not own policy.
 

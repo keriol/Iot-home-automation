@@ -25,11 +25,10 @@ VISION
 ROLES
 
 * Alfred = orchestrator and tool router.
-* Giorgio = Alfred voice/SSML.
 * Osvaldo = proactive policy: allow/defer/deny, quiet hours, aggregation and speech mode.
 * Charon = Plex/media curator.
-* Interactive: frontend -> Alfred -> Giorgio.
-* Proactive: event -> queue/dispatcher -> Osvaldo -> Giorgio -> shared HA delivery.
+* Interactive: frontend -> Alfred -> frontend.
+* Proactive: event -> queue/dispatcher -> Osvaldo -> shared HA delivery.
 
 ARCHITECTURE
 
@@ -55,7 +54,7 @@ Implemented:
 * Cheap-model preference, domain guard, permissions, timeouts and JSONL logging.
 * /alfred/ask, /alfred/tools and /alfred/ai/status.
 * Alexa free-text backend bridge; legacy intents remain active.
-* Shared HA delivery and Giorgio renderer.
+* Shared HA delivery and Alexa response helpers.
 * RSVP, Plex, snoozable notifications and laundry async verification use Osvaldo.
 * Plex notification workflow flattened; obsolete adapters/helpers removed.
 

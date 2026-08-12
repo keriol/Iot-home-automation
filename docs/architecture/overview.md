@@ -12,7 +12,7 @@ Frontends: Alexa, Assist, web interfaces, dashboards and future messaging client
 
 Agent and API: FastAPI, Alfred Core, deterministic routing, AI fallback and Tool Registry.
 
-Speech and policy: Giorgio renders Alfred speech; Osvaldo controls proactive notification policy.
+Presentation and policy: voice rendering remains frontend-specific; Osvaldo controls proactive notification policy.
 
 Orchestration: Home Assistant automations, scripts, dashboards and physical device wrappers.
 
@@ -28,17 +28,17 @@ Devices and infrastructure: Energy telemetry, lights, plugs, cameras, sensors, a
 
 Interactive requests follow:
 
-Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Giorgio
+Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
 
 Proactive events follow:
 
-Domain Event -> Queue or Dispatcher -> Osvaldo -> Giorgio -> Shared Home Assistant Delivery
+Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
 
 ## Design Rules
 
 - Home Assistant owns orchestration, dashboards and physical wrappers.
 - Alfred owns request routing and registered tool execution.
-- Giorgio owns speech rendering.
+- Voice rendering remains frontend-specific.
 - Osvaldo owns proactive notification policy.
 - Charon owns media-domain intelligence.
 - Python owns complex or stateful logic.
