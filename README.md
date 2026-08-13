@@ -110,6 +110,19 @@ Selected sanitized architecture from the private deployment can be documented pu
 
 Frontend-specific presentation remains a frontend concern rather than an independent architectural component.
 
+
+## For Builders, Founders and Early Adopters
+
+The public Wilfred ecosystem is deliberately smaller than the workshop behind it.
+
+Keriol Home and Alfred the Butler continuously exercise new domains, workflows and plugin candidates against a real operating smart home.
+
+Some experiments are intentionally household-specific. Others may graduate into Wilfred or an official plugin once they have been generalized, tested, sanitized and documented.
+
+That means the public repositories show the reusable capabilities that have already earned their way out of the private proving ground, while this portfolio also shows where new ideas are being tested.
+
+Public extraction is a maturity decision, not an automatic dump of private functionality.
+
 ## Main Case Studies
 
 - Butler runtime evolution from Alfred to Wilfred
@@ -155,6 +168,19 @@ Relevant documentation:
 - [Alfred Laundry Portfolio Analysis](docs/analysis/alfred-laundry-voice-ux-and-async-verification.md)
 - [Alfred Laundry Lessons Learned](docs/lessons-learned/alfred-laundry-voice-ux-and-async-verification.md)
 - [Alexa Laundry Async Verification](docs/diagrams/alexa-laundry-async-verification.md)
+
+## Development State
+
+The project no longer uses a manually synchronized project model as the single source of development truth.
+
+- **Git** owns versioned implementation and documentation.
+- **Umberto** owns active tasks, milestones, priorities and development evidence.
+- **Live systems** own operational truth.
+- **Project models** are compact derived architectural snapshots.
+
+This separation prevents the documentation layer from becoming a second task database.
+
+See [ADR-009 - Development State Sources of Truth](docs/adr/ADR-009-development-state-sources-of-truth.md).
 
 ## Development Approach
 

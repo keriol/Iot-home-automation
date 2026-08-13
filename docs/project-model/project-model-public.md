@@ -1,165 +1,194 @@
-HOME AUTOMATION PROJECT MODEL - PUBLIC (<8K)
-UPDATED: 2026-07-15
+HOME AUTOMATION PROJECT MODEL - PUBLIC
+UPDATED: 2026-08-13
 
 PURPOSE
 
-Active operational model of Keriol Home. ADRs, worklogs, Umberto and archives preserve history, decisions and implementation detail.
+Public-safe current model of Keriol Home and its relationship to the reusable Butler projects.
 
-WORKFLOW
+Historical decisions and superseded architecture remain in ADRs, worklogs, milestones and dated project-model snapshots.
 
-* Git-first for tracked code and documentation.
-* One focused feature per commit; include related ALF task IDs.
-* PRIVATE implementation first; PUBLIC sanitized snapshot second.
-* The private Alfred repository is local-only and has no remote.
-* Never push private acquisition code or operational details.
-* No manual .bak files for Git-tracked content.
-* Before changes verify Home Assistant, MQTT, Node-RED, Alfred and cloudflared.
-* Use the production virtualenv for compile and tests.
-* Dispatch is not success: verify physical state.
+PRINCIPLES
 
-VISION
+* Local-first whenever practical.
+* Home Assistant owns physical orchestration, dashboards, integrations and device wrappers.
+* MQTT is the event and telemetry bus.
+* Node-RED owns visual multi-event flows where appropriate.
+* Python services own complex validation, planning, APIs and stateful workflows.
+* One owner layer per feature.
+* READ before ACTION where useful state exists.
+* Dispatch is not physical success.
+* Verify observable physical state after ACTION when practical.
+* Frontends remain replaceable.
+* Public documentation must distinguish public functionality from private validation.
 
-* Alfred the Butler is the AI Agent of Keriol Home.
-* Entrypoint: "Alexa, apri Alfred the Butler".
-* Alfred knows how to talk to every service without becoming the smart-home software itself.
-* Extend Alfred through registered tools, workflows and domain events.
-* Motto: "Alfred non è il software della casa. Alfred è colui che sa parlare con tutti i software della casa."
+BUTLER LAYERING
 
-ROLES
+Butler Core -> Wilfred -> Alfred
 
-* Alfred = orchestrator, deterministic router, AI fallback and tool executor.
-* Osvaldo = proactive policy: allow, defer, deny, quiet hours, aggregation and speech mode.
-* Charon = Plex and media curator for discovery, quality, playback and lifecycle.
-* Umberto = development ledger and checkout coordinator.
-* Interactive: frontend -> Alfred -> Tool Registry -> domain -> Alfred -> frontend.
-* Proactive: event -> queue/dispatcher -> Osvaldo -> shared HA delivery.
+* Butler Core provides provider-neutral contracts and execution primitives.
+* Wilfred is the reusable public Butler runtime built on Butler Core.
+* Alfred is the private Keriol Home Butler deployment built on the reusable runtime.
+* Some older Alfred paths predate Wilfred and are progressively converging onto this layering.
 
-ARCHITECTURE
+PUBLIC COMPONENTS
 
-User -> Alexa/Web/Telegram/App -> FastAPI -> Alfred Core -> Tool Registry -> Integrations.
+Butler Core:
+* public and provider-neutral;
+* current stable line: 0.1.3;
+* shared execution, planner and output contracts.
 
-* Home Assistant owns physical orchestration, dashboards and device wrappers.
-* Python/FastAPI owns Alfred Core, validation, planning, workflows, APIs and tools.
-* Node-RED owns visual multi-event flows. MQTT is the event bus.
-* One owner layer per feature. READ before ACTION.
-* ACTION and DANGEROUS require confirmation when appropriate.
-* Physical actions require post-dispatch verification.
+Wilfred:
+* public reusable Butler runtime;
+* current development line: 0.2.0.dev0;
+* registered tools and capabilities;
+* deterministic execution and planning interfaces;
+* confirmation boundaries;
+* workflows and verified execution;
+* output contracts;
+* standalone HTTP APIs;
+* configured plugin loading;
+* Docker distribution.
 
-STACK
+wilfred-home-assistant:
+* official public Home Assistant plugin;
+* Home Assistant REST reads and service actions;
+* configuration-driven targets and authorized actions;
+* READ and ACTION tools;
+* compatible with verified workflows.
 
-Home Assistant Docker, Mosquitto, Node-RED, HACS, Python/FastAPI, QNAP, Plex, Tautulli, Alexa, Assist, Echo TTS, Cloudflare Tunnel, Tailscale, AdGuard and private local media services.
+PRIVATE KERIOL DEPLOYMENT
 
-RUNTIME STATUS
+Alfred the Butler:
+* private user-facing Keriol Butler;
+* Keriol-specific interaction and orchestration context;
+* uses the reusable Wilfred / Butler Core foundations;
+* may contain capabilities ahead of the public Wilfred distribution;
+* legacy Alfred Core and Tool Registry terminology remains relevant to historical documentation but no longer defines the reusable runtime boundary.
 
-* Core containers and services are active.
-* Alfred health, tool registry and AI status endpoints respond successfully.
-* Alfred uses gpt-5-mini as enabled AI fallback.
-* Production runtime uses the local Python 3.12 virtualenv.
-* Checkout evidence on 2026-07-15: compile and all test suites passed.
+Osvaldo:
+* proactive communication policy;
+* allow, defer, aggregate and deny behavior;
+* quiet-hours and communication-mode policy.
 
-ALFRED STATUS
+Charon:
+* media-domain intelligence;
+* discovery, catalog policy, playback workflows and lifecycle analysis.
 
-Implemented:
+Umberto:
+* development ledger and checkout coordination;
+* task, milestone and evidence tracking.
 
-* Alfred Core, Tool Registry and FastAPI routes.
-* Deterministic-first routing with OpenAI fallback.
-* Cheap-model preference, domain guard, permissions and JSONL logging.
-* /alfred/ask, /alfred/tools and /alfred/ai/status.
-* Alexa free-text backend bridge with legacy intents still active.
-* Shared Home Assistant delivery and Alexa response helpers.
-* Osvaldo policy for RSVP, Plex, notifications and laundry verification.
-* Contextual pending actions, snooze and confirmation routing.
-* Alexa carrier phrases removed before media-title parsing.
-* Contextual yes routed to Alfred when a media action is pending.
-* Plex search, activity, scans and Bravia playback tools.
-* Charon quality policy, discovery, pending offers and verified private execution.
-* RSVP metrics and notifications.
-* Interactive voice override: auto, normal and whisper.
-* Umberto SQLite service, CLI, Markdown export and commit links.
+VOICE AND FRONTENDS
 
-REGISTERED CAPABILITIES
+* Alexa is the current primary voice frontend.
+* Legacy deterministic intents and free-text paths coexist during migration.
+* Speech and SSML rendering are frontend-specific implementation details.
+* Frontend rendering is not an independent Keriol architectural component.
+* Slow AI-backed paths may acknowledge a request before provider latency becomes noticeable.
 
-READ:
+INTERACTION FLOWS
 
-* Laundry status and validated-program search.
-* Server health.
-* RSVP summary and metrics.
-* Plex status, libraries, activity and media search.
-* Pending and snoozed actions.
-* Charon media policy and discovery.
-* Interactive voice state.
+Public Wilfred:
 
-ACTION:
+Client -> Wilfred -> Registered Tool / Plugin -> Service
 
-* Confirmed Plex scans.
-* Plex update evaluation and playback offers.
-* Pending-action state changes.
-* Charon proposal and confirmed private execution.
-* Plex playback on Bravia with optional courtesy lights.
-* RSVP and snoozable notifications.
-* Voice override.
+Keriol Home:
 
-DOMAINS
+Frontend -> Alfred -> Wilfred Runtime -> Registered Capability -> Service
 
-* Voice: Alexa is becoming a thin frontend; legacy intents remain until free-text is reliable on real devices.
-* Notifications: proactive events pass through Osvaldo; interactive replies bypass it.
-* Laundry: 143 validated programs. READ/search are tools; start/stop remain legacy until confirmed tools exist.
-* RSVP: reports refresh after submissions; shared services expose metrics and notifications. Never expose guest data publicly.
-* Plex/Charon: search, scans, playback, cooldown, pending offers and quality policy are active.
-* Media lifecycle: private foundation exists; legal availability, monitoring, import, retention and lifecycle completion remain scheduled.
-* Presence: reliable people/home state, guests and vacation mode remain future work.
-* Security/cameras: inventory, events, dashboard and alerts remain planned.
-* Energy/UPS: add READ tools for production, consumption, grid, battery and health.
-* Climate: combine environment, presence and weather; advisory first.
-* NAS/network/backup: add health, capacity and backup visibility. Git is not a runtime backup.
-* Bambu: future READ tools; pause/cancel require confirmation.
-* Calendar/weather: future live READ domains.
-* Operations: future dashboard for tools, health, logs and AI cost.
+Home Assistant action:
 
-UMBERTO
+READ -> ACTION -> READ -> VERIFY
 
-* Umberto is the development ledger of the project.
-* The SQLite planner is the source of truth for milestones, tasks, dependencies, status and commits.
-* session-start determines current work.
-* This model does not duplicate task lists or detailed operational roadmap state.
+CAPABILITY MATURITY
 
-RULES
+Public:
+* shipped or implemented in Butler Core, Wilfred or an official public plugin.
 
-* Prefer deterministic logic over AI.
-* Use stronger models only when necessary.
-* Send minimum necessary context.
-* Never hallucinate unavailable state.
-* Use tools for live information.
-* Never claim ACTION success without verification.
-* Proactive behavior must remain useful, quiet and explainable.
-* Review public documentation before push.
-* Private acquisition details never leave the local repository.
+Private validated:
+* implemented and exercised in the real Alfred deployment;
+* not necessarily present in public Wilfred.
 
-ROADMAP THEMES
+Candidate:
+* private functionality that may later be generalized;
+* not a release commitment.
 
-* Finish Alexa thin-frontend migration and device validation.
-* Complete QNAP/Plex notifications through Osvaldo.
-* Complete Plex playback verification end-to-end.
-* Build Umberto checkout automation.
-* Harden PRIVATE-to-PUBLIC sanitization.
-* Complete Charon availability, lifecycle and retention.
-* Build presence and house modes.
-* Add NAS, energy/UPS, calendar and weather READ tools.
-* Add security, climate and Bambu domains.
+CURRENT PRIVATE VALIDATION
 
-CHECKOUT
+* Alexa interaction and free-text routing.
+* Laundry status, catalog, controlled actions and asynchronous verification.
+* Proactive notification policy and snoozable behavior.
+* Plex / media workflows and Charon policy.
+* Server and service observability.
+* Energy telemetry.
+* Presence experiments.
+* Climate-control experiments.
+* Contextual confirmations and pending actions.
 
-1. Verify core services and containers.
-2. Compile and test with the production virtualenv.
-3. Remove generated Python caches.
-4. Test Alfred endpoints and Alexa legacy/free-text paths.
-5. Update Umberto evidence.
-6. Update worklog, ADR/docs and PRIVATE model.
-7. Generate and review the PUBLIC sanitized diff.
-8. Commit PRIVATE locally without push.
-9. Commit and push only the reviewed PUBLIC portfolio.
-10. Confirm clean trees and healthy services.
 
-ARCHIVE POINTER
+OPEN WORKSHOP / PUBLIC EXTRACTION
 
-Historical details, completed milestones, commands, device inventory and superseded decisions live in archives, worklogs and ADRs.
+The public Butler repositories intentionally expose a smaller surface than the private Keriol proving ground.
+
+Alfred the Butler is an active real-world workshop where new domains, workflows, interaction patterns and plugin candidates can be exercised before they are considered reusable.
+
+* Some capabilities will remain specific to Keriol Home.
+* Some may be generalized into Wilfred.
+* Some may become official Wilfred plugins.
+* Private validation alone does not make a capability public.
+* Public extraction requires reusable contracts, tests, sanitization, documentation and clean installation evidence.
+
+The workshop is intentionally open-ended: new projects and plugin candidates can emerge as real household needs expose useful reusable patterns.
+
+For builders, founders and early adopters, the public repositories show the reusable pieces that have already crossed that boundary; this portfolio also documents the engineering proving ground behind them.
+
+PUBLIC ALPHA DIRECTION
+
+Wilfred 0.2.0 Public Alpha requires:
+
+* final release checkout;
+* compatible Butler Core / Wilfred / plugin versions;
+* stable public artifacts;
+* stable container publication;
+* clean public-registry pull and runtime verification;
+* final public documentation.
+
+Crowdfunding activation remains after the real verified Wilfred 0.2.0 release.
+
+HOME ASSISTANT BOUNDARY
+
+* Home Assistant remains the smart-home platform.
+* Wilfred does not replace Home Assistant.
+* Alfred does not replace Home Assistant.
+* Public Home Assistant integration belongs in the official Wilfred plugin.
+* Keriol-specific Home Assistant assumptions remain private.
+
+PUBLIC / PRIVATE DOCUMENTATION
+
+Public:
+* architecture;
+* ADRs;
+* sanitized case studies;
+* reusable lessons;
+* historical worklogs and snapshots;
+* public-safe examples.
+
+Private:
+* secrets and credentials;
+* personal data;
+* private operational details;
+* unnecessary real entity IDs and device identifiers;
+* private service-specific implementation details.
+
+HISTORICAL DOCUMENTATION
+
+Dated project-model snapshots, worklogs and milestone documents describe the architecture that existed at the time.
+
+They should not be rewritten merely to make Wilfred appear older than it is.
+
+CURRENT DOCUMENTATION PRIORITY
+
+* Align active portfolio documents with Butler Core -> Wilfred -> Alfred.
+* Preserve historical records.
+* Sanitize legacy examples against the current boundary.
+* Keep capability maturity explicit.

@@ -1,134 +1,147 @@
 # Roadmap
 
-Keriol Home evolves as a local-first smart-home platform with Alfred providing one coherent interface to its services.
+Keriol Home evolves as a local-first smart-home platform with a reusable public Butler stack and a private real-world deployment.
 
-The roadmap is organized by delivery horizon rather than by implementation history.
+The roadmap distinguishes public runtime work from capabilities that are already validated privately in Alfred.
 
 ## Current Foundation
 
-- Home Assistant, MQTT and Node-RED orchestration
-- FastAPI and Alfred Core
-- Tool Registry with READ, ACTION and DANGEROUS permissions
-- Deterministic-first routing with AI fallback
-- Alexa custom-skill and free-text backend paths
-- Shared frontend speech and SSML response helpers
-- Osvaldo proactive notification policy
-- Snoozable notification queue
-- Plex and Tautulli integration
-- Charon media-domain foundation
-- Laundry, RSVP and server READ tools
-- Confirmed Plex scan actions
-- Tailscale private access
-- Cloudflare Tunnel public integration layer
-- Public-safe documentation and model export
-- Umberto Development Ledger with SQLite-backed tasks and commit evidence
-- Strict private-to-public project-model export and validation
+### Smart-home platform
+
+- Home Assistant owns physical orchestration, dashboards, device wrappers and integration state.
+- MQTT is the event and telemetry bus.
+- Node-RED owns visual multi-event flows where it is the clearest implementation layer.
+- Python services own complex validation, planning, APIs and stateful workflows.
+- Tailscale provides private administration.
+- Cloudflare Tunnel provides narrow public integration entrypoints where required.
+
+### Public Butler stack
+
+- Butler Core `0.1.3` provides provider-neutral contracts and execution primitives.
+- Wilfred `0.2.0.dev0` is the active development line toward the Public Alpha.
+- Wilfred supports registered tools, workflows, planning, confirmation boundaries, output contracts and standalone HTTP APIs.
+- Docker distribution and runtime verification are implemented for the Public Alpha path.
+- `wilfred-home-assistant` provides the official public Home Assistant plugin.
+- Home Assistant actions use explicit READ and ACTION capabilities.
+- Verified workflows support READ -> ACTION -> READ -> VERIFY semantics.
+
+### Private Keriol deployment
+
+- Alfred is the private Keriol Home Butler deployment and real-world proving ground.
+- Wilfred provides Alfred's reusable Butler runtime base.
+- Butler Core provides the shared contracts underneath Wilfred and Alfred.
+- Some older Alfred paths predate Wilfred and are still converging onto the reusable runtime.
+- Osvaldo governs proactive communication policy.
+- Charon owns media-domain intelligence.
+- Umberto coordinates development ledger and checkout evidence.
+- Alexa is currently a frontend; speech and SSML rendering remain frontend-specific implementation details.
 
 ## Near Term
 
-### Voice and Agent
+### Wilfred Public Alpha
 
-- Complete the Alexa Developer Console free-text model
-- Validate free-text behavior on supported Alexa devices
-- Keep legacy deterministic intents available during migration
-- Add a general Home Assistant notification tool
-- Review AI latency, logging and model-cost behavior
+- Complete the `0.2.0` release checkout.
+- Publish and verify the stable public container distribution.
+- Finalize compatible Butler Core, Wilfred and official Home Assistant plugin versions.
+- Verify installation and runtime behavior from clean environments.
+- Complete public launch documentation close to the actual release.
+- Keep crowdfunding activation disabled until the real verified `0.2.0` release.
+
+### Alfred convergence
+
+- Continue moving reusable Alfred behavior onto Wilfred and Butler Core.
+- Preserve Keriol-specific policy and integrations in Alfred.
+- Keep legacy compatibility paths only while they are still required.
+- Label private capabilities clearly rather than presenting them as already public.
+
+### Home Assistant plugin
+
+- Stabilize the official plugin for the Public Alpha.
+- Keep entity mapping and authorization configuration-driven.
+- Preserve READ before ACTION where state is relevant.
+- Verify physical state after actions when observable.
+- Keep Home Assistant as the owner of device orchestration.
+
+## Private Validated Domains
+
+These capabilities are useful portfolio evidence even when they are not yet public Wilfred functionality.
+
+### Voice and interaction
+
+- Alexa Custom Skill and free-text interaction paths.
+- Deterministic routing with AI fallback.
+- Contextual confirmations.
+- Fast acknowledgement before slower AI-backed responses.
+- Frontend-specific speech and SSML rendering.
 
 ### Appliances
 
-- Register laundry start and stop as Alfred ACTION/DANGEROUS tools
-- Require explicit confirmation before physical control
-- Verify hOn and Home Assistant state after commands
-- Add PV-aware laundry suggestions when presence and energy inputs are reliable
+- Washing-machine status and program catalog.
+- Allowlisted start and stop actions.
+- Asynchronous physical-state verification.
+- Proactive follow-up after verified state changes.
+- Future energy-aware appliance suggestions.
 
-### Media and Charon
+### Media
 
-- Add dedicated tests for Plex notification cooldown and `mark_notified`
-- Expand playback-offer handling
-- Build missing-title and catalog-quality analysis
-- Add recommendation workflows
-- Explore coordinated home-theater scenes
+- Plex and Tautulli integration.
+- Charon discovery and media-domain policy.
+- Search, scan and playback workflows.
+- Pending playback offers and lifecycle analysis.
+- Future recommendation and catalog-quality capabilities.
 
-### Maintenance
+### Proactive communication
 
-- Remove pre-Git backup files in a dedicated cleanup commit
-- Continue reducing duplicated integration logic
-- Keep private and public project models synchronized through the export pipeline
-- Automate health checks, tests, evidence and documentation through Umberto checkout workflows
-
-## Platform Development
-
-### Presence and House Modes
-
-- Build reliable person and home-presence states
-- Stabilize network and Bluetooth inputs
-- Add guest, empty-house and vacation modes
-- Expose presence through Alfred READ tools
-- Avoid critical automation until confidence is measurable
-
-### Operations and Observability
-
-- Add a dashboard for registered tools, health and logs
-- Track AI requests, latency and cost
-- Move persistent Alfred memory from JSON to SQLite
-- Add an AI Budget Manager with cache and usage controls
-
-### Network, NAS and Backup
-
-- Add NAS health and capacity tools
-- Expose backup status without revealing private paths
-- Monitor core network and tunnel availability
-- Keep runtime and database backups separate from Git history
-
-### Energy and UPS
-
-- Add READ tools for production, consumption and grid exchange
-- Add battery and UPS health visibility
-- Detect abnormal consumption and outage risk
-- Suggest useful actions during solar surplus
-- Integrate energy context into appliance recommendations
-
-### Calendar and Weather
-
-- Add live READ tools
-- Use current data rather than cached model knowledge
-- Support future planning and proactive workflows
-
-## Domain Expansion
-
-### Security and Cameras
-
-- Review and normalize the Home Assistant camera inventory
-- Validate ONVIF capabilities
-- Define a common camera-event model
-- Add a security dashboard
-- Pilot presence-aware alerts
-- Evaluate Frigate only where object detection adds clear value
+- Osvaldo allow, defer, aggregate and deny policy.
+- Quiet-hours and snoozable delivery behavior.
+- Shared delivery paths without domain-specific policy duplication.
 
 ### Climate
 
-- Combine temperature, humidity, weather, presence and room usage
-- Start with advisory workflows
-- Introduce automation gradually and with conservative safeguards
+- Room temperature and humidity sensing.
+- Infrared and native climate-control paths.
+- Advisory and experimental closed-loop climate strategies.
+- Conservative verification where device feedback is incomplete.
 
-### Bambu and Maker
+### Energy
 
-- Add READ tools for printer state, job progress, temperatures and errors
-- Add confirmed pause and cancel actions
-- Route proactive print notifications through Osvaldo
+- Local photovoltaic telemetry.
+- Battery state visibility.
+- MQTT-based power and energy sensors.
+- Surplus and abnormal-consumption analysis candidates.
 
-### Cross-Domain Automation
+### Presence and security
 
-- Use presence to improve notification timing
-- Combine energy surplus with appliance suggestions
-- Combine house modes with security and camera events
-- Coordinate media, lighting and room scenes
-- Keep proactive behavior quiet, useful and explainable
+- BLE presence experiments.
+- Home and away state development.
+- Camera and security integration review.
+- Presence-aware notification candidates.
+
+### Maker and operations
+
+- Future 3D-printer READ and confirmed ACTION capabilities.
+- Server and NAS observability.
+- Backup and service-health visibility.
+
+## Public Extraction Principle
+
+A capability validated in Alfred is not automatically a Wilfred feature.
+
+Public extraction requires:
+
+1. a reusable contract;
+2. removal of Keriol-specific assumptions;
+3. explicit permissions and confirmation semantics;
+4. tests independent of the private deployment;
+5. public-safe documentation;
+6. clean installation and runtime verification.
+
+Until then, the capability remains **Private validated** or **Candidate**.
 
 ## Documentation
 
-- Keep architecture, ADRs, diagrams and worklogs aligned with implementation
-- Document significant decisions rather than command-by-command noise
-- Use the private model for active project state and roadmap
-- Generate the public model through the sanitizing export script
-- Reserve milestone releases for major completed phases or architectural improvements
+- Keep current architecture documents aligned with implementation.
+- Preserve historical ADRs, worklogs and milestone snapshots as historical records.
+- Keep the public/private boundary explicit.
+- Sanitize legacy examples that contain real entity IDs or operational details.
+- Keep the public project model current without rewriting historical snapshots.

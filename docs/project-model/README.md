@@ -1,28 +1,70 @@
 # Project Model
 
-This directory contains public-safe project model snapshots.
+The project model is a compact architectural snapshot, not the operational source of truth for development state.
 
-The active private model lives in the local-only Alfred repository and is never committed here.
+## Sources of Truth
 
-## Export
+Current project state is intentionally split by responsibility:
 
-Run:
+- **Git** is authoritative for versioned code and documentation.
+- **Umberto** is authoritative for tasks, milestones, priorities, dependencies and development evidence.
+- **Live systems** are authoritative for runtime and physical state.
+- **Project models** provide derived architectural context.
 
-    ./scripts/export-project-model.sh
+See [ADR-009 - Development State Sources of Truth](../adr/ADR-009-development-state-sources-of-truth.md).
 
-Optional date override:
+## Canonical Public Model
 
-    ./scripts/export-project-model.sh 2026-07-15
+The current public architectural snapshot is:
 
-Default private source:
+`docs/project-model/project-model-public.md`
 
-    $HOME/alexa-ha-bridge/docs/model/home-automation-project-model-private.md
+It describes:
 
-Override:
+- current architectural layering;
+- component responsibilities;
+- public/private boundaries;
+- capability maturity;
+- major current engineering principles.
 
-    PRIVATE_MODEL_PATH=/custom/path/model.md \
-      ./scripts/export-project-model.sh
+It intentionally does not duplicate the full Umberto task ledger.
 
-The exporter removes private-only sections, sanitizes infrastructure identifiers and validates both models against the strict `<8K` character limit.
+## Refresh Policy
 
-Every generated diff must be reviewed before commit and push.
+The current model should be refreshed when useful, especially after:
+
+- significant architectural changes;
+- release milestones;
+- major public/private boundary changes;
+- substantial changes to component responsibilities.
+
+It does not need to be updated after every task or commit.
+
+## Historical Snapshots
+
+Dated project-model files are immutable historical records.
+
+They preserve the terminology and architecture that were current when they were created.
+
+Historical snapshots should not be rewritten merely to match later architecture.
+
+## Snapshot Tool
+
+`scripts/export-project-model.sh` validates the current public model and creates an immutable dated snapshot.
+
+It no longer derives the public model from a private model.
+
+The public model should instead be curated from authoritative evidence in Git, Umberto and verified runtime state.
+
+## Public Safety
+
+The public model must exclude:
+
+- secrets and credentials;
+- private endpoints;
+- personal data;
+- unnecessary real entity IDs;
+- device identifiers;
+- private operational details.
+
+Sanitized documentation of Alfred is allowed where it explains the architecture without exposing private implementation details.

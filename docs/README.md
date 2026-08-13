@@ -21,6 +21,8 @@
 
 ## Architecture Decision Records
 
+- [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md)
+
 - [ADR-008 - Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md)
 
 - [ADR-001 - Home Assistant as Orchestrator](adr/ADR-001-home-assistant-as-orchestrator.md)

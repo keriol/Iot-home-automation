@@ -1,5 +1,17 @@
 # Project Model Changelog
 
+## 2026-08-13 - Butler runtime layering refresh
+
+### Changed
+
+- Document Butler Core as the provider-neutral shared foundation.
+- Document Wilfred as the reusable public Butler runtime.
+- Document Alfred as the private Keriol deployment built on the reusable runtime.
+- Add Public / Private validated / Candidate maturity labels.
+- Clarify Home Assistant ownership and READ -> ACTION -> READ -> VERIFY.
+- Remove the obsolete local-only Alfred repository assumption from current documentation.
+- Keep historical snapshots unchanged.
+
 ## v0.2.0 - Alfred Agent MVP documentation baseline
 
 This milestone marks the transition from a collection of smart-home automations and voice workflows to an agent-oriented architecture.
