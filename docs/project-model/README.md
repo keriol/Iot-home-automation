@@ -1,70 +1,49 @@
-# Project Model
+# Project Context
 
-The project model is a compact architectural snapshot, not the operational source of truth for development state.
+The files in this directory retain their historical `project-model` naming for compatibility, but the active document is now a **derived architectural context snapshot** rather than a development-state database.
 
 ## Sources of Truth
 
-Current project state is intentionally split by responsibility:
-
-- **Git** is authoritative for versioned code and documentation.
-- **Umberto** is authoritative for tasks, milestones, priorities, dependencies and development evidence.
-- **Live systems** are authoritative for runtime and physical state.
-- **Project models** provide derived architectural context.
+- **Git** owns versioned implementation and documentation.
+- **Umberto** owns active development state, milestones, dependencies and evidence.
+- **Live systems** own operational and physical state.
+- **Project context** provides a compact derived architectural view.
 
 See [ADR-009 - Development State Sources of Truth](../adr/ADR-009-development-state-sources-of-truth.md).
 
-## Canonical Public Model
+## Current Public Context
 
-The current public architectural snapshot is:
+The current public-safe context is:
 
 `docs/project-model/project-model-public.md`
 
-It describes:
+It describes architectural layering, component responsibilities, maturity, public/private boundaries and durable engineering rules.
 
-- current architectural layering;
-- component responsibilities;
-- public/private boundaries;
-- capability maturity;
-- major current engineering principles.
-
-It intentionally does not duplicate the full Umberto task ledger.
+It intentionally does not duplicate the full development ledger.
 
 ## Refresh Policy
 
-The current model should be refreshed when useful, especially after:
+Refresh the current context after significant:
 
-- significant architectural changes;
-- release milestones;
-- major public/private boundary changes;
-- substantial changes to component responsibilities.
+- architecture changes;
+- ownership changes;
+- public/private boundary changes;
+- release-baseline changes.
 
-It does not need to be updated after every task or commit.
+Do not refresh it merely because a task moves, a commit lands, a test passes or runtime health changes.
 
 ## Historical Snapshots
 
-Dated project-model files are immutable historical records.
+Dated files are immutable historical snapshots.
 
-They preserve the terminology and architecture that were current when they were created.
-
-Historical snapshots should not be rewritten merely to match later architecture.
+They preserve the architecture and terminology that were current when created.
 
 ## Snapshot Tool
 
-`scripts/export-project-model.sh` validates the current public model and creates an immutable dated snapshot.
+`scripts/export-project-model.sh` validates the curated public context and creates an immutable dated snapshot.
 
-It no longer derives the public model from a private model.
-
-The public model should instead be curated from authoritative evidence in Git, Umberto and verified runtime state.
+It does not derive public documentation mechanically from the private context.
 
 ## Public Safety
 
-The public model must exclude:
-
-- secrets and credentials;
-- private endpoints;
-- personal data;
-- unnecessary real entity IDs;
-- device identifiers;
-- private operational details.
-
-Sanitized documentation of Alfred is allowed where it explains the architecture without exposing private implementation details.
+The public context must exclude secrets, credentials, personal data, private endpoints, unnecessary real entity IDs, sensitive operational details and private-only implementation.

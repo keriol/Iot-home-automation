@@ -9,15 +9,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MAX_CHARS = 8000
 
-PUBLIC_MODEL = (
+PUBLIC_CONTEXT = (
     ROOT
     / "docs"
     / "project-model"
     / "project-model-public.md"
 )
 
-PUBLIC_MARKERS = [
-    "HOME AUTOMATION PROJECT MODEL - PUBLIC",
+REQUIRED_MARKERS = [
+    "HOME AUTOMATION PROJECT CONTEXT - PUBLIC",
+    "SOURCES OF TRUTH",
+    "Butler Core -> Wilfred -> Alfred",
     "Butler Core",
     "Wilfred",
     "Alfred the Butler",
@@ -25,9 +27,11 @@ PUBLIC_MARKERS = [
     "Charon",
     "Umberto",
     "CAPABILITY MATURITY",
-    "PUBLIC ALPHA DIRECTION",
+    "OPEN WORKSHOP",
     "HOME ASSISTANT BOUNDARY",
-    "PUBLIC / PRIVATE DOCUMENTATION",
+    "PUBLIC BOUNDARY",
+    "REFERENCE MAP",
+    "CURRENT DIRECTION",
 ]
 
 SENSITIVE_PATTERNS = [
@@ -54,29 +58,29 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    if not PUBLIC_MODEL.is_file():
-        fail(f"Missing public model: {PUBLIC_MODEL}")
+    if not PUBLIC_CONTEXT.is_file():
+        fail(f"Missing public context: {PUBLIC_CONTEXT}")
 
-    text = PUBLIC_MODEL.read_text(encoding="utf-8")
+    text = PUBLIC_CONTEXT.read_text(encoding="utf-8")
 
-    print(f"{PUBLIC_MODEL}: {len(text)} chars")
+    print(f"{PUBLIC_CONTEXT}: {len(text)} chars")
 
     if len(text) >= MAX_CHARS:
-        fail(f"{PUBLIC_MODEL} violates the <8K requirement")
+        fail(f"{PUBLIC_CONTEXT} violates the <8K requirement")
 
-    for marker in PUBLIC_MARKERS:
+    for marker in REQUIRED_MARKERS:
         if marker not in text:
-            fail(f"Public model missing marker: {marker}")
+            fail(f"Public context missing marker: {marker}")
 
     for pattern in SENSITIVE_PATTERNS:
         if re.search(pattern, text):
             fail(
-                "Public model contains private pattern: "
+                "Public context contains private pattern: "
                 f"{pattern}"
             )
 
     print(
-        "OK: public project model passed "
+        "OK: public project context passed "
         "architecture and safety validation"
     )
 
