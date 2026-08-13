@@ -149,4 +149,4 @@ Current documentation is being realigned so that:
 - historical files preserve the architecture of their time;
 - current documents describe Butler Core -> Wilfred -> Alfred accurately;
 - private validated capabilities are distinguished from public Wilfred features;
-- legacy public examples are re-sanitized against the current public/private boundary.
+- legacy readable implementation examples are removed from the portfolio under the current public/private boundary.

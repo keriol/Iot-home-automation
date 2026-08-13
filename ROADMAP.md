@@ -143,5 +143,5 @@ Until then, the capability remains **Private validated** or **Candidate**.
 - Keep current architecture documents aligned with implementation.
 - Preserve historical ADRs, worklogs and milestone snapshots as historical records.
 - Keep the public/private boundary explicit.
-- Sanitize legacy examples that contain real entity IDs or operational details.
+- Remove legacy readable implementation snapshots from the public portfolio and purge private-derived source from public history.
 - Keep the public project model current without rewriting historical snapshots.

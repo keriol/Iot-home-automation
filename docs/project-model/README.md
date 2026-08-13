@@ -46,4 +46,4 @@ It does not derive public documentation mechanically from the private context.
 
 ## Public Safety
 
-The public context must exclude secrets, credentials, personal data, private endpoints, unnecessary real entity IDs, sensitive operational details and private-only implementation.
+The public context must exclude readable private-derived implementation, secrets, credentials, personal data, private endpoints, unnecessary real entity IDs, sensitive operational details and private-only implementation.

@@ -1,5 +1,14 @@
 # Project Model Changelog
 
+## 2026-08-13 - Public portfolio documentation boundary
+
+### Changed
+
+- Stop publishing readable private-derived implementation examples.
+- Keep the portfolio focused on architecture, evolution, decisions and capability maturity.
+- Route genuinely reusable public code to Butler Core, Wilfred or official plugin repositories.
+- Retire the old public-model template and milestone checkout pipeline.
+
 ## 2026-08-13 - Project model becomes derived context
 
 ### Changed

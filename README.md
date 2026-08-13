@@ -169,6 +169,26 @@ Relevant documentation:
 - [Alfred Laundry Lessons Learned](docs/lessons-learned/alfred-laundry-voice-ux-and-async-verification.md)
 - [Alexa Laundry Async Verification](docs/diagrams/alexa-laundry-async-verification.md)
 
+## Alfred Proving Ground
+
+The public Butler repositories show capabilities that have already crossed the reusable-public boundary.
+
+Alfred runs ahead of that boundary as the private real-world proving ground. Several domains and interaction patterns are already **Private validated** or **Candidate** even when they are not yet shipped by Wilfred.
+
+See [Alfred Proving Ground](docs/architecture/alfred-proving-ground.md) for the current maturity map and public-extraction path.
+
+## Public Portfolio Boundary
+
+This repository documents how Keriol Home and Alfred evolve. It is not a sanitized mirror of the private implementation.
+
+Readable private-derived Python, Home Assistant YAML, service definitions, interaction models and configuration snapshots are intentionally outside the portfolio boundary even when identifiers could be anonymized.
+
+Reusable code that becomes genuinely public belongs in Butler Core, Wilfred or the relevant official plugin repository.
+
+The portfolio therefore focuses on architecture, ADRs, diagrams, case studies, capability maturity and engineering lessons.
+
+See [ADR-010 - Public Portfolio Documentation Boundary](docs/adr/ADR-010-public-portfolio-documentation-boundary.md).
+
 ## Development State
 
 The project no longer uses a manually synchronized project model as the single source of development truth.

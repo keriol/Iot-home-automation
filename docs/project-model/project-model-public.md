@@ -159,10 +159,11 @@ Public material may contain:
 * reusable engineering lessons;
 * sanitized case studies;
 * capability maturity;
-* public-safe examples and diagrams.
+* public-safe diagrams and conceptual flows.
 
 Public material must not contain:
 
+* readable private-derived implementation, even when identifiers are sanitized;
 * secrets or credentials;
 * personal data;
 * private endpoints;

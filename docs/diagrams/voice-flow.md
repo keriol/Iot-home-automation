@@ -1,108 +1,100 @@
-# Voice Flow
+# Voice Interaction Flow
+
+## Purpose
+
+This diagram describes the current architectural responsibilities of the Keriol Home voice path without exposing private implementation.
 
 ```mermaid
 flowchart LR
-    User[User voice command]
+    User[User]
 
-    subgraph Frontends
-        Alexa[Alexa]
-        Assist[Home Assistant Assist]
+    subgraph Frontend
+        Alexa[Alexa / Voice Frontend]
     end
 
-    subgraph AlexaPath["Alexa Custom Skill"]
-        Skill[Alfred the Butler]
-        Tunnel[Cloudflare Tunnel HTTPS]
-        API[FastAPI /alexa]
-        IntentType{Intent type}
-        FreeText[AlfredFreeTextIntent]
-        Legacy[Legacy deterministic intent]
+    subgraph Private["Keriol Home - Private"]
+        Alfred[Alfred]
+        Context[Interaction Context]
     end
 
-    subgraph AlfredLayer["Alfred Agent Layer"]
-        Alfred[Alfred Core]
-        Registry[Tool Registry]
-        Domain[Registered Domain Tool]
+    subgraph Public["Reusable Butler Stack"]
+        Wilfred[Wilfred Runtime]
+        Core[Butler Core]
+        Capability[Registered Capability]
     end
 
-    subgraph LegacyPath["Legacy Compatibility Path"]
-        LegacyHandler[Legacy Handler]
-        Safety[Validation and Safety Checks]
-        HAWrapper[Home Assistant Physical Wrapper]
+    subgraph Services
+        Service[Domain Service]
+        HA[Home Assistant]
     end
-
-    subgraph ProactivePath["Separate Proactive Path"]
-        Event[Domain Event]
-        Queue[Queue / Dispatcher]
-        Osvaldo[Osvaldo Policy]
-        Delivery[Shared HA Delivery]
-    end
-
-    HA[Home Assistant]
-    AlexaResponse[Alexa Response]
-    Session{Session control}
-    Open[Keep Session Open]
-    Close[Close Session]
 
     User --> Alexa
-    User --> Assist
+    Alexa --> Alfred
 
-    Alexa --> Skill
-    Skill --> Tunnel
-    Tunnel --> API
-    API --> IntentType
+    Alfred --> Context
+    Alfred --> Wilfred
 
-    IntentType -->|Free text| FreeText
-    IntentType -->|Known legacy intent| Legacy
+    Wilfred --> Core
+    Wilfred --> Capability
 
-    FreeText --> Alfred
-    Alfred --> Registry
-    Registry --> Domain
-    Domain --> Alfred
-    Alfred --> AlexaResponse
+    Capability --> Service
+    Capability --> HA
 
-    Legacy --> LegacyHandler
-    LegacyHandler --> Safety
-    Safety --> HAWrapper
-    HAWrapper --> HA
-    LegacyHandler --> AlexaResponse
+    Service --> Capability
+    HA --> Capability
 
-    AlexaResponse --> Session
-    Session -->|Normal response| Open
-    Session -->|Exit, thanks or timeout| Close
-
-    Assist --> HA
-    Registry --> HA
-
-    Event --> Queue
-    Queue --> Osvaldo
-    Osvaldo -->|Allow| Delivery
-    Osvaldo -->|Defer| Queue
-    Osvaldo -->|Deny| NoDelivery[No Delivery]
-    Delivery --> HA
+    Capability --> Wilfred
+    Wilfred --> Alfred
+    Alfred --> Alexa
+    Alexa --> User
 ```
 
-## Interactive Voice Flow
+## Responsibilities
 
-Alexa is a frontend. Free-text requests are forwarded to Alfred Core, which selects a registered tool through the Tool Registry.
+### Voice frontend
 
-Known legacy intents remain available for compatibility and deterministic physical-control workflows.
+The active voice frontend captures the request and renders the response.
 
-Alexa response helpers render the spoken response for both Alfred and supported legacy handlers.
+Speech and SSML rendering remain frontend-specific concerns.
 
-## Proactive Voice Flow
+The frontend does not own smart-home orchestration.
 
-Unsolicited domain events do not use the interactive request path.
+### Alfred
 
-They pass through the queue or dispatcher and Osvaldo, which may allow, defer or deny delivery before the shared delivery path handles the message.
+Alfred owns the private Keriol interaction context.
 
-## Rules
+It performs deterministic routing where possible and may use AI fallback when appropriate.
 
-- `AlfredFreeTextIntent` forwards the free-text query to Alfred Core.
-- Known requests use deterministic routing before AI fallback.
-- Home Assistant owns physical device wrappers.
-- Physical command dispatch is not considered success.
-- Device state must be verified whenever supported.
-- Interactive responses do not require Osvaldo approval.
-- Proactive notifications must pass through Osvaldo.
-- Normal responses keep the Alexa session open.
-- Exit, thanks and timeout close the session.
+Alfred does not become the owner of physical devices.
+
+### Wilfred
+
+Wilfred provides the reusable runtime for registered capabilities, execution, confirmation boundaries and workflows.
+
+### Butler Core
+
+Butler Core provides the provider-neutral contracts and execution foundations underneath Wilfred.
+
+### Domain capability
+
+A registered capability talks to the service that owns the requested domain.
+
+When Home Assistant is involved, Home Assistant remains the owner of physical orchestration and device wrappers.
+
+## Physical actions
+
+Where observable state matters, the expected model is:
+
+    READ -> ACTION -> READ -> VERIFY
+
+Successful command dispatch is not treated as proof of physical success.
+
+## Legacy voice paths
+
+Some older Keriol voice paths predate the current Butler layering and may remain temporarily during convergence.
+
+They are implementation history rather than the reusable architectural boundary.
+
+## Public boundary
+
+This document intentionally describes responsibilities and flow rather than publishing the readable Alfred implementation.

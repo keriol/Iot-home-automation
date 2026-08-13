@@ -108,7 +108,7 @@ This repository documents:
 - sanitized real-world case studies;
 - the relationship between Alfred, Wilfred and Butler Core;
 - reusable engineering lessons;
-- public-safe examples and diagrams.
+- public-safe diagrams and conceptual flows.
 
 It does not publish the private Alfred implementation, secrets, credentials, private operational data or unnecessary household identifiers.
 
