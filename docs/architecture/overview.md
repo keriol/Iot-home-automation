@@ -1,53 +1,133 @@
 # Architecture Overview
 
-Keriol Home is a local-first smart-home platform centered on Home Assistant and extended through an agent and tool architecture.
-
-## Main Flow
-
-User -> Alexa / Web / Telegram / App -> FastAPI -> Alfred Core -> Tool Registry -> Integrations
+Keriol Home separates the reusable Butler runtime from the private household deployment.
 
 ## Layers
 
-Frontends: Alexa, Assist, web interfaces, dashboards and future messaging clients.
+### Butler Core
 
-Agent and API: FastAPI, Alfred Core, deterministic routing, AI fallback and Tool Registry.
+Butler Core is the lowest reusable layer.
 
-Presentation and policy: voice rendering remains frontend-specific; Osvaldo controls proactive notification policy.
+It owns provider-neutral contracts and execution primitives shared by Butler runtimes and consumers.
 
-Orchestration: Home Assistant automations, scripts, dashboards and physical device wrappers.
+It does not own smart-home orchestration, frontend behavior or Keriol-specific integrations.
 
-Domain services: Laundry, RSVP, server operations, Plex and Charon media intelligence.
+### Wilfred
 
-Logic: Python services and Node-RED multi-event flows.
+Wilfred is the public reusable Butler runtime built on Butler Core.
 
-Event bus: MQTT.
+Its responsibilities include:
 
-Devices and infrastructure: Energy telemetry, lights, plugs, cameras, sensors, appliances, NAS and media services.
+- registered capability discovery
+- deterministic execution
+- planning interfaces
+- confirmation boundaries
+- workflows
+- verified execution
+- output contracts
+- standalone APIs
+- plugin loading
 
-## Interaction Models
+Wilfred can run independently of Alfred.
 
-Interactive requests follow:
+### Alfred
 
-Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
+Alfred is the private Keriol Home deployment.
 
-Proactive events follow:
+Wilfred provides its reusable Butler runtime base. Alfred adds household-specific policy, integrations, domains and experimental capabilities.
 
-Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
+Some legacy Alfred implementation paths predate Wilfred and are progressively converging onto the shared runtime.
+
+### Home Assistant
+
+Home Assistant owns physical orchestration, dashboards, integrations, device wrappers and device state.
+
+The Butler runtime asks Home Assistant to perform explicit operations. It does not replace Home Assistant.
+
+## Public Runtime Flow
+
+A standalone Wilfred request follows:
+
+    Client
+      -> Wilfred
+      -> Registered Tool / Plugin
+      -> External Service
+
+For Home Assistant:
+
+    Client
+      -> Wilfred
+      -> wilfred-home-assistant
+      -> Home Assistant REST API
+      -> Home Assistant
+      -> Device / Integration
+
+## Keriol Home Flow
+
+The private deployment adds Alfred above the reusable runtime:
+
+    Voice / Web / App / other frontend
+      -> Alfred
+      -> Wilfred runtime
+      -> Registered capability
+      -> Domain / Integration
+
+The response returns through the active frontend.
+
+Frontend-specific speech and presentation formatting remain frontend concerns.
+
+## Verified Physical Actions
+
+Physical actions should not treat successful dispatch as successful execution.
+
+Where state can be observed, the preferred lifecycle is:
+
+    READ
+      -> ACTION
+      -> READ
+      -> VERIFY
+
+A workflow may therefore finish as verified, failed or indeterminate depending on observed state.
+
+## Capability Maturity
+
+Capabilities documented from Alfred should be labelled:
+
+- **Public**
+- **Private validated**
+- **Candidate**
+
+Private validated functionality may be ahead of the public Wilfred distribution.
+
+Candidate functionality may later be generalized, but documentation must not present that as a guaranteed release.
+
+## Private Domain Components
+
+Inside the private Keriol deployment:
+
+- Alfred owns Keriol-specific interaction and orchestration.
+- Osvaldo owns proactive communication policy.
+- Charon owns media-domain intelligence.
+- Umberto owns development ledger and checkout coordination.
+
+These private components do not redefine Butler Core or Wilfred responsibilities.
 
 ## Design Rules
 
-- Home Assistant owns orchestration, dashboards and physical wrappers.
-- Alfred owns request routing and registered tool execution.
-- Voice rendering remains frontend-specific.
-- Osvaldo owns proactive notification policy.
-- Charon owns media-domain intelligence.
-- Python owns complex or stateful logic.
-- Node-RED owns visual multi-event flows.
-- MQTT owns decoupled telemetry and events.
-- Actions require confirmation and physical-state verification when appropriate.
-- Avoid duplicate logic across layers.
+- One owner layer per feature.
+- Home Assistant owns physical orchestration.
+- Butler Core stays provider-neutral.
+- Wilfred stays reusable and service-agnostic.
+- Alfred may contain Keriol-specific capabilities.
+- Frontends stay replaceable.
+- READ before ACTION when useful state is available.
+- Physical ACTION requires verification when practical.
+- Confirmation boundaries survive plugin and frontend changes.
+- Private experiments are not automatically public roadmap commitments.
 
 ## Related Documentation
 
 - [Alfred Ecosystem](alfred-ecosystem.md)
+- [Architecture Diagram](../diagrams/architecture.md)
 - [Alfred Ecosystem Flow](../diagrams/alfred-ecosystem-flow.md)
+- [ADR-008 - Butler Core, Wilfred and Alfred Layering](../adr/ADR-008-butler-core-wilfred-alfred-layering.md)

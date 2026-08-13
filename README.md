@@ -1,137 +1,186 @@
 # Home Automation Portfolio
 
-Public-safe documentation repository for a local-first smart-home platform built around Home Assistant, MQTT, Node-RED, Python/FastAPI services and the Alfred agent and tool architecture.
+Public-safe documentation for a local-first smart-home and IoT platform built around Home Assistant, MQTT, Node-RED, Python services and a Butler architecture developed through real household use.
+
+The project has two complementary faces:
+
+- **Keriol Home / Alfred** is the private real-world deployment and proving ground.
+- **Wilfred** is the reusable public Butler runtime extracted from that experience.
+- **Butler Core** provides the shared provider-neutral contracts and execution foundations underneath them.
 
 ## Goals
 
-- Local-first smart home orchestration
-- Agent-based access through Alfred and registered tools
-- Policy-driven proactive notifications
-- Secure private access through VPN
-- Public HTTPS integration layer for selected services
-- Voice-controlled media and home automations
-- MQTT-based telemetry and event bus
-- Energy monitoring and automation-ready data
-- Portfolio-ready IoT documentation
+- Local-first smart-home orchestration
+- Safe tool-based automation
+- Explicit READ, ACTION and verification boundaries
+- Replaceable voice, web and application frontends
+- Policy-driven proactive communication
+- Secure private administration and narrow public integrations
+- MQTT-based telemetry and event distribution
+- Energy, media, appliance and presence automation
+- Public-safe engineering documentation
+- Reusable open-source Butler components
+
+## Butler Architecture
+
+The current architecture separates reusable runtime concerns from the private Keriol Home deployment.
+
+### Butler Core
+
+[Butler Core](https://github.com/keriol/butler-core) contains provider-neutral contracts and execution primitives.
+
+It does not know about Keriol Home, Alexa, Home Assistant devices or private household integrations.
+
+### Wilfred
+
+[Wilfred](https://github.com/keriol/butler-wilfred) is the public reusable Butler runtime built on Butler Core.
+
+It provides general runtime facilities for registered tools, deterministic execution, planning, workflows, confirmation boundaries, verified execution and output contracts.
+
+Wilfred is being developed toward the `0.2.0` Public Alpha.
+
+The official [Home Assistant plugin](https://github.com/keriol/wilfred-home-assistant) connects Wilfred to Home Assistant through explicit READ and ACTION capabilities without moving physical orchestration out of Home Assistant.
+
+### Alfred
+
+**Alfred** is the private Keriol Home Butler deployment.
+
+Wilfred provides Alfred's reusable runtime base, while Butler Core provides the shared contracts and execution semantics underneath them both.
+
+Alfred adds Keriol-specific integrations, policies, domain behavior and experimental capabilities on top of the reusable public layers.
+
+Some older Alfred paths predate Wilfred and are progressively converging onto the public runtime architecture.
+
+## Capability Maturity
+
+Portfolio capabilities use three maturity levels:
+
+- **Public**: implemented in Butler Core, Wilfred or an official public plugin.
+- **Private validated**: implemented and tested in the real Alfred deployment but not currently part of the public Wilfred distribution.
+- **Candidate**: a private capability that may later be generalized and extracted into Wilfred or an official plugin.
+
+Candidate status is not a release commitment.
+
+This lets the portfolio document real engineering work without pretending that every private experiment is already a public Wilfred feature.
+
+## Smart-Home Ownership
+
+Home Assistant remains responsible for physical orchestration, dashboards, device wrappers and integration state.
+
+Wilfred and Alfred coordinate capabilities through explicit tools and workflows rather than replacing the smart-home platform.
+
+A typical public Wilfred flow is:
+
+    Client -> Wilfred -> Registered Tool / Plugin -> Service
+
+A Keriol Home flow is:
+
+    Frontend -> Alfred -> Wilfred Runtime -> Registered Capability -> Service
+
+For observable Home Assistant actions, verified workflows follow:
+
+    READ -> ACTION -> READ / VERIFY
+
+Dispatch alone is not considered physical success.
 
 ## Core Stack
 
-- Home Assistant Docker
+- Home Assistant
+- Butler Core
+- Wilfred
+- wilfred-home-assistant
 - Python / FastAPI
-- Alfred Core and Tool Registry
-- Mosquitto MQTT Docker
+- Mosquitto MQTT
 - Node-RED
-- Python helper scripts
+- Docker
 - HACS integrations
-- Plex API
-- QNAP NAS
+- Plex
+- NAS storage
 - Tailscale
 - Cloudflare Tunnel
 
+## Private Keriol Components
+
+Selected sanitized architecture from the private deployment can be documented publicly.
+
+- **Alfred** owns Keriol-specific interaction and orchestration.
+- **Osvaldo** owns proactive communication policy such as allow, defer, aggregate and deny decisions.
+- **Charon** owns media-domain intelligence and curation.
+- **Umberto** tracks development tasks, evidence and checkout work.
+
+Frontend-specific presentation remains a frontend concern rather than an independent architectural component.
+
 ## Main Case Studies
 
-- Alfred Agent and Tool Registry architecture
-- Osvaldo proactive notification policy
-- Charon media and Plex curation
+- Butler runtime evolution from Alfred to Wilfred
+- Alfred registered-capability architecture
+- Verified appliance control
+- Proactive notification policy
+- Media and Plex curation
 - Bravia + Dolby safe-power automation
-- Plex voice control through Assist and helper scripts
-- ZCS photovoltaic local telemetry through MQTT
-- BLE presence detection with Bermuda
+- Plex voice control
+- Local photovoltaic telemetry through MQTT
+- BLE presence detection
 - Cloudflare Tunnel and Tailscale access strategy
-
-## Public Safety
-
-This repository contains only sanitized documentation and examples. Real secrets, tokens, entity IDs, IPs, domains, device identifiers and private paths are excluded.
-
-## Development Approach
-
-This project follows an AI-assisted engineering workflow.
-
-Architecture decisions, implementation and validation remain human-driven, while AI is used as a technical copilot for research, troubleshooting, documentation, roadmap management and knowledge preservation.
-
-The project maintains a continuously updated project model, architecture documentation, roadmap, worklogs and case studies to support long-term development.
-
-## AI-Assisted Development
-
-This project is developed using a Human + AI engineering workflow.
-
-ChatGPT is used as a technical copilot for research, troubleshooting, documentation, architecture review and project knowledge management.
-
-Final architecture decisions, implementation, validation and production ownership remain human-driven.
-
-- [AI Collaboration](docs/AI_COLLABORATION.md)
-- [AI-Assisted Development Flow](docs/diagrams/ai-assisted-development-flow.md)
-- [ADR-005 - AI-Assisted Development Workflow](docs/adr/ADR-005-ai-assisted-development.md)
-
-## Current Architecture - Alfred Ecosystem
-
-Keriol Home separates orchestration, speech, proactive policy and domain expertise into explicit components:
-
-- **Alfred** is the user-facing agent and registered-tool orchestrator.
-- **Osvaldo** decides whether proactive notifications are allowed, deferred, aggregated or denied.
-- **Charon** provides Plex and media-domain intelligence.
-- **Umberto** tracks milestones, tasks, commit evidence and checkout work.
-
-Interactive requests follow:
-
-    Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
-
-Proactive events follow:
-
-    Domain Event -> Queue or Dispatcher -> Osvaldo -> Shared Home Assistant Delivery
-
-Home Assistant remains responsible for physical orchestration and device wrappers. Alfred coordinates capabilities but does not replace the smart-home core.
-
-Relevant documentation:
-
-- [Architecture Overview](docs/architecture/overview.md)
-- [Alfred Ecosystem](docs/architecture/alfred-ecosystem.md)
-- [Architecture Diagram](docs/diagrams/architecture.md)
-- [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
-- [ADR-007 - Alfred Agent and Tool Registry](docs/adr/ADR-007-alfred-agent-tool-registry.md)
-- [ADR-006 - Proactive Notification Policy](docs/adr/ADR-006-proactive-notification-policy.md)
-- [Current Public Project Model](docs/project-model/project-model-public.md)
-- [Umberto Development Ledger](docs/analysis/umberto-development-ledger.md)
-- [Umberto Checkout Flow](docs/diagrams/umberto-checkout-flow.md)
 
 ## Featured Case Study - Alfred Laundry Workflow
 
-The laundry workflow is now one of the most complete portfolio-grade features in this project.
+The laundry workflow is one of the project's strongest examples of designing around real device behavior rather than optimistic command dispatch.
 
-Alfred the Butler can interact with the washing machine through an Alexa Custom Skill, a FastAPI bridge, Home Assistant and the hOn integration without exposing Home Assistant directly.
+The private Alfred deployment can interact with the washing machine through voice, Python services, Home Assistant and the appliance integration.
 
-Implemented capabilities:
+Validated capabilities include:
 
-- washing-machine status query
-- remaining-time query
+- washing-machine status queries
+- remaining-time queries
 - validated program catalog
-- Italian program names and aliases
-- true keyword search across the laundry catalog
-- paginated voice results for long program lists
-- validated remote start for allowlisted programs
-- remote stop command
+- translated program names and aliases
+- keyword search and pagination
+- allowlisted remote start
+- remote stop
 - cautious command language
-- program-name fallback when hOn reports generic values
-- asynchronous start/stop verification
-- hOn state refresh before each verification attempt
-- Echo notification after verified start/stop state
-- proactive washer-connected prompt with cooldown and guardrails
+- asynchronous state verification
+- integration refresh before verification
+- proactive follow-up after verified state changes
 
-Key design decision:
+The important design rule is simple:
 
-The system does not treat command dispatch as physical success. Alfred sends the command, then verifies the real washer state asynchronously before announcing the final result.
+**sending a command is not proof that the physical device changed state.**
 
-Remaining work:
-
-- validate active-cycle menu during more real washing cycles
-- refine Alexa Developer Console model for help, yes/no and exit routing
-- connect proactive prompts to stronger presence/home-context logic
-- monitor upstream hOn behavior for remote-start program naming
-- add future PV-aware laundry suggestions
+That lesson later became part of the reusable verified-workflow model used by Wilfred.
 
 Relevant documentation:
 
 - [Alexa Custom Skill Laundry MVP](docs/case-studies/alexa-custom-skill-laundry-mvp.md)
 - [Alfred Laundry Portfolio Analysis](docs/analysis/alfred-laundry-voice-ux-and-async-verification.md)
 - [Alfred Laundry Lessons Learned](docs/lessons-learned/alfred-laundry-voice-ux-and-async-verification.md)
-- [Alexa Laundry Async Verification Diagrams](docs/diagrams/alexa-laundry-async-verification.md)
+- [Alexa Laundry Async Verification](docs/diagrams/alexa-laundry-async-verification.md)
+
+## Development Approach
+
+The project uses an AI-assisted engineering workflow.
+
+Architecture decisions, implementation, testing and production ownership remain human-driven. AI is used for research, troubleshooting, design review, documentation, task planning and long-term knowledge preservation.
+
+- [AI Collaboration](docs/AI_COLLABORATION.md)
+- [AI-Assisted Development Flow](docs/diagrams/ai-assisted-development-flow.md)
+- [ADR-005 - AI-Assisted Development Workflow](docs/adr/ADR-005-ai-assisted-development.md)
+
+## Architecture Documentation
+
+- [Architecture Overview](docs/architecture/overview.md)
+- [Alfred Ecosystem](docs/architecture/alfred-ecosystem.md)
+- [Current Architecture Diagram](docs/diagrams/architecture.md)
+- [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
+- [ADR-008 - Butler Core, Wilfred and Alfred Layering](docs/adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+- [Current Public Project Model](docs/project-model/project-model-public.md)
+
+Historical worklogs, milestone snapshots and previous ADRs are intentionally retained as records of the architecture that existed at the time.
+
+## Public Safety
+
+This repository is intended to contain only sanitized architecture, documentation and examples.
+
+Secrets, credentials, private endpoints, personal data and unnecessary operational details are excluded.
+
+Legacy examples are periodically re-audited as the public/private boundary evolves.

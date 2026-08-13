@@ -5,126 +5,65 @@ flowchart TD
     User[User]
 
     subgraph Frontends
-        Alexa[Alexa]
-        Assist[Home Assistant Assist]
-        Web[Web / App / Messaging]
+        Voice[Voice Frontend]
+        Web[Web / App]
+        Other[Other Clients]
     end
 
-    subgraph Access
-        Tunnel[Cloudflare Tunnel]
-        VPN[Tailscale]
+    subgraph Private["Keriol Home - Private Deployment"]
+        Alfred[Alfred]
+        Osvaldo[Osvaldo Policy]
+        Charon[Charon Media Intelligence]
+        PrivateCaps[Private Validated Capabilities]
     end
 
-    subgraph Agent
-        API[FastAPI]
-        Alfred[Alfred Core]
-        Registry[Tool Registry]
+    subgraph Public["Reusable Public Butler Stack"]
+        Wilfred[Wilfred Runtime]
+        Core[Butler Core]
+        HAPlugin[wilfred-home-assistant]
     end
 
-    subgraph Proactive
-        Events[Domain Events]
-        Queue[Queue / Dispatcher]
-        Osvaldo[Osvaldo]
-        Snoozable[Snoozable Queue]
-        Delivery[Shared HA Delivery]
-    end
-
-    subgraph Core
+    subgraph Home["Smart Home Platform"]
         HA[Home Assistant]
-        MQTT[Mosquitto MQTT]
+        MQTT[MQTT]
         NodeRED[Node-RED]
+        Devices[Devices and Integrations]
     end
 
-    subgraph Domains
-        Laundry[Laundry]
-        RSVP[RSVP]
-        Operations[Server Operations]
-        Charon[Charon]
-    end
-
-    subgraph Services
-        Plex[Plex]
-        Tautulli[Tautulli]
-        NAS[QNAP NAS]
-        Python[Python Services]
-    end
-
-    subgraph Devices
-        Theater[Home Theater]
-        Lights[Lighting]
-        Climate[Climate]
-        Energy[Energy / UPS]
-        Cameras[Cameras / Security]
-        Presence[Presence]
-        Maker[Bambu / Maker]
-    end
-
-    User --> Alexa
-    User --> Assist
+    User --> Voice
     User --> Web
+    User --> Other
 
-    Alexa --> Tunnel
-    Web --> Tunnel
-    User --> VPN
+    Voice --> Alfred
+    Web --> Alfred
+    Other --> Alfred
 
-    Tunnel --> API
-    API --> Alfred
-    Alfred --> Registry
+    Alfred --> Wilfred
+    Wilfred --> Core
 
-    Registry --> Laundry
-    Registry --> RSVP
-    Registry --> Operations
-    Registry --> Charon
-    Registry --> HA
+    Wilfred --> HAPlugin
+    HAPlugin --> HA
 
-    Laundry --> Alfred
-    RSVP --> Alfred
-    Operations --> Alfred
-    Charon --> Alfred
-    HA --> Alfred
+    Alfred --> PrivateCaps
+    Alfred --> Charon
 
-    Alfred --> Alexa
-    Alfred --> Web
+    PrivateCaps --> Osvaldo
+    Charon --> Osvaldo
+    Osvaldo --> HA
 
-    Laundry --> Events
-    RSVP --> Events
-    Charon --> Events
-    HA --> Events
-
-    Events --> Queue
-    Queue --> Osvaldo
-    Osvaldo -->|Allow| Delivery
-    Osvaldo -->|Defer| Snoozable
-    Osvaldo -->|Deny| NoDelivery[No Delivery]
-    Snoozable --> Osvaldo
-    Delivery --> HA
-
-    Assist --> HA
-    VPN --> HA
-    VPN --> NAS
-    VPN --> NodeRED
-
+    HA --> Devices
     HA <--> MQTT
     HA <--> NodeRED
-    HA <--> Python
-
-    Charon --> Plex
-    Charon --> Tautulli
-    Plex --> NAS
-
-    HA --> Theater
-    HA --> Lights
-    HA --> Climate
-    HA --> Energy
-    HA --> Cameras
-    HA --> Presence
-    HA --> Maker
 ```
 
 ## Reading the Diagram
 
-The interactive path starts from a frontend and reaches Alfred through FastAPI. Alfred selects a registered domain tool and returns the response through the active frontend.
+The reusable public stack consists of Butler Core, Wilfred and public plugins.
 
-The proactive path starts from a domain event. Osvaldo decides whether the event may be delivered, deferred or denied before the shared Home Assistant delivery service is involved.
+Alfred is the private Keriol Home deployment built above that reusable runtime.
 
-Home Assistant remains responsible for physical orchestration and device wrappers. Alfred coordinates capabilities but does not replace the home-automation core.
+Private capabilities may use Wilfred execution facilities while remaining unavailable from the public distribution.
+
+Home Assistant remains the owner of physical device orchestration.
+
+Capabilities validated privately may later be generalized into Wilfred or an official plugin, but extraction is neither automatic nor a release commitment.

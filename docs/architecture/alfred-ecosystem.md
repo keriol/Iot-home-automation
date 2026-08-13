@@ -1,115 +1,123 @@
 # Alfred Ecosystem
 
-Keriol Home separates user interaction, orchestration, notification policy and domain expertise into components with explicit responsibilities.
+Alfred is the private Keriol Home Butler deployment and the real-world proving ground from which much of the reusable Wilfred architecture has been extracted.
 
-The platform grows through registered tools and domain services rather than by increasing the complexity of the central agent.
+## Runtime Relationship
 
-## Alfred the Butler
+The current layering is:
 
-Alfred is the user-facing agent and tool orchestrator.
+    Butler Core
+        |
+        v
+      Wilfred
+        |
+        v
+      Alfred
 
-Alfred receives requests from supported frontends, selects registered tools, validates parameters and presents the result.
+Butler Core provides shared provider-neutral contracts and execution semantics.
 
-Known requests follow deterministic routes. AI planning is used only when language, ambiguity or multi-tool workflows require it.
+Wilfred provides the reusable public Butler runtime.
 
-Alfred does not directly implement every smart-home feature. New capabilities are exposed through tools owned by their respective domains.
+Alfred builds Keriol-specific behavior on top of that runtime.
 
-Purpose:
+Some older Alfred paths existed before Wilfred and are still being migrated toward this layering.
 
-- provide one coherent interface to Keriol Home;
-- route requests to the correct capability;
-- enforce tool permissions and confirmation rules;
-- keep domain logic outside the agent core.
+## Alfred
 
-## Voice Rendering
+Alfred owns the Keriol-specific interaction layer and orchestration context.
 
-Voice and SSML rendering are frontend-specific implementation details rather than independent Keriol Home components.
+Its responsibilities include:
 
-Alexa response payloads may select a supported voice and rendering mode, but those parameters do not own routing, policy or delivery decisions.
+- receiving requests from supported frontends
+- routing Keriol-specific interactions
+- using reusable Wilfred execution facilities
+- exposing private domain capabilities
+- coordinating private policy and domain services
+- preserving confirmation and safety boundaries
+
+Alfred is not the smart-home platform itself.
+
+Home Assistant remains responsible for physical orchestration and device wrappers.
 
 ## Osvaldo
 
-Osvaldo is the policy layer for proactive communication.
+Osvaldo is the private proactive communication policy layer.
 
-It evaluates whether an unsolicited notification should be delivered immediately, deferred, aggregated or denied.
+It evaluates unsolicited events and may:
 
-Its decisions may consider:
+- allow immediate delivery
+- defer delivery
+- aggregate compatible events
+- deny delivery
+- select applicable communication policy
 
-- quiet hours;
-- notification importance;
-- aggregation rules;
-- speech mode;
-- future presence and house-mode context.
-
-Direct responses to explicit user requests do not require Osvaldo's permission. Proactive events do.
-
-Purpose:
-
-- prevent automations from becoming noisy or intrusive;
-- centralize proactive communication rules;
-- keep delivery decisions consistent across domains;
-- make proactive behavior explainable.
+Interactive responses to explicit requests do not require proactive-policy approval.
 
 ## Charon
 
-Charon is the media curator for Plex and related services.
+Charon owns media-domain intelligence.
 
-It provides media-domain knowledge such as library status, search, recent activity, catalog quality, missing-title analysis and future recommendations.
+It may handle discovery, catalog quality, playback decisions, lifecycle analysis and other media-specific concerns while exposing useful capabilities through the Butler tool surface.
 
-Charon exposes its capabilities to Alfred through registered tools.
+Charon does not replace Alfred or Wilfred.
 
-Charon does not replace Alfred. Alfred owns the conversation and orchestration; Charon owns media intelligence.
+## Umberto
 
-Purpose:
+Umberto is the development ledger and checkout coordinator.
 
-- isolate media-specific logic from Alfred Core;
-- support catalog curation and recommendation workflows;
-- evolve Plex intelligence without increasing agent complexity.
+It tracks tasks, milestones, implementation evidence and repository-level development state.
 
-## Interaction Models
+It is a development-support concern rather than a runtime orchestration layer.
 
-### Interactive request
+## Interactive Flow
 
-A user explicitly asks Alfred for information or an action.
+A private Keriol interaction follows the reusable runtime path:
 
-Flow:
+    Frontend
+      -> Alfred
+      -> Wilfred runtime
+      -> Registered capability
+      -> Domain / Integration
+      -> Alfred
+      -> Frontend
 
-Frontend -> Alfred -> Tool Registry -> Domain Tool -> Alfred -> Frontend
+Presentation and speech rendering belong to the active frontend.
 
-Interactive replies are not blocked by proactive notification policy.
+## Proactive Flow
 
-### Proactive notification
+A proactive domain event follows:
 
-A domain event may require unsolicited communication.
+    Domain Event
+      -> Queue / Dispatcher
+      -> Osvaldo
+      -> Shared Delivery
+      -> Notification Frontend
 
-Flow:
+The originating domain describes the event.
 
-Domain Event -> Queue or Dispatcher -> Osvaldo
+Osvaldo decides whether and when it may be communicated.
 
-Osvaldo may then:
+The delivery implementation does not own policy.
 
-- allow delivery through shared Home Assistant delivery;
-- defer the event to the snoozable queue;
-- deny delivery.
+## Capability Status
 
-The originating domain describes the event. Osvaldo decides whether and when it may be communicated.
+Alfred may contain functionality that is not available in public Wilfred releases.
+
+Documentation should distinguish:
+
+- **Public** capabilities already available from Wilfred, Butler Core or an official plugin.
+- **Private validated** capabilities running in Keriol Home.
+- **Candidate** capabilities that may later be generalized for public release.
+
+A private capability is evidence of real-world validation, not a promise that an identical public feature will ship.
 
 ## Component Boundaries
 
-- Home Assistant owns physical orchestration and device wrappers.
-- Alfred owns request routing and tool execution.
-- Voice rendering remains frontend-specific.
-- Osvaldo owns proactive notification policy.
+- Butler Core owns provider-neutral foundations.
+- Wilfred owns the reusable Butler runtime.
+- Alfred owns Keriol-specific orchestration and interaction.
+- Home Assistant owns physical orchestration.
+- Osvaldo owns proactive communication policy.
 - Charon owns media-domain intelligence.
-- Shared delivery owns the physical Home Assistant notification call.
-- Domain services must not duplicate policy or delivery logic.
-
-## Extension Rule
-
-New capabilities should be added as registered tools or domain events.
-
-Examples include presence, cameras, energy, climate, NAS health, calendar, weather and maker workflows.
-
-The central rule remains:
-
-> Alfred is not the software of the house. Alfred is the component that knows how to talk to every software service of the house.
+- Frontends own presentation-specific rendering.
+- Domain services should not duplicate policy or execution boundaries.

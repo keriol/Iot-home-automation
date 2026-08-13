@@ -21,6 +21,8 @@
 
 ## Architecture Decision Records
 
+- [ADR-008 - Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+
 - [ADR-001 - Home Assistant as Orchestrator](adr/ADR-001-home-assistant-as-orchestrator.md)
 - [ADR-002 - MQTT as Event Bus](adr/ADR-002-mqtt-as-event-bus.md)
 - [ADR-003 - Tailscale for Private Access](adr/ADR-003-tailscale-for-private-access.md)

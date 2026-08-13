@@ -2,23 +2,28 @@
 
 ```mermaid
 flowchart TD
-    User[User] --> Frontend[Alexa / Web / Telegram / App]
-    Frontend --> API[FastAPI]
-    API --> Alfred[Alfred Core]
-    Alfred --> Registry[Tool Registry]
-    Registry --> Tool[Domain Tool]
-    Tool --> Alfred
+    User[User] --> Frontend[Voice / Web / App]
+    Frontend --> Alfred[Alfred]
+
+    Alfred --> Wilfred[Wilfred Runtime]
+    Wilfred --> Core[Butler Core]
+    Wilfred --> Capability[Registered Capability]
+
+    Capability --> Domain[Domain / Integration]
+    Domain --> Capability
+    Capability --> Wilfred
+    Wilfred --> Alfred
     Alfred --> Frontend
 
     Event[Domain Event] --> Queue[Queue / Dispatcher]
     Queue --> Osvaldo[Osvaldo Policy]
 
-    Osvaldo -->|Allow| Delivery[Shared Home Assistant Delivery]
+    Osvaldo -->|Allow| Delivery[Shared Delivery]
     Osvaldo -->|Defer| Snoozable[Snoozable Queue]
     Osvaldo -->|Deny| NoDelivery[No Delivery]
 
     Snoozable --> Osvaldo
-    Delivery --> NotificationFrontend[Voice / Notification Frontend]
+    Delivery --> NotificationFrontend[Notification Frontend]
 
     Alfred --> Charon[Charon Media Intelligence]
     Charon --> Alfred
@@ -28,22 +33,22 @@ flowchart TD
 
 The interactive path starts with an explicit user request.
 
-Alfred selects and executes a registered tool, then returns the response through the active frontend.
+Alfred supplies Keriol-specific interaction context while Wilfred provides the reusable execution runtime.
 
-Osvaldo does not decide whether an interactive response may be delivered.
+The result returns through the active frontend.
+
+Frontend-specific presentation remains outside the Butler architecture.
 
 ## Proactive Flow
 
-The proactive path starts with a domain event rather than an explicit user request.
+The proactive path starts with a domain event.
 
-Osvaldo evaluates whether the event should be delivered immediately, deferred to the snoozable queue or denied.
+Osvaldo determines whether communication is allowed, deferred, aggregated or denied before shared delivery occurs.
 
-Allowed messages are sent through the shared Home Assistant delivery service.
+## Public / Private Boundary
 
-## Boundaries
+Wilfred and Butler Core are reusable public components.
 
-- Alfred owns request routing and tool execution.
-- Osvaldo owns proactive notification policy.
-- Charon owns media-domain intelligence.
-- Domain services emit events but do not own delivery policy.
-- Shared delivery owns the physical Home Assistant notification call.
+Alfred, Osvaldo and Charon belong to the private Keriol deployment, although selected sanitized architecture and case studies may be documented publicly.
+
+Private validated functionality may later become a candidate for extraction into the public runtime.
