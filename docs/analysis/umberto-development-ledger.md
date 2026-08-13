@@ -55,7 +55,7 @@ The planned checkout engine will:
 
 ## Public Example
 
-- [Sanitized SQLite Development Ledger](../../examples/umberto/development_ledger_sanitized.py)
+- The portfolio documents the ledger architecture and behavior; implementation remains outside this documentation repository.
 - [Checkout Flow Diagram](../diagrams/umberto-checkout-flow.md)
 
 ## Design Principles

@@ -14,12 +14,20 @@
 
 ## Architecture
 
+- [Alfred Proving Ground](architecture/alfred-proving-ground.md)
+
 - [Architecture Overview](architecture/overview.md)
 - [Alfred Ecosystem](architecture/alfred-ecosystem.md)
 - [Docker Stack](architecture/docker-stack.md)
 - [Server Paths](architecture/server-paths.md)
 
 ## Architecture Decision Records
+
+- [ADR-010 - Public Portfolio Documentation Boundary](adr/ADR-010-public-portfolio-documentation-boundary.md)
+
+- [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md)
+
+- [ADR-008 - Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md)
 
 - [ADR-001 - Home Assistant as Orchestrator](adr/ADR-001-home-assistant-as-orchestrator.md)
 - [ADR-002 - MQTT as Event Bus](adr/ADR-002-mqtt-as-event-bus.md)
@@ -50,7 +58,7 @@
 
 - [Umberto Development Ledger](analysis/umberto-development-ledger.md)
 - [Umberto Checkout Flow](diagrams/umberto-checkout-flow.md)
-- [Sanitized SQLite Ledger Example](../examples/umberto/development_ledger_sanitized.py)
+- [Umberto Development Ledger Analysis](analysis/umberto-development-ledger.md)
 
 - [AI Collaboration](AI_COLLABORATION.md)
 - [AI-Assisted Development Flow](diagrams/ai-assisted-development-flow.md)
@@ -67,5 +75,4 @@ Recent public-safe documentation for the Alfred the Butler laundry workflow:
 
 Sanitized Python examples:
 
-- [Laundry Async Verification](../examples/alexa-ha-bridge/laundry_async_verification_sanitized.py)
-- [Laundry Search Pagination](../examples/alexa-ha-bridge/laundry_search_pagination_sanitized.py)
+- [Laundry Voice and Verification Case Study](case-studies/alexa-custom-skill-laundry-mvp.md)

@@ -2,7 +2,10 @@
 
 ## Status
 
-Accepted
+Superseded in part by ADR-009
+
+
+> **Current note:** the project-model workflow described below reflects the earlier development phase. ADR-009 now assigns active development state to Umberto, versioned implementation to Git, and operational truth to live runtime verification. The project model remains a derived architectural summary.
 
 ## Context
 

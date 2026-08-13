@@ -1,28 +1,49 @@
-# Project Model
+# Project Context
 
-This directory contains public-safe project model snapshots.
+The files in this directory retain their historical `project-model` naming for compatibility, but the active document is now a **derived architectural context snapshot** rather than a development-state database.
 
-The active private model lives in the local-only Alfred repository and is never committed here.
+## Sources of Truth
 
-## Export
+- **Git** owns versioned implementation and documentation.
+- **Umberto** owns active development state, milestones, dependencies and evidence.
+- **Live systems** own operational and physical state.
+- **Project context** provides a compact derived architectural view.
 
-Run:
+See [ADR-009 - Development State Sources of Truth](../adr/ADR-009-development-state-sources-of-truth.md).
 
-    ./scripts/export-project-model.sh
+## Current Public Context
 
-Optional date override:
+The current public-safe context is:
 
-    ./scripts/export-project-model.sh 2026-07-15
+`docs/project-model/project-model-public.md`
 
-Default private source:
+It describes architectural layering, component responsibilities, maturity, public/private boundaries and durable engineering rules.
 
-    $HOME/alexa-ha-bridge/docs/model/home-automation-project-model-private.md
+It intentionally does not duplicate the full development ledger.
 
-Override:
+## Refresh Policy
 
-    PRIVATE_MODEL_PATH=/custom/path/model.md \
-      ./scripts/export-project-model.sh
+Refresh the current context after significant:
 
-The exporter removes private-only sections, sanitizes infrastructure identifiers and validates both models against the strict `<8K` character limit.
+- architecture changes;
+- ownership changes;
+- public/private boundary changes;
+- release-baseline changes.
 
-Every generated diff must be reviewed before commit and push.
+Do not refresh it merely because a task moves, a commit lands, a test passes or runtime health changes.
+
+## Historical Snapshots
+
+Dated files are immutable historical snapshots.
+
+They preserve the architecture and terminology that were current when created.
+
+## Snapshot Tool
+
+`scripts/export-project-model.sh` validates the curated public context and creates an immutable dated snapshot.
+
+It does not derive public documentation mechanically from the private context.
+
+## Public Safety
+
+The public context must exclude readable private-derived implementation, secrets, credentials, personal data, private endpoints, unnecessary real entity IDs, sensitive operational details and private-only implementation.

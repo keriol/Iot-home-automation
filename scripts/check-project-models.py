@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 import re
 import sys
 from pathlib import Path
@@ -10,44 +9,29 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MAX_CHARS = 8000
 
-PRIVATE_MODEL = Path(
-    os.environ.get(
-        "PRIVATE_MODEL_PATH",
-        Path.home()
-        / "alexa-ha-bridge"
-        / "docs"
-        / "model"
-        / "home-automation-project-model-private.md",
-    )
-).expanduser().resolve()
-
-PUBLIC_MODEL = (
+PUBLIC_CONTEXT = (
     ROOT
     / "docs"
     / "project-model"
     / "project-model-public.md"
 )
 
-PRIVATE_MARKERS = [
-    "HOME AUTOMATION PROJECT MODEL - PRIVATE ACTIVE",
+REQUIRED_MARKERS = [
+    "HOME AUTOMATION PROJECT CONTEXT - PUBLIC",
+    "SOURCES OF TRUTH",
+    "Butler Core -> Wilfred -> Alfred",
+    "Butler Core",
+    "Wilfred",
     "Alfred the Butler",
-    "Presence:",
-    "Security/cameras:",
-    "Energy/UPS:",
-    "ROADMAP",
-]
-
-PUBLIC_MARKERS = [
-    "HOME AUTOMATION PROJECT MODEL - PUBLIC",
-    "Alfred the Butler",
-    "Tool Registry",
     "Osvaldo",
     "Charon",
-    "Presence:",
-    "Security/cameras:",
-    "Energy/UPS:",
-    "Climate:",
-    "ROADMAP",
+    "Umberto",
+    "CAPABILITY MATURITY",
+    "OPEN WORKSHOP",
+    "HOME ASSISTANT BOUNDARY",
+    "PUBLIC BOUNDARY",
+    "REFERENCE MAP",
+    "CURRENT DIRECTION",
 ]
 
 SENSITIVE_PATTERNS = [
@@ -73,44 +57,33 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
-def read_model(path: Path) -> str:
-    if not path.is_file():
-        fail(f"Missing model: {path}")
+def main() -> int:
+    if not PUBLIC_CONTEXT.is_file():
+        fail(f"Missing public context: {PUBLIC_CONTEXT}")
 
-    text = path.read_text(encoding="utf-8")
-    print(f"{path}: {len(text)} chars")
+    text = PUBLIC_CONTEXT.read_text(encoding="utf-8")
+
+    print(f"{PUBLIC_CONTEXT}: {len(text)} chars")
 
     if len(text) >= MAX_CHARS:
-        fail(f"{path} violates the <8K requirement")
+        fail(f"{PUBLIC_CONTEXT} violates the <8K requirement")
 
-    return text
-
-
-def require_markers(
-    label: str,
-    text: str,
-    markers: list[str],
-) -> None:
-    for marker in markers:
+    for marker in REQUIRED_MARKERS:
         if marker not in text:
-            fail(f"{label} missing marker: {marker}")
-
-
-def main() -> int:
-    if ROOT in PRIVATE_MODEL.parents:
-        fail("Private model must remain outside the public repository")
-
-    private_text = read_model(PRIVATE_MODEL)
-    public_text = read_model(PUBLIC_MODEL)
-
-    require_markers("Private model", private_text, PRIVATE_MARKERS)
-    require_markers("Public model", public_text, PUBLIC_MARKERS)
+            fail(f"Public context missing marker: {marker}")
 
     for pattern in SENSITIVE_PATTERNS:
-        if re.search(pattern, public_text):
-            fail(f"Public model contains private pattern: {pattern}")
+        if re.search(pattern, text):
+            fail(
+                "Public context contains private pattern: "
+                f"{pattern}"
+            )
 
-    print("OK: private and public project models passed validation")
+    print(
+        "OK: public project context passed "
+        "architecture and safety validation"
+    )
+
     return 0
 
 

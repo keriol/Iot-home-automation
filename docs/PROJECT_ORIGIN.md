@@ -2,89 +2,114 @@
 
 ## Why This Project Exists
 
-This project did not start as a portfolio project.
+Keriol Home did not begin as a framework project.
 
-It started as a simple personal automation experiment focused on improving everyday life through voice assistants and smart-home integrations.
+It began as a real household automation system built around Home Assistant and gradually accumulated voice control, media workflows, energy telemetry, presence experiments, appliance integrations and custom Python services.
 
-The first goal was relatively small: generate useful voice notifications and automate a few repetitive household tasks.
-
-Over time, the project expanded into a broader home automation and IoT platform.
+The Butler architecture emerged from the problems encountered while operating that system.
 
 ## Evolution
 
-### Phase 1 - Voice Automation
+### Phase 1 - Home automation
 
-Initial experiments focused on:
+Home Assistant became the owner of physical orchestration, device integrations, dashboards and automation wrappers.
 
-- Alexa notifications
-- Voice announcements
-- Basic automations
+MQTT and Node-RED were added where event distribution or visual multi-event flows made them useful.
 
-### Phase 2 - Media Integration
+### Phase 2 - Voice and service integration
 
-The platform evolved to include:
+Voice assistants became frontends rather than automation brains.
 
-- Plex integration
-- Voice-controlled media playback
-- Smart home theater workflows
+Python and FastAPI services handled validation, external APIs and workflows that did not belong inside Home Assistant YAML.
 
-### Phase 3 - Energy Monitoring
+### Phase 3 - Alfred
 
-The project expanded into energy management:
+As the number of domains increased, Keriol Home needed one coherent interaction and orchestration layer.
 
-- Solar inverter integration
-- Battery monitoring
-- MQTT telemetry
-- Energy dashboards
+Alfred emerged as the private Butler of the house.
 
-### Phase 4 - Infrastructure
+The early Alfred architecture introduced registered tools, deterministic routing, permissions, confirmations and AI fallback while keeping domain ownership outside the agent itself.
 
-The platform gained supporting infrastructure:
+### Phase 4 - Real-world safety
 
-- Dockerized services
-- MQTT event bus
-- Node-RED workflows
-- Secure remote access
-- HTTPS integrations
+Physical integrations exposed an important difference between software acknowledgement and reality.
 
-### Phase 5 - Presence and Intelligence
+A service call returning successfully did not mean that a television, washing machine or other physical device had reached the requested state.
 
-Current development focuses on:
+This led to explicit verification patterns:
 
-- BLE presence detection
-- Occupancy logic
-- Context-aware automations
-- Energy-aware suggestions
+    READ -> ACTION -> READ -> VERIFY
 
-## AI-Assisted Development
+The private deployment became a useful proving ground for execution semantics that were more general than Keriol Home itself.
 
-As the project grew in complexity, AI-assisted engineering practices were introduced.
+### Phase 5 - Butler Core
 
-AI is used as a technical copilot for:
+Reusable contracts and execution primitives were extracted from Alfred into Butler Core.
 
-- Research
-- Documentation
-- Troubleshooting
-- Architecture reviews
-- Knowledge management
+Butler Core intentionally stays provider-neutral and knows nothing about the specific house, voice frontend or device inventory.
 
-Final implementation, validation and production decisions remain under human control.
+### Phase 6 - Wilfred
 
-## Current Vision
+Wilfred was created as the reusable public Butler runtime built on Butler Core.
 
-The goal is no longer simply home automation.
+Instead of publishing the private Keriol deployment, the reusable execution model was generalized into an independent runtime with tools, workflows, planning, confirmation boundaries, output contracts, APIs and plugins.
 
-The project serves as:
+The Home Assistant integration was likewise separated into an official public plugin.
 
-- A personal smart-home platform
-- An IoT experimentation environment
-- A software engineering playground
-- A continuous learning project
-- A public portfolio demonstrating real-world automation, integration and infrastructure skills
+### Phase 7 - Current architecture
 
+Today the relationship is:
 
-## Repository Scope
+    Butler Core
+        |
+        v
+      Wilfred
+        |
+        v
+      Alfred
 
-The underlying smart-home environment evolved before this repository existed.
+Butler Core provides the shared foundations.
 
-This repository documents the structured project phase: the moment the platform started being managed as an engineering project with architecture documentation, roadmap, worklogs, public-safe examples, metrics, case studies and AI-assisted development practices.
+Wilfred provides the reusable public runtime.
+
+Alfred is the private real-world deployment that uses and extends that runtime for Keriol Home.
+
+Some older Alfred paths predate Wilfred and are still being converged onto this model.
+
+## Private Proving Ground, Public Runtime
+
+Alfred may contain capabilities that are more advanced than the current public Wilfred release.
+
+That does not make them public features automatically.
+
+The portfolio therefore distinguishes:
+
+- **Public**
+- **Private validated**
+- **Candidate**
+
+Private validation provides engineering evidence.
+
+Public extraction requires deliberate generalization, tests, documentation and a clean public boundary.
+
+## Home Assistant Remains the Home
+
+The Butler is not the smart-home software.
+
+Home Assistant continues to own physical orchestration and device integration.
+
+The Butler knows how to talk to the services of the house without replacing those services.
+
+## Public Repository Scope
+
+This repository documents:
+
+- the architecture and evolution of Keriol Home;
+- sanitized real-world case studies;
+- the relationship between Alfred, Wilfred and Butler Core;
+- reusable engineering lessons;
+- public-safe diagrams and conceptual flows.
+
+It does not publish the private Alfred implementation, secrets, credentials, private operational data or unnecessary household identifiers.
+
+Historical worklogs and snapshots are retained because they show how the architecture evolved rather than pretending the current design existed from the beginning.

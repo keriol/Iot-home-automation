@@ -26,20 +26,22 @@ AI is actively used for:
 - Technology evaluation
 - Research and feasibility analysis
 
-## Project Model
+## Development Context and Sources of Truth
 
-A compact project model is maintained and continuously updated.
+The project originally relied on a continuously updated project model to preserve development context.
 
-The model contains:
+As the platform became multi-repository and Umberto matured, that responsibility was separated into explicit sources of truth:
 
-- Current architecture
-- Working integrations
-- Priorities
-- Open tasks
-- Design decisions
-- Lessons learned
+- **Git** owns versioned implementation and documentation.
+- **Umberto** owns tasks, milestones, priorities, dependencies and development evidence.
+- **Live runtime state** owns operational truth.
+- **Project models** provide compact derived architectural context.
 
-The model acts as a persistent knowledge base and allows development sessions to continue without losing context.
+The project model is therefore no longer a manually synchronized task ledger or the primary development-state authority.
+
+It is refreshed when architectural changes or release milestones make a new compact snapshot useful.
+
+See [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md).
 
 ## Development Workflow
 
