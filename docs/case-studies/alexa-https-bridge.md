@@ -1,5 +1,7 @@
 # Alexa HTTPS Bridge MVP
 
+> **Historical engineering milestone.** This case study documents an earlier standalone Alexa-to-Home-Assistant bridge used before the current Alfred / Wilfred / Hermes ownership model matured. The implementation remains useful as evidence of the integration path and security decisions, but it should not be read as the complete current Butler architecture. See the current architecture documentation for present ownership boundaries.
+
 ## Problem
 
 Voice assistants are excellent at triggering predefined actions, but become limiting when dynamic queries, parameterized requests, or custom integrations are required.
@@ -74,25 +76,22 @@ Future appliance control capabilities will require:
 - Explicit safety checks
 - No fuzzy matching for critical commands
 
-## Future Evolution
+## Future Evolution at the Time
 
-Planned integrations:
+The original milestone anticipated richer Alexa intents, laundry catalog queries, media search/playback and controlled appliance workflows.
 
-- Alexa Custom Skill
-- Laundry catalog queries
-- Plex media search
-- Plex playback control
-- Future voice-driven appliance workflows
+Those directions later evolved under the broader Butler architecture. Current ownership and maturity should therefore be read from the current architecture, project status and roadmap rather than inferred from this historical future-work section.
 
 ## Lessons Learned
 
 Cloudflare Tunnel provides a lightweight method to publish secure HTTPS endpoints without exposing ports or deploying a traditional reverse proxy.
 
-A dedicated bridge layer significantly simplifies future integrations while keeping Home Assistant isolated from external consumers.
+A dedicated bridge layer significantly simplified early integrations while keeping Home Assistant isolated from external consumers.
+
+The later architecture preserved the important boundary lesson while moving interaction, capability and delivery ownership into clearer layers.
 
 ## Outcome
 
 A complete HTTPS path was validated from an external client to Home Assistant through Cloudflare Tunnel and a dedicated FastAPI backend.
 
-This capability establishes the foundation for future voice-driven integrations including Alexa Custom Skills, Plex media search, appliance catalogs, and controlled remote appliance operations.
-
+The enduring portfolio value of this milestone is the security boundary and iterative architecture lesson, not the claim that this bridge remains the complete current Alfred design.
