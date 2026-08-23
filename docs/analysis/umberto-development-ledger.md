@@ -1,67 +1,64 @@
-# Umberto Development Ledger
+# Historical Analysis - Umberto Development Ledger
 
-## Purpose
+## Status
 
-Umberto is the development ledger and checkout coordinator for Keriol Home.
+**Superseded historical evidence.**
 
-It keeps engineering planning separate from the smart-home runtime. Alfred operates the house; Umberto records what work exists, what is active and which evidence supports completion.
+This document describes the development-ledger model used before GitHub became the development source of truth. It is retained to preserve the evolution of the engineering workflow.
 
-## Current Foundation
+Current development governance is defined by [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-development-source-of-truth.md).
 
-The current implementation provides:
+## Historical Purpose
 
-- SQLite-backed milestones and tasks
-- explicit status and priority values
-- owner, branch and acceptance criteria
-- task-to-commit evidence
-- deterministic task ordering
-- session-start summaries
-- Markdown ledger export
-- automated unit tests
+Umberto was used as the structured development ledger and checkout coordinator for Keriol Home.
 
-The runtime SQLite database remains local and is not published.
+It kept engineering planning separate from the smart-home runtime: Alfred operated the house while the ledger recorded work, status and completion evidence.
+
+## Historical Foundation
+
+The implementation provided:
+
+- SQLite-backed milestones and tasks;
+- explicit status and priority values;
+- owner, branch and acceptance criteria;
+- task-to-commit evidence;
+- deterministic task ordering;
+- session-start summaries;
+- Markdown ledger export;
+- automated unit tests.
+
+The runtime database remained private and was never part of the public portfolio.
 
 ## Structural Model
 
-| Entity | Purpose |
+| Entity | Historical purpose |
 |---|---|
-| Milestone | Groups work into an ordered delivery horizon |
-| Task | Stores scope, status, priority, owner and acceptance criteria |
-| Dependency | Describes prerequisites between tasks |
-| Commit evidence | Links implementation history to planning records |
-| Markdown export | Produces a reviewable development snapshot |
+| Milestone | Group work into an ordered delivery horizon |
+| Task | Store scope, status, priority, owner and acceptance criteria |
+| Dependency | Describe prerequisites between tasks |
+| Commit evidence | Link implementation history to planning records |
+| Markdown export | Produce a reviewable development snapshot |
 
 ## Deterministic Selection
 
-Task recommendation does not require an AI model.
+Task recommendation did not require an AI model.
 
-Current ordering prefers work already in progress, followed by review, ready and backlog work. Within the same status, higher priority wins. Blocked, completed and cancelled work is excluded.
+Ordering preferred work already in progress, followed by review, ready and backlog work. Within the same status, higher priority won. Blocked, completed and cancelled work were excluded.
 
-This makes recommendations repeatable and explainable.
+This made recommendations repeatable and explainable.
 
-## Checkout Direction
+## Checkout Direction at the Time
 
-The planned checkout engine will:
+The planned checkout model aimed to combine service health, compile/test evidence, documentation, sanitization, diff review and explicit human approval before publication.
 
-1. read task requirements
-2. verify service health
-3. compile and run declared tests
-4. collect closure evidence
-5. generate reviewable documentation
-6. validate the private-to-public boundary
-7. show repository diffs
-8. prepare task-aware commit messages
-9. require human approval before commit, merge or push
+That direction remains historically interesting, but the active Butler development workflow now uses GitHub Issues and Git rather than this ledger.
 
-## Public Example
+## Historical Diagram
 
-- The portfolio documents the ledger architecture and behavior; implementation remains outside this documentation repository.
-- [Checkout Flow Diagram](../diagrams/umberto-checkout-flow.md)
+- [Historical Checkout Flow Diagram](../diagrams/umberto-checkout-flow.md)
 
-## Design Principles
+## Current Interpretation
 
-- planning state has one source of truth
-- task closure requires real evidence
-- generated documentation remains reviewable
-- checkout automation never bypasses human Git approval
-- private operational details never enter the public portfolio
+The useful lesson retained from this experiment is the separation between planning, implementation evidence, runtime evidence and human approval.
+
+The tooling itself is retired from Butler development and must not override current GitHub, Git or live-system evidence.
