@@ -4,78 +4,92 @@
 
 This project follows a hybrid engineering workflow that combines human decision-making with AI-assisted development.
 
-The platform was originally started as a personal home automation experiment and gradually evolved into a structured smart-home and IoT platform.
+The platform began as a personal home-automation experiment and gradually evolved into a structured smart-home and IoT platform with reusable Butler components.
 
-Throughout the project lifecycle, AI tools have been used as technical copilots to support research, architecture reviews, troubleshooting, documentation and knowledge management.
+AI tools are used as technical copilots for research, architecture review, troubleshooting, documentation, planning and knowledge organization.
 
-All architecture decisions, implementation choices and production validations remain under human control.
+Architecture decisions, implementation choices, safety decisions and production validation remain under human control.
 
 ## AI Usage Areas
 
 AI is actively used for:
 
-- Architecture reviews
-- Design discussions
-- Troubleshooting assistance
-- Documentation generation
-- Roadmap management
-- Knowledge management
-- Automation design reviews
-- Code review support
-- Refactoring suggestions
-- Technology evaluation
-- Research and feasibility analysis
+- architecture reviews;
+- design discussions;
+- troubleshooting assistance;
+- documentation generation and review;
+- GitHub issue/task planning;
+- knowledge management;
+- automation design review;
+- code review support;
+- refactoring suggestions;
+- technology evaluation;
+- research and feasibility analysis.
 
 ## Development Context and Sources of Truth
 
-The project originally relied on a continuously updated project model to preserve development context.
+The project originally relied on a continuously updated project model, and later on a separate private development ledger, to preserve development context.
 
-As the platform became multi-repository and Umberto matured, that responsibility was separated into explicit sources of truth:
+As the Butler ecosystem became multi-repository and increasingly public, development ownership moved to GitHub.
 
-- **Git** owns versioned implementation and documentation.
-- **Umberto** owns tasks, milestones, priorities, dependencies and development evidence.
-- **Live runtime state** owns operational truth.
-- **Project models** provide compact derived architectural context.
+Current authority is split deliberately:
 
-The project model is therefore no longer a manually synchronized task ledger or the primary development-state authority.
+- **GitHub Issues** own tasks, priorities, dependencies, planning and active development status.
+- **Git `main`** owns merged implementation and versioned documentation.
+- **Commits, tags, workflows and releases** provide implementation and release evidence.
+- **Live systems** own deployed operational truth.
+- **Project models and portfolio analysis** provide compact derived architectural context.
 
-It is refreshed when architectural changes or release milestones make a new compact snapshot useful.
+The project model is therefore neither a task ledger nor the primary development-state authority.
 
-See [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md).
+See [ADR-011 - GitHub as Development Source of Truth](adr/ADR-011-github-development-source-of-truth.md).
+
+Older ADRs and historical snapshots retain the governance model that was current when they were written.
 
 ## Development Workflow
 
-Human responsibilities:
+Human responsibilities include:
 
-- Requirements
-- Architecture decisions
-- Security decisions
-- Implementation
-- Validation
-- Production testing
+- requirements and priorities;
+- architecture and ownership decisions;
+- security and privacy decisions;
+- implementation acceptance;
+- validation strategy;
+- production/runtime verification.
 
-AI responsibilities:
+AI-assisted responsibilities include:
 
-- Knowledge retrieval
-- Documentation support
-- Troubleshooting support
-- Design review
-- Alternative solution exploration
-- Knowledge organization
+- knowledge retrieval;
+- documentation support;
+- troubleshooting support;
+- design review;
+- alternative-solution exploration;
+- repository/state analysis;
+- structured knowledge organization.
+
+## Evidence Discipline
+
+AI-generated analysis does not promote a feature to released or available status.
+
+Portfolio and release claims remain grounded in the authoritative evidence for the owning layer:
+
+- issue state for planned/active work;
+- Git for merged implementation;
+- tags/releases/workflows for release evidence;
+- live systems for runtime behavior.
 
 ## Benefits
 
 Observed benefits include:
 
-- Faster experimentation
-- Better documentation quality
-- Reduced knowledge loss
-- Faster troubleshooting
-- Consistent architectural decisions
-- Improved project continuity
+- faster experimentation;
+- stronger documentation continuity;
+- reduced knowledge loss;
+- faster troubleshooting;
+- more explicit architectural trade-offs;
+- improved multi-repository continuity;
+- retained intermediate analysis for later review.
 
 ## Important Note
 
-AI assists the development process but does not replace engineering judgment.
-
-All final technical decisions and production deployments remain the responsibility of the project maintainer.
+AI assists the engineering process but does not replace engineering judgment or observable verification.
