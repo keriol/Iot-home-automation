@@ -2,67 +2,91 @@
 
 ## Overview
 
-This project combines software engineering, IoT integration, networking, automation and AI-assisted development practices.
+This portfolio demonstrates software engineering, IoT integration, automation, networking and AI-assisted development through a real smart-home proving ground and the reusable Butler ecosystem extracted from it.
 
-The table below maps project areas to the main skills and technologies demonstrated.
+The matrix describes **skills demonstrated by documented architecture and evidence**. It does not imply that every private Keriol capability is publicly available in Wilfred.
 
 ## Technical Skills
 
-| Area | Skills / Technologies |
+| Area | Skills / Technologies Demonstrated |
 |---|---|
-| Home Automation | Home Assistant, automations, scripts, dashboards |
-| IoT Integration | Sensors, smart plugs, smart lighting, appliances, cameras |
-| Messaging | MQTT, Mosquitto, event-driven architecture |
-| Workflow Automation | Node-RED, multi-event flows |
-| Programming | Python scripting, API integration, telemetry parsing |
-| Media Automation | Plex API, Android TV control, voice-driven playback |
-| Energy Monitoring | Solar telemetry, battery state, energy dashboards |
-| Presence Detection | BLE, Bermuda, occupancy logic |
-| Networking | Docker networking, DNS, VPN, HTTPS tunnels |
-| Remote Access | Tailscale, Cloudflare Tunnel |
-| Security | Local-first design, private access, public endpoint separation |
-| DevOps / Infrastructure | Docker containers, Linux services, systemd |
-| Documentation | Roadmap, worklog, architecture docs, case studies |
-| AI Workflow | AI-assisted troubleshooting, documentation and project modeling |
+| Home Automation | Home Assistant orchestration, automations, scripts, dashboards, integration ownership |
+| Butler Architecture | Butler Core / Wilfred / Alfred layering, provider-neutral contracts, capability/domain ownership |
+| Capability Design | typed tools, capabilities, domains, goals, deterministic-first resolution, planner fallback boundaries |
+| IoT Integration | heterogeneous sensors, smart plugs, lighting, appliances, climate, cameras and IR devices |
+| Messaging | MQTT, Mosquitto, event-driven telemetry and integration boundaries |
+| Workflow Automation | Home Assistant workflows, Node-RED multi-event flows, verified action patterns |
+| Programming | Python services, typed APIs, integration adapters, validation and telemetry parsing |
+| Media Automation | Plex-oriented media intelligence, Android TV integration and home-theater workflows |
+| Energy Monitoring | local photovoltaic telemetry, battery state, MQTT publication and dashboard integration |
+| Presence Engineering | BLE/Bermuda experimentation, reliability analysis and occupancy-design constraints |
+| Networking | Docker networking, DNS, VPN and HTTPS tunnel architecture |
+| Remote Access | Tailscale private administration and Cloudflare Tunnel for selected public integrations |
+| Security | local-first design, permission/confirmation boundaries, public/private separation and sanitization |
+| DevOps / Infrastructure | Linux services, Docker, GitHub Issues/Git workflow, release evidence and validation discipline |
+| Documentation | ADRs, roadmap, historical records, analysis trails, case studies and public-safe architecture docs |
+| AI Workflow | AI-assisted research, troubleshooting, design review and documentation under human ownership |
 
 ## Engineering Practices
 
 | Practice | Demonstrated Through |
 |---|---|
-| Local-first architecture | Native device control and reduced cloud dependency |
-| Event-driven design | MQTT-based telemetry and automation boundary |
-| Progressive delivery | One feature at a time, validated on a real environment |
-| Observability | Logs, dashboards and telemetry sensors |
-| Risk management | Backup-before-risky-changes rule |
-| Security awareness | Secret sanitization and public/private access separation |
-| Knowledge management | Compact project model, worklog and documentation |
-| Iterative troubleshooting | Hardware, network, BLE and energy telemetry debugging |
+| Local-first architecture | local device/service ownership where practical, with cloud providers kept behind explicit integration boundaries |
+| Deterministic-first behavior | known requests resolved before open-goal planning or AI fallback |
+| Verified physical actions | `READ -> ACTION -> READ -> VERIFY`; dispatch alone is not accepted as proof of success |
+| Capability ownership | domain behavior moves toward capability/plugin owners instead of accumulating in conversation code |
+| Provider neutrality | Butler Core remains service-agnostic; frontend/provider concerns stay outside Core |
+| Progressive delivery | focused issues, branches, commits, validation and evidence before integration |
+| Observability | state reads, logs, dashboards, telemetry and post-action verification |
+| Risk management | confirmation for appropriate actions, explicit safety boundaries and cautious physical-control language |
+| Security awareness | secrets, private endpoints, operational identifiers and private implementation excluded from public docs |
+| Knowledge management | GitHub issues, Git history, ADRs, analysis trails, worklogs and historical records with clear authority boundaries |
+| Iterative troubleshooting | hardware, network, BLE, energy, appliance and voice-delivery investigations grounded in observable evidence |
 
-## Portfolio Value
+## Maturity-Aware Examples
 
-This project demonstrates the ability to:
+The portfolio uses the following language when describing demonstrated work:
 
-- Design a real-world IoT architecture
-- Integrate heterogeneous devices and protocols
-- Build automation workflows across multiple systems
-- Troubleshoot hardware, network and software issues
-- Document architecture and decisions clearly
-- Use AI as a structured engineering copilot
-- Maintain a public-safe technical portfolio
+- **Available** — public, documented and usable in the relevant public component.
+- **In testing** — validated privately or under active validation; not a public release promise.
+- **Designed to enable** — architecturally supported direction without an implementation claim.
 
-## Alfred Laundry Workflow Skills
+Examples:
+
+| Area | Portfolio maturity treatment |
+|---|---|
+| Wilfred public runtime | Available as the current Public Alpha baseline |
+| Verified laundry workflow patterns | Private proving-ground evidence used to demonstrate engineering lessons |
+| Local energy telemetry | In testing |
+| Reliable occupancy/presence automation | Designed to enable |
+| Alexa/Hermes delivery path | Private proving-ground / in-testing evidence, not a public Wilfred frontend claim |
+
+## Laundry Workflow Engineering Evidence
+
+The laundry workflow remains one of the strongest private proving-ground examples because it forced the system to distinguish command dispatch from physical success.
 
 | Area | Skills Demonstrated |
 |---|---|
-| Voice UX | Alexa Custom Skill sessions, reprompts, help discovery, yes/no pagination |
-| Backend Integration | FastAPI bridge design, request routing, intent handling |
-| Home Assistant | REST API integration, service calls, helper entities, script wrappers |
-| Appliance Control | validated start/stop workflows, allowlisted commands, cautious control language |
-| Async Processing | background verification, polling windows, retry logic, timeout fallback |
-| State Validation | separating command dispatch from confirmed physical state |
-| Catalog Search | keyword search, scoring, stop words, category aliases, voice pagination |
-| Safety | no fuzzy matching for physical control, connected/remote-enabled checks |
-| Notifications | Echo/Home Assistant notification routing, release vs debug targets |
-| Documentation | public-safe case study, diagrams, lessons learned, sanitized Python examples |
-| Security Awareness | no Home Assistant direct exposure, no secrets or raw payloads in public docs |
+| Voice UX | session design, reprompts, help discovery, yes/no flows and pagination |
+| Backend Integration | typed service boundaries, request routing and validation |
+| Home Assistant | service invocation through owned orchestration boundaries and explicit state reads |
+| Appliance Control | allowlisted start/stop workflows and cautious command semantics |
+| Async Processing | deferred verification, polling windows, retries and timeout/fallback behavior |
+| State Validation | separating successful request dispatch from confirmed physical state |
+| Catalog Search | deterministic keyword search, aliases and pagination for known program catalogs |
+| Safety | no unsafe fuzzy matching for physical actions, capability checks and confirmation boundaries |
+| Notifications | policy-aware follow-up and provider/frontend delivery separation |
+| Documentation | sanitized architecture, diagrams, case studies and lessons without publishing private source |
 
+## Portfolio Value
+
+The project demonstrates the ability to:
+
+- design a real-world IoT architecture with clear owner boundaries;
+- extract reusable runtime concepts from a private proving ground;
+- integrate heterogeneous devices and protocols without coupling the core runtime to providers;
+- design deterministic and AI-assisted paths with explicit fallback boundaries;
+- verify observable physical outcomes instead of trusting command acknowledgements;
+- troubleshoot hardware, network, integration and delivery failures methodically;
+- maintain evidence-backed public documentation while preserving private implementation boundaries;
+- preserve both current architecture and the historical reasoning that produced it.
