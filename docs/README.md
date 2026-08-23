@@ -7,6 +7,7 @@
 - [Project Status](PROJECT_STATUS.md)
 - [Current Public Project Model](project-model/project-model-public.md)
 - [Roadmap](../ROADMAP.md)
+- [Historical Records](HISTORICAL_RECORDS.md)
 
 ## Architecture
 
@@ -38,6 +39,8 @@ Foundational ADRs:
 Historical governance:
 
 - [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md), retained as the historical record of the former ledger-based model and superseded by ADR-011 for current development-state ownership.
+
+See [Historical Records](HISTORICAL_RECORDS.md) for the ADR lifecycle in the wider project chronology.
 
 ## Case Studies
 
@@ -84,11 +87,22 @@ AI assists research, troubleshooting, design review, documentation and structure
 
 ## Historical Records
 
-- [May 2026 Worklog](../WORKLOG/2026-05.md)
-- [July 2026 Worklog](../WORKLOG/2026-07.md)
-- dated project-model snapshots under `history/` and the project-model archive
+The complete historical index is:
 
-Historical records are intentionally preserved rather than rewritten to match current architecture.
+- **[Historical Records](HISTORICAL_RECORDS.md)**
+
+It maps:
+
+- the pre-Alfred model under `history/`;
+- monthly worklogs from April through July 2026;
+- focused worklog reports and milestone snapshots;
+- dated public project-model snapshots;
+- ADR history and supersession;
+- retired development-process records;
+- historical/intermediate case studies;
+- the DOC-003 analysis trail itself.
+
+Historical records are intentionally preserved rather than rewritten to match current architecture. They are project memory, not current development-state authority.
 
 ## Public Boundary
 
