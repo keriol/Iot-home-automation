@@ -1,5 +1,7 @@
 # Case Study - Local-first laundry voice assistant MVP
 
+> **Historical engineering milestone.** This document captures the earlier Emulated Hue / Home Assistant voice-trigger MVP that preceded the later Alexa Custom Skill and Alfred-centered workflow. It remains useful as evidence of the migration path from simple triggers toward richer typed capabilities and verified execution.
+
 ## Problem
 
 The washing machine was integrated in Home Assistant through hOn, but the vendor voice experience was unreliable for program catalog questions.
@@ -54,7 +56,7 @@ Alexa routines turn on those virtual inputs. Home Assistant automations react to
 
 For the MVP, Emulated Hue provided a fast local bridge from Alexa to Home Assistant without requiring a custom Alexa Skill or public HTTPS endpoint.
 
-This approach is useful for simple trigger-style commands, while a future custom Alexa Skill remains the better solution for rich natural language intents with parameters.
+This approach was useful for simple trigger-style commands. Later work moved richer natural-language interaction to a Custom Skill and then into the broader Alfred frontend/runtime architecture.
 
 ## Trade-offs
 
@@ -70,7 +72,7 @@ This approach is useful for simple trigger-style commands, while a future custom
 
 - Alexa sees virtual triggers as on/off devices.
 - Natural phrases require Alexa routines.
-- Dynamic parameters still need a custom Alexa Skill or another intent bridge.
+- Dynamic parameters need a richer intent/frontend layer.
 
 ## Result
 
@@ -81,19 +83,22 @@ Validated MVP flows:
 - spoken Echo response using Home Assistant generated text;
 - local virtual trigger reset after execution.
 
-## Future work
+## Evolution
 
-- Add safe remote start validation.
-- Add safe stop/pause command validation.
-- Add custom Alexa Skill through HTTPS tunnel for dynamic commands.
-- Add PV-aware laundry recommendation.
-- Add richer program categories and synonyms.
+The important outcome of this MVP was not the permanence of the Emulated Hue bridge. It proved that:
+
+- the program catalog should be treated as local domain knowledge;
+- Home Assistant should remain the owner of physical device orchestration;
+- simple trigger bridges become limiting once requests need parameters and follow-up context;
+- richer voice integration should reuse the same validated domain behavior rather than duplicate appliance logic per frontend.
+
+That progression is documented in the later Alexa Custom Skill laundry case study and current Butler architecture documents.
 
 ## Extension - Dynamic catalog advice through Assist
 
 After validating fixed Alexa routine triggers for washing machine status and white laundry programs, the catalog layer was extended to support dynamic Assist questions.
 
-Instead of creating one Alexa trigger per category, Home Assistant Assist can pass the user query to the local Python catalog helper.
+Instead of creating one Alexa trigger per category, Home Assistant Assist could pass the user query to the local catalog helper.
 
 Validated example:
 
@@ -103,16 +108,10 @@ The local catalog returned stain-related washing programs using Italian program 
 
 This confirmed that the catalog should be treated as a searchable local knowledge source, not only as a set of hardcoded categories.
 
-## Updated decision
+## Historical decision
 
-Avoid creating a large number of Alexa debug triggers for each catalog category.
+The project deliberately avoided creating large numbers of Alexa debug triggers for every catalog category.
 
-Use Assist as the dynamic query layer today.  
-Use a future Alexa Custom Skill or equivalent HTTPS intent bridge to make Alexa answer the same dynamic catalog questions directly.
+Assist provided a useful dynamic-query step, while later Alexa Custom Skill and Alfred work provided the richer interaction path.
 
-## Updated future work
-
-- Expose dynamic catalog questions to Alexa.
-- Reuse the same Python catalog helper for Assist and Alexa.
-- Keep Emulated Hue only for simple trigger-style commands.
-- Use Custom Alexa Skill / HTTPS endpoint for natural commands with parameters.
+The current architecture should be read from the portfolio's architecture and project-status documents rather than inferred from this historical MVP.
