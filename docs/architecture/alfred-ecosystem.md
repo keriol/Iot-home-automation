@@ -84,15 +84,15 @@ It owns delivery providers, routing and transport-specific rendering where appro
 
 Hermes does not own domain semantics or proactive communication policy. Osvaldo decides whether communication may occur; Hermes handles how an approved or requested output reaches a provider.
 
-Alexa is one current frontend/provider target. Speech and SSML are presentation details, not Butler architecture.
+Alexa is the current voice frontend and first Hermes target exercised by Keriol Home. Speech and SSML are frontend details, not Butler architecture.
 
-## Voice and Persona Parameters
+## Alexa Voice Rendering
 
-Named voices or personas remain frontend presentation parameters rather than architectural components.
+Named Alexa voices remain frontend rendering parameters rather than architectural components.
 
-In the private deployment, **Giorgio** remains a configurable voice/persona parameter. Changing, disabling or replacing that voice does not change capability ownership, domain behavior, policy or execution semantics.
+In the private deployment, **Giorgio** is the configured Alexa voice used when Alfred speech notifications are rendered through the Alexa delivery path. That voice selection must survive delivery composition, but it does not own capability behavior, communication policy or delivery routing.
 
-This distinction keeps presentation replaceable without pretending that a voice profile is a runtime owner.
+Changing or replacing the configured voice does not change the Butler architecture.
 
 ## Interactive Flow
 
@@ -106,7 +106,7 @@ A private Keriol interaction follows:
       -> Alfred
       -> Frontend rendering / delivery
 
-Frontend-specific speech, SSML, voice/persona selection and presentation remain frontend concerns.
+Frontend-specific speech, SSML and presentation remain frontend concerns.
 
 ## Proactive Flow
 
@@ -123,6 +123,8 @@ Osvaldo decides whether and when it may be communicated.
 
 Hermes and its providers deliver the approved output without acquiring domain or policy ownership.
 
+For Alexa speech notifications, the provider-specific rendering step applies the configured voice parameter after policy and before delivery.
+
 ## Capability Status
 
 Portfolio wording should distinguish:
@@ -132,6 +134,17 @@ Portfolio wording should distinguish:
 - **Designed to enable**: architecturally supported direction without an implementation claim.
 
 Private proving-ground evidence may justify **In testing**, but a branch or issue alone never justifies an availability claim.
+
+## Development State
+
+Development state is owned outside the runtime architecture:
+
+- GitHub Issues own tasks, priorities, dependencies, planning and active status;
+- Git `main` owns merged implementation and versioned documentation;
+- commits, tags, workflows and releases provide implementation and release evidence;
+- live systems own deployed behavior and operational truth.
+
+The retired Umberto ledger remains historical context only.
 
 ## Component Boundaries
 
@@ -143,5 +156,5 @@ Private proving-ground evidence may justify **In testing**, but a branch or issu
 - Charon owns media-domain intelligence and lifecycle behavior.
 - Hermes owns delivery framework/provider responsibilities.
 - Frontends own provider-specific input and presentation.
-- Voice/persona profiles such as Giorgio are presentation parameters, not owners.
+- Giorgio is an Alexa speech-rendering parameter, not an architectural owner.
 - Domain services should not duplicate policy, execution or provider responsibilities.
