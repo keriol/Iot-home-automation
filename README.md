@@ -1,12 +1,23 @@
 # Home Automation Portfolio
 
-Public-safe documentation for a local-first smart-home and IoT platform built around Home Assistant, MQTT, Node-RED, Python services and a Butler architecture developed through real household use.
+Public-safe engineering documentation for **Keriol Home**, a local-first smart-home platform and real-world proving ground for the Butler ecosystem.
 
-The project has two complementary faces:
+The project is intentionally split into reusable public layers and a private household deployment:
 
-- **Keriol Home / Alfred** is the private real-world deployment and proving ground.
-- **Wilfred** is the reusable public Butler runtime extracted from that experience.
-- **Butler Core** provides the shared provider-neutral contracts and execution foundations underneath them.
+- **Butler Core** provides provider-neutral contracts and execution foundations.
+- **Wilfred** is the reusable public Butler runtime built on Core.
+- **Keriol Home / Alfred** is the private deployment where new capabilities, policies and interaction patterns are exercised against real devices and services.
+
+The portfolio documents architecture, capability maturity, case studies and engineering lessons without publishing the private implementation itself.
+
+## Current Public Baseline
+
+- **Butler Core `0.1.4`** is the released Core baseline consumed by Wilfred `0.2.1`.
+- **Wilfred `0.2.1`** is the current Public Alpha.
+- **wilfred-home-assistant** is the official public Home Assistant plugin and remains on its `0.1.0.dev0` development line.
+- Butler Core `main` has moved on to the `0.1.5.dev0` development line; development state is not presented as a released baseline.
+
+Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
 ## Goals
 
@@ -23,11 +34,9 @@ The project has two complementary faces:
 
 ## Butler Architecture
 
-The current architecture separates reusable runtime concerns from the private Keriol Home deployment.
-
 ### Butler Core
 
-[Butler Core](https://github.com/keriol/butler-core) contains provider-neutral contracts and execution primitives.
+[Butler Core](https://github.com/keriol/butler-core) owns provider-neutral contracts and execution primitives shared by Butler runtimes and consumers.
 
 It does not know about Keriol Home, Alexa, Home Assistant devices or private household integrations.
 
@@ -35,39 +44,37 @@ It does not know about Keriol Home, Alexa, Home Assistant devices or private hou
 
 [Wilfred](https://github.com/keriol/butler-wilfred) is the public reusable Butler runtime built on Butler Core.
 
-It provides general runtime facilities for registered tools, deterministic execution, planning, workflows, confirmation boundaries, verified execution and output contracts.
+Wilfred `0.2.1` is the current Public Alpha. Its released runtime includes registered tools, deterministic-first resolution, planning interfaces, workflows, confirmation boundaries, verified execution and output contracts.
 
-Wilfred is being developed toward the `0.2.0` Public Alpha.
+The current public development direction is **capability-first**: capabilities and domains are being consolidated as explicit semantic ownership boundaries, with deterministic resolution remaining ahead of planner fallback. Open development work is documented as direction until merged or released.
 
-The official [Home Assistant plugin](https://github.com/keriol/wilfred-home-assistant) connects Wilfred to Home Assistant through explicit READ and ACTION capabilities without moving physical orchestration out of Home Assistant.
+The official [Home Assistant plugin](https://github.com/keriol/wilfred-home-assistant) connects Wilfred to Home Assistant without moving physical orchestration out of Home Assistant.
 
 ### Alfred
 
-**Alfred** is the private Keriol Home Butler deployment.
+**Alfred** is the private Keriol Home Butler deployment and proving ground.
 
-Wilfred provides Alfred's reusable runtime base, while Butler Core provides the shared contracts and execution semantics underneath them both.
+Wilfred provides Alfred's reusable runtime base, while Butler Core provides shared contracts and execution semantics underneath the reusable stack.
 
-Alfred adds Keriol-specific integrations, policies, domain behavior and experimental capabilities on top of the reusable public layers.
-
-Some older Alfred paths predate Wilfred and are progressively converging onto the public runtime architecture.
+Alfred adds Keriol-specific integrations, policies, domain behavior and experimental capabilities. Reusable behavior moves toward Wilfred or Core only after generalization, testing, sanitization and a clear ownership boundary.
 
 ## Capability Maturity
 
 Portfolio capabilities use three maturity levels:
 
-- **Public**: implemented in Butler Core, Wilfred or an official public plugin.
+- **Public**: released or merged in Butler Core, Wilfred or an official public plugin.
 - **Private validated**: implemented and tested in the real Alfred deployment but not currently part of the public Wilfred distribution.
-- **Candidate**: a private capability that may later be generalized and extracted into Wilfred or an official plugin.
+- **Candidate**: a capability or pattern being evaluated for later generalization.
 
 Candidate status is not a release commitment.
 
-This lets the portfolio document real engineering work without pretending that every private experiment is already a public Wilfred feature.
+This keeps the portfolio useful without pretending that every private experiment is already a public Wilfred feature.
 
 ## Smart-Home Ownership
 
-Home Assistant remains responsible for physical orchestration, dashboards, device wrappers and integration state.
+Home Assistant owns physical orchestration, dashboards, device wrappers, integrations and device state.
 
-Wilfred and Alfred coordinate capabilities through explicit tools and workflows rather than replacing the smart-home platform.
+Wilfred and Alfred reason, route and invoke capabilities rather than replacing the smart-home platform.
 
 A typical public Wilfred flow is:
 
@@ -77,9 +84,9 @@ A Keriol Home flow is:
 
     Frontend -> Alfred -> Wilfred Runtime -> Registered Capability -> Service
 
-For observable Home Assistant actions, verified workflows follow:
+For observable physical actions, the preferred lifecycle is:
 
-    READ -> ACTION -> READ / VERIFY
+    READ -> ACTION -> READ -> VERIFY
 
 Dispatch alone is not considered physical success.
 
@@ -103,37 +110,32 @@ Dispatch alone is not considered physical success.
 
 Selected sanitized architecture from the private deployment can be documented publicly.
 
-- **Alfred** owns Keriol-specific interaction and orchestration.
+- **Alfred** owns Keriol-specific interaction, routing and orchestration.
 - **Osvaldo** owns proactive communication policy such as allow, defer, aggregate and deny decisions.
-- **Charon** owns media-domain intelligence and curation.
-- **Umberto** tracks development tasks, evidence and checkout work.
+- **Charon** owns media-domain intelligence and lifecycle behavior.
+- **Hermes** owns delivery framework/provider responsibilities; frontend/provider presentation stays outside Butler Core.
 
-Frontend-specific presentation remains a frontend concern rather than an independent architectural component.
-
+Private implementation details remain private even when their architectural lessons are documented here.
 
 ## For Builders, Founders and Early Adopters
 
 The public Wilfred ecosystem is deliberately smaller than the workshop behind it.
 
-Keriol Home and Alfred the Butler continuously exercise new domains, workflows and plugin candidates against a real operating smart home.
-
-Some experiments are intentionally household-specific. Others may graduate into Wilfred or an official plugin once they have been generalized, tested, sanitized and documented.
-
-That means the public repositories show the reusable capabilities that have already earned their way out of the private proving ground, while this portfolio also shows where new ideas are being tested.
+Keriol Home continuously exercises new domains, workflows and plugin candidates against a real operating smart home. Some experiments stay household-specific. Others may graduate into Wilfred or an official plugin once they have earned a reusable contract, tests, sanitization and clean installation/runtime evidence.
 
 Public extraction is a maturity decision, not an automatic dump of private functionality.
 
 ## Main Case Studies
 
 - Butler runtime evolution from Alfred to Wilfred
-- Alfred registered-capability architecture
+- Capability-first and deterministic-first architecture
 - Verified appliance control
-- Proactive notification policy
+- Proactive communication policy
 - Media and Plex curation
 - Bravia + Dolby safe-power automation
 - Plex voice control
 - Local photovoltaic telemetry through MQTT
-- BLE presence detection
+- BLE presence experiments
 - Cloudflare Tunnel and Tailscale access strategy
 
 ## Featured Case Study - Alfred Laundry Workflow
@@ -160,7 +162,7 @@ The important design rule is simple:
 
 **sending a command is not proof that the physical device changed state.**
 
-That lesson later became part of the reusable verified-workflow model used by Wilfred.
+That lesson later informed the reusable verified-workflow model used by Wilfred.
 
 Relevant documentation:
 
@@ -173,15 +175,15 @@ Relevant documentation:
 
 The public Butler repositories show capabilities that have already crossed the reusable-public boundary.
 
-Alfred runs ahead of that boundary as the private real-world proving ground. Several domains and interaction patterns are already **Private validated** or **Candidate** even when they are not yet shipped by Wilfred.
+Alfred runs ahead of that boundary as the private real-world proving ground. Domains and interaction patterns may be **Private validated** or **Candidate** even when they are not shipped by Wilfred.
 
-See [Alfred Proving Ground](docs/architecture/alfred-proving-ground.md) for the current maturity map and public-extraction path.
+See [Alfred Proving Ground](docs/architecture/alfred-proving-ground.md) for the maturity map and public-extraction path.
 
 ## Public Portfolio Boundary
 
 This repository documents how Keriol Home and Alfred evolve. It is not a sanitized mirror of the private implementation.
 
-Readable private-derived Python, Home Assistant YAML, service definitions, interaction models and configuration snapshots are intentionally outside the portfolio boundary even when identifiers could be anonymized.
+Readable private-derived Python, Home Assistant YAML, service definitions, provider models, private acquisition implementation and configuration snapshots stay outside the portfolio even when identifiers could be anonymized.
 
 Reusable code that becomes genuinely public belongs in Butler Core, Wilfred or the relevant official plugin repository.
 
@@ -191,16 +193,17 @@ See [ADR-010 - Public Portfolio Documentation Boundary](docs/adr/ADR-010-public-
 
 ## Development State
 
-The project no longer uses a manually synchronized project model as the single source of development truth.
+Development state is owned by the repositories where the work happens:
 
-- **Git** owns versioned implementation and documentation.
-- **Umberto** owns active tasks, milestones, priorities and development evidence.
-- **Live systems** own operational truth.
-- **Project models** are compact derived architectural snapshots.
+- **GitHub Issues** own tasks, priorities, dependencies, planning and active status.
+- **Git / `main`** owns merged implementation and versioned documentation.
+- **Commits, tags, releases and workflows** provide implementation and release evidence.
+- **Live systems** own deployed runtime behavior and health.
+- **Project models and this portfolio** are derived architectural documentation only.
 
-This separation prevents the documentation layer from becoming a second task database.
+The retired Umberto ledger is historical context and does not override GitHub, Git or runtime evidence.
 
-See [ADR-009 - Development State Sources of Truth](docs/adr/ADR-009-development-state-sources-of-truth.md).
+See [ADR-011 - GitHub as Development Source of Truth](docs/adr/ADR-011-github-development-source-of-truth.md).
 
 ## Development Approach
 
@@ -221,12 +224,12 @@ Architecture decisions, implementation, testing and production ownership remain 
 - [ADR-008 - Butler Core, Wilfred and Alfred Layering](docs/adr/ADR-008-butler-core-wilfred-alfred-layering.md)
 - [Current Public Project Model](docs/project-model/project-model-public.md)
 
-Historical worklogs, milestone snapshots and previous ADRs are intentionally retained as records of the architecture that existed at the time.
+Historical worklogs, milestone snapshots and previous ADRs are intentionally retained as records of the architecture and decisions that existed at the time.
 
 ## Public Safety
 
 This repository is intended to contain only sanitized architecture, documentation and examples.
 
-Secrets, credentials, private endpoints, personal data and unnecessary operational details are excluded.
+Secrets, credentials, private endpoints, personal data, unnecessary operational identifiers and private acquisition implementation are excluded.
 
-Legacy examples are periodically re-audited as the public/private boundary evolves.
+Legacy documentation is periodically re-audited as the public/private boundary evolves.
