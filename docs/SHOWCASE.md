@@ -2,288 +2,247 @@
 
 ## Overview
 
-This document highlights some of the most representative implementations within the platform.
+This document highlights representative engineering work across the public Butler stack and the private Keriol Home proving ground.
 
-The goal is to demonstrate practical engineering decisions, real-world integrations and iterative problem solving.
+The goal is not to present every experiment as shipped functionality. Each example is labelled according to current evidence:
+
+- **Available**: public, documented and usable in the relevant public repository or plugin.
+- **In testing**: exercised privately or under active validation, but not a public release promise.
+- **Designed to enable**: architecturally supported direction that must not be read as implemented functionality.
 
 ---
 
-# 1. Plex Voice Control
+# 1. Butler Runtime Evolution
 
 ## Status
 
-Validated implementation.
+**Available + In testing**
 
 ## Objective
 
-Control media playback using natural language voice commands.
+Separate reusable Butler execution foundations from Keriol-specific household behavior.
+
+## Architecture
+
+`Butler Core -> Wilfred -> Alfred`
+
+## Current result
+
+- Butler Core `0.1.4` is the released provider-neutral foundation consumed by Wilfred `0.2.1`.
+- Wilfred `0.2.1` is the current Public Alpha.
+- Alfred remains the private real-world proving ground.
+- Home Assistant remains the physical orchestration owner.
+
+## Engineering themes
+
+- provider-neutral contracts;
+- deterministic-first resolution;
+- capability/domain ownership;
+- confirmation boundaries;
+- verified execution;
+- public/private extraction discipline.
+
+---
+
+# 2. Alfred Laundry Voice Workflow
+
+## Status
+
+**In testing / privately validated**
+
+## Objective
+
+Expose washing-machine state, catalog queries and controlled actions through a voice workflow while avoiding false success claims.
+
+## Validated capabilities
+
+- appliance status and remaining-time queries;
+- validated local program catalog;
+- translated display names and controlled aliases;
+- keyword search and pagination;
+- allowlisted start/stop actions;
+- cautious command feedback;
+- asynchronous physical-state verification;
+- follow-up communication only after observable state changes when possible.
+
+## Key engineering lesson
+
+**Dispatch is not physical success.**
+
+The workflow separates command acceptance from observable confirmation and uses the broader pattern:
+
+`READ -> ACTION -> READ -> VERIFY`
+
+This case study is one of the main real-world inputs into the reusable verified-execution model.
+
+---
+
+# 3. Proactive Communication Policy
+
+## Status
+
+**In testing**
+
+## Objective
+
+Prevent every domain from inventing its own notification timing, quiet-hours logic and delivery behavior.
+
+## Ownership
+
+- Domains describe what happened.
+- Osvaldo decides whether and when unsolicited communication may occur.
+- Hermes owns provider/delivery routing.
+- Frontends/providers own presentation-specific rendering.
+
+## Supported policy concepts
+
+- allow;
+- defer;
+- aggregate;
+- deny;
+- quiet-hours handling;
+- communication-mode selection.
+
+User-requested asynchronous replies are treated separately from generic unsolicited notifications because they continue an explicit interaction.
+
+---
+
+# 4. Media Intelligence and Plex Workflows
+
+## Status
+
+**In testing**
+
+## Objective
+
+Treat media handling as a domain with explicit ownership rather than scattering Plex and playback behavior through conversation code.
+
+## Public-safe capabilities demonstrated
+
+- media identity and discovery;
+- Plex integration;
+- playback-related reasoning;
+- quality and availability policy;
+- lifecycle concepts;
+- observed-state verification;
+- domain-event handoff to communication policy.
+
+## Ownership lesson
+
+Charon owns media-domain intelligence and lifecycle behavior. It does not own generic conversation routing, proactive policy or provider delivery.
+
+Private acquisition implementation is intentionally outside this repository.
+
+---
+
+# 5. Home Theater Safe-Power Workflow
+
+## Status
+
+**In testing / privately validated**
+
+## Objective
+
+Prevent audio initialization failures caused by startup timing between the TV and home-theater equipment.
 
 ## Technologies
 
-- Home Assistant
-- Assist
-- Alexa
-- Python
-- Plex API
-
-## Features
-
-- Media search
-- Dynamic content selection
-- Resume playback
-- Series continuation
-- Android TV playback control
-
-## Engineering Challenges
-
-- Media identification
-- Playback targeting
-- Resume logic
-- Voice intent mapping
+- Home Assistant;
+- smart-plug control;
+- state-based automations;
+- guarded sequencing.
 
 ## Outcome
 
-A conversational media experience integrated into the smart-home platform.
+The workflow demonstrates why physical orchestration belongs in Home Assistant: startup ordering, race-condition mitigation and recovery remain local, observable and easy to debug.
 
 ---
 
-# 2. Alfred Laundry Voice Control
+# 6. Local Energy Telemetry
 
 ## Status
 
-Validated MVP.
+**In testing**
 
 ## Objective
 
-Expose washing-machine status, program catalog queries and controlled start/stop commands through an Alexa Custom Skill without exposing Home Assistant directly.
+Collect and validate local photovoltaic, grid and battery telemetry without depending exclusively on vendor cloud services.
 
-## Technologies
+## Demonstrated work
 
-- Alexa Custom Skill
-- Cloudflare Tunnel
-- FastAPI
-- Home Assistant REST API
-- hOn washing machine integration
-- Home Assistant script wrapper
+- local polling and normalization;
+- MQTT publication;
+- Home Assistant sensors and dashboards;
+- directional grid and battery flows;
+- energy-balance comparison against independent observations.
 
-## Features
+## Current result
 
-- Laundry status query
-- Last laundry query
-- Real program catalog integration
-- Category-based program lookup
-- Validated program start by voice
-- Remote stop command by voice
-- Session-based Alfred UX with explicit exit intent
-
-## Engineering Challenges
-
-- Alexa intent and slot routing
-- Safe appliance command validation
-- Program name normalization without fuzzy matching
-- hOn cloud/integration state lag
-- Alexa session timing and follow-up UX
-- Public HTTPS bridge without exposing Home Assistant
-
-## Safety Decisions
-
-- Unknown programs are rejected.
-- Appliance control does not use fuzzy matching.
-- Program start requires a validated catalog entry.
-- Start uses default parameters from the local catalog.
-- Alexa start/stop responses are quick and do not claim final success from dispatch alone.
-- Laundry status remains the source of truth after start/stop commands.
-
-## Outcome
-
-A voice-controlled appliance workflow that demonstrates secure public integration, local orchestration and safety-aware command handling.
+The pipeline is stable and usable, but full long-duration validation is not yet complete. It is therefore not presented as production-ready or generally available.
 
 ---
 
-# 3. Home Theater Safe-Power Workflow
+# 7. Privacy-Preserving Presence
 
 ## Status
 
-Validated implementation.
+**Designed to enable**
 
 ## Objective
 
-Prevent audio initialization issues caused by startup timing between TV and home theater equipment.
+Answer the operational question “is the home occupied?” without turning presence into continuous room-level tracking.
 
-## Technologies
+## Private experiments
 
-- Home Assistant
-- Smart plug automation
-- State-based workflows
+BLE and presence tooling were evaluated, but the available signals were not reliable enough to become an authoritative automation dependency.
 
-## Features
+## Current direction
 
-- Automated power sequencing
-- Startup protection
-- eARC mitigation
-- Safe shutdown logic
+The preferred future model is deliberately small:
 
-## Engineering Challenges
+`occupied / empty / uncertain`
 
-- Race conditions
-- Device state synchronization
-- Startup timing
+with no requirement for room-level localization or continuous movement profiling.
 
-## Outcome
-
-Reliable home theater startup without manual intervention.
+The work is currently parked pending better evidence and hardware choices.
 
 ---
 
-# 4. Local Solar Energy Telemetry
+# 8. Alexa / Hermes Delivery Path
 
 ## Status
 
-Work in progress. Real telemetry still needs validation and correction.
+**In testing**
 
 ## Objective
 
-Collect local photovoltaic and battery data without relying exclusively on vendor cloud services.
+Keep voice frontends replaceable while allowing the private deployment to exercise provider-specific speech delivery.
 
-## Technologies
+## Current ownership
 
-- Python
-- MQTT
-- Home Assistant
-- Solar inverter integration
+- Alexa is the current voice frontend and first Hermes target in Keriol Home.
+- Hermes owns the private provider/delivery boundary.
+- Speech and SSML remain frontend details.
+- Provider-specific voice selection remains a rendering parameter, not an architectural component.
 
-## Target Features
+## Public direction
 
-- Local telemetry collection
-- MQTT publication
-- Battery monitoring
-- Energy dashboards
-- Import/export visibility
-- Energy-aware automations
+The architecture is designed to enable later reusable frontend/provider integrations if private validation, contracts, tests and sanitization justify extraction.
 
-## Engineering Challenges
-
-- Proprietary protocols
-- Data discovery
-- Register mapping
-- Sensor validation
-- Long-term statistics
-
-## Current Outcome
-
-The architecture direction is defined, but real photovoltaic/ZCS telemetry is not yet production-ready.
-
----
-
-# 5. BLE Presence Detection
-
-## Status
-
-Work in progress. Presence is not reliable yet.
-
-## Objective
-
-Determine home occupancy using Bluetooth Low Energy devices.
-
-## Technologies
-
-- BLE
-- Bermuda
-- Home Assistant
-- Bluetooth adapters
-
-## Target Features
-
-- Device detection
-- Presence estimation
-- Occupancy foundation
-- Empty-home automations
-
-## Engineering Challenges
-
-- Signal instability
-- Adapter compatibility
-- Device variability
-- False positives
-- State stabilization
-
-## Current Outcome
-
-BLE presence remains a validation track and should not yet be treated as a reliable automation trigger.
-
----
-
-# 6. PV-Aware Laundry Automation
-
-## Status
-
-Future feature.
-
-## Objective
-
-Use renewable energy and home context to suggest optimal appliance usage.
-
-## Technologies
-
-- Home Assistant
-- Energy telemetry
-- Appliance integration
-- Presence detection
-- Notification workflow
-
-## Target Features
-
-- Battery state awareness
-- Occupancy awareness
-- Laundry freshness reminders
-- Smart recommendations
-- Notify-first automation
-
-## Engineering Challenges
-
-- Requires reliable energy telemetry
-- Requires reliable presence
-- Requires safe appliance control hardening
-- Needs user-friendly notification timing
-
-## Current Outcome
-
-The concept is documented, but implementation depends on stabilizing real PV data, reliable presence and safer appliance-control verification.
+A working private Alexa path is not evidence that Wilfred currently ships an official Alexa integration.
 
 ---
 
 # Key Engineering Themes
 
-Across all implementations, the project consistently applies:
+Across the portfolio, the recurring lessons are:
 
-- Local-first architecture
-- Event-driven design
-- Progressive automation
-- Human-centered automation
-- Security-aware remote access
-- AI-assisted engineering workflow
-
-## Alfred the Butler - Laundry Voice Workflow
-
-Alfred the Butler exposes a washing-machine workflow through an Alexa Custom Skill and a FastAPI bridge.
-
-Highlights:
-
-- public HTTPS skill endpoint without exposing Home Assistant directly
-- validated laundry program catalog
-- Italian voice queries
-- true keyword search
-- paginated spoken results
-- cautious start and stop commands
-- asynchronous verification against real appliance state
-- hOn refresh before each verification attempt
-- manual verification fallback after timeout
-
-This case study demonstrates real-world IoT integration concerns:
-
-- cloud latency
-- generic device states
-- voice UX constraints
-- appliance safety
-- public and private boundary separation
-- user trust through cautious feedback
+- local-first architecture where practical;
+- Home Assistant as physical orchestration owner;
+- deterministic behavior before AI fallback for known requests;
+- explicit capability/domain ownership;
+- dispatch and observed success kept separate;
+- communication policy separated from delivery;
+- replaceable frontends;
+- public/private boundaries treated as architecture, not redaction afterthought;
+- GitHub/Git/release/runtime evidence used according to responsibility.

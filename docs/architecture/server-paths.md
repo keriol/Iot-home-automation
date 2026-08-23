@@ -1,34 +1,28 @@
-# Server Paths
+# Deployment Layout
 
-This document describes the sanitized server layout used by the project.
+This document describes a **public-safe example layout** for the services used by Keriol Home.
 
-## Real Local Layout
+It intentionally does not publish the real host filesystem layout. Paths below are documentation placeholders that illustrate separation of concerns without exposing machine-specific deployment details.
 
-| Component | Host Path | Container Path |
+## Sanitized Example Layout
+
+| Component | Public Example Path | Container Path / Role |
 |---|---|---|
-| Home Assistant config | `/opt/home-automation/homeassistant` | `/config` |
-| Mosquitto config | `/opt/home-automation/mosquitto/config` | `/mosquitto/config` |
-| Mosquitto data | `/opt/home-automation/mosquitto/data` | `/mosquitto/data` |
-| Mosquitto logs | `/opt/home-automation/mosquitto/log` | `/mosquitto/log` |
-| Node-RED data | `/opt/home-automation/nodered` | `/data` |
-| Cloudflared | No bind mount detected | Container-managed/runtime config |
+| Home Assistant config | `/opt/home-assistant/config` | `/config` |
+| Mosquitto config | `/opt/mosquitto/config` | `/mosquitto/config` |
+| Mosquitto data | `/opt/mosquitto/data` | `/mosquitto/data` |
+| Node-RED data | `/opt/node-red/data` | `/data` |
+| Media storage | `/mnt/media` | Media-library storage example |
+| Cloudflared | Runtime-managed configuration | HTTPS tunnel for selected public integrations |
 
-## Public Sanitization Map
+These paths are examples only. They must not be interpreted as the real Keriol Home server layout.
 
-| Real Path | Public Placeholder |
-|---|---|
-| `/opt/home-automation/homeassistant` | `/opt/home-assistant/config` |
-| `/opt/home-automation/mosquitto` | `/opt/mosquitto` |
-| `/opt/home-automation/nodered` | `/opt/node-red/data` |
-| `/opt/home-automation` | `/opt/home-automation` |
-| Local media folders | `/mnt/media` |
-| Downloads | `/mnt/downloads` |
-| SSH keys and credentials | Never published |
+## Public-Safety Rules
 
-## Rules
-
-- Do not publish real secrets, tokens or credentials.
+- Do not publish real host paths or machine-specific deployment layout.
+- Do not publish secrets, tokens or credentials.
 - Do not publish Home Assistant `.storage`.
-- Do not publish databases, logs or backups.
-- Do not publish tunnel IDs or private network details.
-- Publish architecture, patterns and sanitized examples only.
+- Do not publish databases, logs, runtime backups or private environment files.
+- Do not publish tunnel IDs, private hostnames, IP addresses or private network topology.
+- Do not publish private media-acquisition implementation or storage paths that reveal it.
+- Publish architecture, patterns and deliberately sanitized examples only.

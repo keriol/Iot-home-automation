@@ -15,15 +15,15 @@ flowchart TD
     Wilfred --> Alfred
     Alfred --> Frontend
 
-    Event[Domain Event] --> Queue[Queue / Dispatcher]
-    Queue --> Osvaldo[Osvaldo Policy]
+    Event[Domain Event] --> Osvaldo[Osvaldo Policy]
 
-    Osvaldo -->|Allow| Delivery[Shared Delivery]
+    Osvaldo -->|Allow| Hermes[Hermes Delivery]
     Osvaldo -->|Defer| Snoozable[Snoozable Queue]
     Osvaldo -->|Deny| NoDelivery[No Delivery]
 
     Snoozable --> Osvaldo
-    Delivery --> NotificationFrontend[Notification Frontend]
+    Hermes --> Provider[Delivery Provider]
+    Provider --> NotificationFrontend[Notification Frontend]
 
     Alfred --> Charon[Charon Media Intelligence]
     Charon --> Alfred
@@ -33,22 +33,26 @@ flowchart TD
 
 The interactive path starts with an explicit user request.
 
-Alfred supplies Keriol-specific interaction context while Wilfred provides the reusable execution runtime.
+Alfred supplies Keriol-specific context and routing while Wilfred provides reusable execution facilities.
 
-The result returns through the active frontend.
+Known requests resolve deterministically before planner or AI fallback where possible.
 
-Frontend-specific presentation remains outside the Butler architecture.
+The result returns through the active frontend. Provider-specific speech, SSML and presentation stay outside Butler Core.
 
 ## Proactive Flow
 
 The proactive path starts with a domain event.
 
-Osvaldo determines whether communication is allowed, deferred, aggregated or denied before shared delivery occurs.
+Osvaldo determines whether communication is allowed, deferred, aggregated or denied.
+
+After an allow decision, Hermes routes the output to a delivery provider. The provider/frontend owns transport-specific rendering.
+
+For current Alexa speech notifications, the configured voice selection is applied during frontend/provider rendering. Giorgio is therefore a voice parameter, not a policy, delivery or domain component.
 
 ## Public / Private Boundary
 
-Wilfred and Butler Core are reusable public components.
+Butler Core, Wilfred and official public plugins are reusable public components.
 
-Alfred, Osvaldo and Charon belong to the private Keriol deployment, although selected sanitized architecture and case studies may be documented publicly.
+Alfred, Osvaldo, Charon and the current Hermes deployment belong to the private Keriol proving ground, although selected sanitized architecture and case studies may be documented publicly.
 
-Private validated functionality may later become a candidate for extraction into the public runtime.
+Private validation may support an **In testing** maturity label. The architecture may be **Designed to enable** later public extraction, but neither state is a release commitment.

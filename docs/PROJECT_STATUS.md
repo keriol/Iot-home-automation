@@ -1,152 +1,153 @@
 # Home Automation Project Status
 
-Last Updated: 2026-08-13
+Last Updated: 2026-08-23
 
 ## Overview
 
-Keriol Home is an operational local-first smart-home platform and the private proving ground behind the public Wilfred Butler runtime.
+Keriol Home is an operational local-first smart-home platform and the private proving ground behind the public Butler ecosystem.
 
-The current architecture separates reusable public runtime components from Keriol-specific deployment behavior.
+The current architecture separates reusable public runtime components from Keriol-specific deployment behavior:
 
-## Platform Status
+`Butler Core -> Wilfred -> Alfred`
 
-| Area | Status | Notes |
+Home Assistant remains the owner of physical orchestration, integrations, dashboards and device state.
+
+## Current Baselines
+
+| Component | Current status | Notes |
 |---|---|---|
-| Home Assistant | Operational | Owns physical orchestration, dashboards and device wrappers |
-| MQTT | Operational | Event and telemetry bus |
-| Node-RED | Operational | Visual multi-event workflows |
-| Cloudflare Tunnel | Operational | Narrow public integration transport |
-| Tailscale | Operational | Private administration |
-| Alfred | Operational | Private Keriol Butler deployment |
-| Butler Core | Public stable | Provider-neutral contracts and execution primitives |
-| Wilfred | Active development | `0.2.0.dev0`, preparing Public Alpha |
-| wilfred-home-assistant | Active development | Official public Home Assistant plugin |
+| Butler Core | Available | `0.1.4` released baseline; `main` is on `0.1.5.dev0` development line |
+| Wilfred | Available / Public Alpha | `0.2.1` current Public Alpha |
+| wilfred-home-assistant | In development | public plugin on `0.1.0.dev0` development line |
+| Alfred | Private operational | `0.4.0` current private released baseline; post-0.4.0 development continues privately |
+| Home Assistant | Operational | physical orchestration owner |
+| MQTT | Operational | event and telemetry transport |
+| Node-RED | Operational | selected visual workflows |
+| Cloudflare Tunnel | Operational | narrow public integration transport |
+| Tailscale | Operational | private administration |
+
+Release claims use explicit Git/tag/release evidence. Development branches and open issues are not treated as released capability evidence.
 
 ## Butler Runtime
 
 ### Public
 
-Butler Core provides shared contracts and execution primitives.
+Butler Core provides provider-neutral contracts and execution foundations.
 
-Wilfred builds the reusable Butler runtime on those foundations and provides:
+Wilfred builds the reusable runtime on those foundations and currently provides registered tool execution, deterministic-first resolution, planning interfaces, confirmation boundaries, workflows, verified execution, output contracts, standalone interfaces and plugin loading.
 
-- registered tools and capabilities
-- execution and planning interfaces
-- confirmation boundaries
-- verified workflows
-- output contracts
-- standalone HTTP APIs
-- configured plugin loading
-- Docker distribution
+The current public consolidation direction is capability-first: capabilities describe what the Butler knows how to do, while domains own related knowledge and behavior.
 
-The official Home Assistant plugin provides explicit state reads and service actions through the Home Assistant REST API.
+Open capability-first work remains development direction until merged or released.
 
-### Private validated
+### Private proving ground
 
-Alfred uses the reusable Butler foundations while adding Keriol-specific integrations, interaction behavior and domain policy.
+Alfred composes Keriol-specific context, routing, domains, integrations and AI fallback around the reusable stack.
 
-Some capabilities remain ahead of the public Wilfred distribution and are intentionally described as **Private validated** rather than public features.
+Private behavior may run ahead of the public distribution. That does not make it a Wilfred feature automatically.
 
 ## Safety Model
 
-The active design rules include:
+Current design rules include:
 
-- one owner layer per feature;
-- READ before ACTION where useful state exists;
-- explicit confirmation for sensitive actions;
-- dispatch is not physical success;
-- READ / VERIFY after physical actions when observable;
-- deterministic execution before AI fallback where appropriate;
-- frontend-specific presentation must not become an orchestration component.
+- one owner layer or domain per feature;
+- deterministic behavior before AI fallback for known requests;
+- explicit confirmation for sensitive actions when appropriate;
+- successful dispatch is not proof of physical success;
+- observable actions use `READ -> ACTION -> READ -> VERIFY` where possible;
+- frontend presentation stays outside Butler Core;
+- AI receives only the context needed for the task.
 
 ## Voice and Interaction
 
-Status: **Operational / Private validated**
+Status: **In testing / private operational**
 
-- Alexa is the current primary voice frontend.
-- Free-text and legacy deterministic paths coexist during migration.
-- Alfred owns Keriol interaction context.
-- Wilfred provides the reusable runtime foundation.
-- Speech and SSML rendering remain Alexa/frontend-specific.
-- Slow AI-backed interactions can acknowledge the request before provider latency becomes noticeable.
+- Alexa is the current primary voice frontend for Alfred.
+- Frontends remain replaceable.
+- Speech and SSML remain frontend concerns.
+- Alfred owns Keriol interaction context and routing.
+- Slow AI-backed interactions can acknowledge before noticeable provider latency.
+- Provider-specific voice choices remain frontend rendering parameters rather than architectural components.
+
+The private Alexa path is evidence for future reusable patterns, not evidence that Wilfred currently ships an official Alexa integration.
 
 ## Proactive Communication
 
-Status: **Operational / Private validated**
+Status: **In testing**
 
-Osvaldo owns policy for unsolicited communication, including:
+Osvaldo owns communication policy for unsolicited output, including allow, defer, aggregate, deny and quiet-hours decisions.
 
-- allow;
-- defer;
-- aggregate;
-- deny;
-- quiet-hours behavior;
-- communication mode selection.
+Hermes owns the private delivery/provider boundary.
 
-Domains emit events but do not own proactive delivery policy.
+A requested asynchronous reply is treated as a continuation of an explicit interaction rather than generic unsolicited communication.
 
 ## Appliances
 
-Status: **Operational / Private validated**
+Status: **In testing**
 
-The laundry workflow validates the core safety principle that successful command dispatch does not prove physical success.
+The laundry workflow demonstrates status reads, validated catalog handling, controlled appliance actions and asynchronous physical-state verification.
 
-Implemented behavior includes status queries, catalog handling, controlled actions and asynchronous state verification.
+Its main engineering lesson is that command dispatch and confirmed device state are separate events.
 
 ## Media
 
-Status: **Operational / Private validated**
+Status: **In testing**
 
-Plex and Tautulli are integrated.
+Charon owns media-domain intelligence and lifecycle behavior.
 
-Charon owns media-domain intelligence including discovery, catalog policy, playback-related workflows and lifecycle analysis.
+Public-safe portfolio material may describe discovery, media identity, Plex integration, playback/lifecycle reasoning, quality policy, observed-state verification and domain-event handoff.
 
-Selected reusable concepts may become future public Wilfred capabilities.
+Private acquisition implementation is intentionally excluded from this repository.
 
 ## Energy
 
-Status: **Operational with ongoing expansion**
+Status: **In testing**
 
-Local telemetry includes photovoltaic and battery-related data exposed through Home Assistant and MQTT.
+The local energy pipeline has produced stable and usable telemetry for grid, photovoltaic and battery behavior, including MQTT/Home Assistant integration and energy-balance validation.
 
-Further work includes richer consumption analysis and context-aware recommendations.
+Full long-duration validation remains incomplete, so the portfolio does not describe it as production-ready or generally available.
 
-## Presence and Security
+## Presence
 
-Status: **Experimental / In progress**
+Status: **Designed to enable**
 
-BLE and other presence inputs are being evaluated.
+BLE experiments demonstrated that available signals were not reliable enough to become an authoritative occupancy source.
 
-Critical automation remains conservative until presence confidence is sufficient.
+The preferred future direction is deliberately minimal and privacy-preserving: `occupied / empty / uncertain`, without room-level tracking or continuous movement profiling.
+
+The work is currently parked rather than treated as an active reliable automation dependency.
 
 ## Climate
 
-Status: **Experimental / Private validated**
+Status: **In testing**
 
-Temperature and humidity sensing are available.
+Environmental sensing and selected control strategies are exercised privately.
 
-Climate-control strategies are being tested incrementally, with particular attention to feedback quality and post-command verification.
+Physical orchestration remains in Home Assistant and feedback quality matters before any capability is promoted as reliable.
 
-## Public Alpha Status
+## Home Theater
 
-Wilfred `0.2.0` has not yet completed its final public release checkout.
+Status: **In testing / privately validated**
 
-Before calling the Public Alpha complete, the project still requires:
+The Bravia and Dolby safe-power workflow remains a representative Home Assistant-owned physical orchestration case study.
 
-- final compatible-version coordination;
-- stable public artifacts;
-- stable public container publication;
-- clean pull and runtime verification;
-- final release checkout;
-- release-adjacent public communication.
+State-based sequencing avoids startup race conditions and keeps recovery logic local and observable.
 
-## Known Documentation Gap
+## Development State
 
-The portfolio historically documented Alfred before Wilfred existed.
+Current development truth comes from:
 
-Current documentation is being realigned so that:
+- GitHub Issues for tasks, priorities, dependencies and active status;
+- Git `main` for merged implementation and documentation;
+- commits, tags, workflows and releases for implementation/release evidence;
+- live systems for deployed behavior and health.
 
-- historical files preserve the architecture of their time;
-- current documents describe Butler Core -> Wilfred -> Alfred accurately;
-- private validated capabilities are distinguished from public Wilfred features;
-- legacy readable implementation examples are removed from the portfolio under the current public/private boundary.
+The retired private development ledger is historical only and does not override GitHub or runtime evidence.
+
+## Documentation Status
+
+DOC-003 is refreshing current-state public documentation against explicit repository evidence.
+
+Historical ADRs, worklogs and dated snapshots remain historical and are not rewritten retroactively.
+
+The portfolio intentionally documents architecture, case studies and reusable lessons rather than mirroring private implementation.

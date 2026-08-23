@@ -4,7 +4,7 @@
 
 This project integrates multiple consumer and prosumer devices into a unified smart-home platform.
 
-The inventory is intentionally sanitized and does not expose serial numbers, device identifiers or private network information.
+The inventory is intentionally sanitized and does not expose serial numbers, device identifiers, private host paths or private network information.
 
 ## Compute
 
@@ -15,9 +15,9 @@ Role:
 - Home Assistant host
 - MQTT broker host
 - Node-RED host
-- Energy telemetry collection
-- VPN endpoint
-- HTTPS tunnel endpoint
+- energy telemetry collection
+- private remote-access endpoint
+- selected HTTPS integration endpoint
 
 Technologies:
 
@@ -31,10 +31,12 @@ Technologies:
 
 Role:
 
-- Voice interaction
-- Text-to-speech notifications
-- Announcements
-- Smart-home control
+- voice interaction
+- text-to-speech notifications
+- announcements
+- smart-home control
+
+Voice rendering remains a frontend concern and does not define Butler architecture ownership.
 
 ## Media
 
@@ -43,15 +45,15 @@ Role:
 Role:
 
 - Plex playback
-- Voice-controlled media experience
-- Home theater integration
+- voice-driven media experience
+- home-theater integration
 
 ### Home Theater System
 
 Role:
 
-- Enhanced audio
-- Automated power management
+- enhanced audio
+- automated power management
 - eARC integration
 
 ## Networking
@@ -60,16 +62,16 @@ Role:
 
 Role:
 
-- Local connectivity
+- local connectivity
 - Internet access
-- Device communication
+- device communication
 
-### VPN
+### Private Remote Access
 
 Role:
 
-- Secure remote administration
-- Private access to internal services
+- secure administration
+- private access to internal services
 
 ## Energy
 
@@ -77,15 +79,17 @@ Role:
 
 Role:
 
-- Photovoltaic production monitoring
-- Local telemetry acquisition
+- photovoltaic production monitoring
+- local telemetry acquisition
 
 ### Battery Storage System
 
 Role:
 
-- Energy storage
-- Battery state monitoring
+- energy storage
+- battery-state monitoring
+
+Energy telemetry is currently **In testing**: stable and usable privately, but still subject to long-window validation before stronger claims are made.
 
 ## Sensors
 
@@ -93,15 +97,17 @@ Role:
 
 Role:
 
-- Presence detection
-- Occupancy tracking
+- experimental presence-signal collection
+- evaluation of privacy-conscious occupancy approaches
+
+BLE presence is **Designed to enable**, not an authoritative occupancy source. Critical home/away automations must not depend on the current experimental signal alone.
 
 ### Temperature Sensors
 
 Role:
 
-- Environmental monitoring
-- Future climate automations
+- environmental monitoring
+- incremental climate-automation validation
 
 ## Cameras
 
@@ -109,8 +115,8 @@ Role:
 
 Role:
 
-- Video monitoring
-- Future smart event evaluation
+- video monitoring
+- future smart-event evaluation
 
 ## Smart Devices
 
@@ -118,30 +124,27 @@ Role:
 
 Role:
 
-- Power automation
-- Device protection
-- Media workflows
+- power automation
+- device protection
+- media workflows
 
 ### Smart Lighting
 
 Role:
 
-- Lighting automation
-- Future scene management
+- lighting automation
+- scene management
 
 ### Smart Appliances
 
 Role:
 
-- Laundry monitoring
-- Future energy-aware automations
+- laundry monitoring
+- controlled appliance workflows
+- future energy-aware recommendations
 
-## Future Hardware
+## Candidate Hardware Directions
 
-Planned additions:
+Potential additions are evaluated only when they solve a validated need. Examples include dedicated low-power presence beacons, expanded environmental sensing and additional local event-processing hardware.
 
-- Additional BLE devices
-- Expanded environmental sensing
-- Frigate-compatible camera processing
-- Additional occupancy sensors
-
+Candidate hardware does not imply an active implementation or purchase commitment.

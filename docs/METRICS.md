@@ -1,177 +1,65 @@
 # Project Metrics
 
-## Overview
+## Purpose
 
-This document tracks high-level platform metrics.
+This document tracks **public-safe engineering indicators**, not volatile runtime counts.
 
-Values are intentionally approximate and periodically updated.
+Live container counts, automation counts, entity counts and other operational statistics change frequently and belong to live systems rather than portfolio documentation.
 
----
+## Public Butler Baseline
 
-## Infrastructure
-
-| Metric | Value |
+| Component | Evidence-backed state |
 |---|---|
-| Docker Containers | 5 |
-| Home Automation Server | 1 |
-| MQTT Brokers | 1 |
-| VPN Solutions | 1 |
-| HTTPS Tunnel Solutions | 1 |
+| Butler Core | `0.1.4` released baseline; `main` on `0.1.5.dev0` development line |
+| Wilfred | `0.2.1` current Public Alpha |
+| wilfred-home-assistant | `0.1.0.dev0` development line |
+| Alfred | `0.4.0` private released baseline; later private development continues |
 
----
+## Capability Maturity Snapshot
 
-## Core Services
+| Area | Portfolio maturity | Notes |
+|---|---|---|
+| Butler execution foundations | Available | Public Core/Wilfred foundations with private real-world validation |
+| Verified physical actions | Available + In testing | READ -> ACTION -> READ -> VERIFY exercised against real devices |
+| Voice interaction | In testing | Private Alexa frontend and Alfred interaction path |
+| Proactive communication | In testing | Osvaldo policy exercised privately |
+| Delivery abstraction | In testing | Hermes provider/plugin boundary exercised privately |
+| Media intelligence | In testing | Charon domain/lifecycle concepts validated privately |
+| Laundry workflow | In testing | Controlled actions, catalog handling and async verification exercised privately |
+| Energy telemetry | In testing | Stable and usable private telemetry, still awaiting definitive long-window validation |
+| Presence | Designed to enable | Privacy-conscious occupancy direction; current BLE path is not authoritative |
+| Climate | In testing | Sensing and control strategies remain private validation work |
+| Home theater safe power | In testing | Private Home Assistant workflow validated in real use |
 
-| Service | Status |
-|---|---|
-| Home Assistant | Operational |
-| Mosquitto MQTT | Operational |
-| Node-RED | Operational |
-| Cloudflare Tunnel | Operational |
-| AdGuard Home | Operational |
+## Engineering Evidence Indicators
 
----
+The portfolio demonstrates:
 
-## Integrations
+- provider-neutral Butler foundations;
+- deterministic-first request handling;
+- capability/domain ownership boundaries;
+- explicit confirmation and safety boundaries;
+- physical post-action verification;
+- replaceable frontends;
+- policy separated from delivery;
+- public/private extraction discipline;
+- GitHub-based development governance;
+- dated analysis trails for significant portfolio refreshes.
 
-| Category | Status |
-|---|---|
-| Voice Assistants | Active |
-| Energy Monitoring | Active |
-| Media Automation | Active |
-| Smart Lighting | Active |
-| Smart Appliances | Active |
-| BLE Presence Detection | Pilot |
-| Camera Integration | Active |
-| Remote Access | Active |
+## Documentation Indicators
 
----
+Current public documentation includes:
 
-## Energy Platform
+- architecture overview and diagrams;
+- current public project model;
+- ADRs, including current GitHub source-of-truth governance;
+- case studies and historical evolution notes;
+- public-safety and sanitization rules;
+- analysis trail for the 2026-08-23 portfolio refresh;
+- roadmap and current project status.
 
-| Feature | Status |
-|---|---|
-| Local PV Telemetry | Active |
-| Battery Monitoring | Active |
-| MQTT Publication | Active |
-| Energy Dashboard | Active |
-| Energy Notifications | Planned |
+## Measurement Rule
 
----
+A metric belongs here only when it remains meaningful without continuous runtime synchronization.
 
-## Voice Platform
-
-| Feature | Status |
-|---|---|
-| Alexa Integration | Active |
-| Assist Integration | Active |
-| Voice Announcements | Active |
-| Plex Voice Control | Active |
-| Custom Skill | MVP validated |
-
----
-
-## Media Platform
-
-| Feature | Status |
-|---|---|
-| Plex Integration | Active |
-| Resume Playback Logic | Active |
-| Dynamic Search | Active |
-| Android TV Playback | Active |
-| Home Theater Automation | Active |
-
----
-
-## Presence Platform
-
-| Feature | Status |
-|---|---|
-| BLE Adapter | Active |
-| Bermuda | Active |
-| Primary Device Tracking | Active |
-| Secondary Device Tracking | In Progress |
-| Empty Home Logic | Planned |
-
----
-
-## Documentation
-
-| Metric | Value |
-|---|---|
-| README | Present |
-| Roadmap | Present |
-| Lessons Learned | Present |
-| Project Model | Present |
-| Project Status | Present |
-| Architecture Docs | Present |
-| ADR Documents | 5 |
-| Showcase Documents | Present |
-| AI Workflow Documentation | Present |
-
----
-
-## Engineering Practices
-
-Implemented practices:
-
-- Local-first architecture
-- Event-driven design
-- AI-assisted development
-- Architecture Decision Records
-- Roadmap-driven development
-- Continuous documentation
-- Security-focused remote access
-- Public-safe portfolio maintenance
-
----
-
-## Future Metrics
-
-Future versions may track:
-
-- Home Assistant integrations
-- Number of automations
-- Number of scripts
-- MQTT topics
-- Sensors
-- BLE devices
-- Dashboards
-- Voice commands
-- Energy entities
-
-
----
-
-## Live Platform Statistics
-
-| Metric | Value |
-|---|---|
-| Running Docker Containers | 5 |
-| Home Assistant Automations | 3 |
-| Home Assistant Scripts | 4 |
-| Home Assistant YAML Files | 50 |
-
-These values were collected from the live self-hosted environment and may evolve over time.
-
-
-## Alfred Laundry Workflow Metrics
-
-| Capability | Status |
-|---|---|
-| Alexa Custom Skill laundry bridge | MVP validated |
-| Laundry status query | Operational |
-| Remaining-time query | Operational |
-| Validated program catalog | Operational |
-| True keyword program search | Operational |
-| Voice pagination for long results | Operational |
-| Validated remote start | MVP validated |
-| Remote stop | MVP validated |
-| Generic hOn program-name fallback | Operational |
-| Async start verification | Validated |
-| Async stop verification | Validated |
-| hOn refresh before verification | Validated |
-| Manual verification fallback | Implemented |
-| Presence-aware proactive prompts | Planned |
-| PV-aware laundry suggestions | Planned |
-
+Operational truth such as service health, live entity counts, device availability or exact deployment inventory must be verified against the live systems when needed and is not treated as durable portfolio state.

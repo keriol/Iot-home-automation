@@ -1,8 +1,16 @@
-# Umberto Checkout Flow
+# Historical Umberto Checkout Flow
 
-![Umberto checkout flow](umberto-checkout-flow.svg)
+## Status
 
-## Text Fallback
+**Superseded historical diagram.**
+
+This flow records the former Umberto-based development process. It is preserved as workflow history, not as current development guidance.
+
+Current development governance is defined by [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-development-source-of-truth.md).
+
+![Historical Umberto checkout flow](umberto-checkout-flow.svg)
+
+## Historical Text Fallback
 
     Session start
       -> read SQLite ledger
@@ -21,9 +29,14 @@
       -> human approval
       -> commit and reviewed publication
 
-## Responsibility Boundary
+## Current Interpretation
 
-- Umberto reads planning state and prepares checkout evidence.
-- Alfred and domain services implement runtime capabilities.
-- Git preserves tracked implementation and documentation history.
-- The human operator approves commit, merge and push operations.
+The useful principles survive even though the ledger does not:
+
+- planning state needs an explicit authority;
+- implementation evidence belongs in Git;
+- runtime evidence belongs in live systems;
+- public sanitization must be deliberate;
+- human approval remains part of sensitive publication and release decisions.
+
+Today GitHub Issues, Git, release evidence and live-system verification own those responsibilities.
