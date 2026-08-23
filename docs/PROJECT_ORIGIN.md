@@ -82,15 +82,15 @@ Alfred may contain capabilities that are more advanced than the current public W
 
 That does not make them public features automatically.
 
-The portfolio therefore distinguishes:
+Current portfolio maturity uses:
 
-- **Public**
-- **Private validated**
-- **Candidate**
+- **Available**: public, documented and usable in the relevant public component;
+- **In testing**: implemented or exercised privately, but not a public release promise;
+- **Designed to enable**: architecturally supported direction without an implementation claim.
 
 Private validation provides engineering evidence.
 
-Public extraction requires deliberate generalization, tests, documentation and a clean public boundary.
+Public extraction requires deliberate generalization, tests, documentation, sanitization and clean installation/runtime evidence.
 
 ## Home Assistant Remains the Home
 
@@ -110,6 +110,6 @@ This repository documents:
 - reusable engineering lessons;
 - public-safe diagrams and conceptual flows.
 
-It does not publish the private Alfred implementation, secrets, credentials, private operational data or unnecessary household identifiers.
+It does not publish the private Alfred implementation, secrets, credentials, private operational data, machine-specific private paths, unnecessary household identifiers or private media-acquisition implementation.
 
 Historical worklogs and snapshots are retained because they show how the architecture evolved rather than pretending the current design existed from the beginning.
