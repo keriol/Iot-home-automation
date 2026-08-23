@@ -17,6 +17,8 @@ It is intentionally different from the final architecture documentation:
 4. [Public/private boundary and sanitization](04-public-private-boundary-and-sanitization.md)
 5. [Delivery, frontend and voice boundary](05-delivery-frontend-and-voice-boundary.md)
 6. [Decisions and rejected alternatives](06-decisions-and-rejected-alternatives.md)
+7. [Case-study and narrative audit](07-case-study-and-narrative-audit.md)
+8. [Final safety, navigation and stale-reference audit](08-final-safety-link-and-stale-reference-audit.md)
 
 ## Evidence rule
 
@@ -34,4 +36,4 @@ A branch, issue or design note is evidence of activity or direction, not proof t
 
 This analysis records conclusions, not readable private implementation.
 
-Private household code, private endpoints, secrets, operational identifiers, unnecessary entity IDs and private media-acquisition implementation are excluded. Where a private mechanism matters to the reasoning, it is described only at the architectural boundary necessary to explain the decision.
+Private household code, private endpoints, secrets, operational identifiers, unnecessary entity IDs, machine-specific private paths and private media-acquisition implementation are excluded. Where a private mechanism matters to the reasoning, it is described only at the architectural boundary necessary to explain the decision.
