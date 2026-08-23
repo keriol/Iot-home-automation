@@ -20,6 +20,7 @@ It is intentionally different from the final architecture documentation:
 7. [Case-study and narrative audit](07-case-study-and-narrative-audit.md)
 8. [Final safety, navigation and stale-reference audit](08-final-safety-link-and-stale-reference-audit.md)
 9. [Historical records coverage](09-historical-records-coverage.md)
+10. [Residual reference-document audit](10-residual-reference-doc-audit.md)
 
 ## Evidence rule
 
