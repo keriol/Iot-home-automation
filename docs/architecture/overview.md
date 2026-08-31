@@ -8,9 +8,18 @@ Keriol Home separates reusable Butler runtime concerns from the private househol
 
 Butler Core is the lowest reusable layer.
 
-It owns provider-neutral contracts and execution primitives shared by Butler runtimes and consumers.
+The current `0.2.0` baseline owns provider-neutral contracts and small execution primitives shared by Butler runtimes and consumers, including:
 
-It does not own smart-home orchestration, frontend behavior or Keriol-specific integrations.
+- tool definitions, permissions and registration;
+- planner interfaces;
+- deterministic request-resolution contracts;
+- policy-governed execution;
+- asynchronous job request/result boundaries;
+- structured trace context and events;
+- domain, capability and contribution declarations;
+- provider-neutral output contracts.
+
+Core deliberately does not own plugin discovery/loading/lifecycle, application routing, concrete domain behavior, Home Assistant or Alexa integrations, AI-provider configuration, frontend rendering, trace storage/viewers, delivery providers or Keriol-specific deployment behavior.
 
 ### Wilfred
 
@@ -30,7 +39,7 @@ Its responsibilities include:
 
 The current public consolidation direction is capability-first: capabilities represent what the Butler knows how to do, domains own related knowledge and behavior, and deterministic resolvers should move under the capability that owns them rather than remaining in global conversation logic.
 
-This direction is tracked in GitHub and must not be described as released until the relevant implementation is merged or released.
+Butler Core `0.2.0` now supplies reusable domain/capability/contribution contracts for that direction. Wilfred adoption remains a Wilfred-owned implementation milestone and is not automatically implied by the Core release.
 
 Wilfred can run independently of Alfred.
 
@@ -79,6 +88,23 @@ The private deployment adds Alfred above the reusable runtime:
 The response returns through the active frontend or delivery provider.
 
 Frontend-specific speech, SSML and presentation remain frontend concerns.
+
+## Core 0.2 Composition Boundary
+
+Core 0.2 makes more reusable structure explicit without turning Core into an application framework.
+
+A host runtime may compose Core contracts in roughly this order:
+
+1. domain packages declare domains, capabilities, deterministic resolvers and tools;
+2. the runtime discovers or loads those contributions;
+3. deterministic resolvers attempt the request first;
+4. a runtime-owned fallback may handle unresolved goals;
+5. execution validates arguments and applies permission/confirmation policy;
+6. asynchronous continuation may be represented through job contracts;
+7. output is handed to a concrete provider outside Core;
+8. trace context may correlate those boundaries without requiring a Core-owned logger or viewer.
+
+Discovery, loading, lifecycle and runtime verification remain higher-layer responsibilities.
 
 ## Deterministic First
 
@@ -145,6 +171,7 @@ See [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-deve
 - One owner layer/domain per feature.
 - Home Assistant owns physical orchestration.
 - Butler Core stays provider-neutral and service-agnostic.
+- Core contribution contracts do not make Core the plugin runtime.
 - Wilfred owns reusable Butler runtime behavior.
 - Alfred may contain Keriol-specific capabilities and proving-ground experiments.
 - Deterministic behavior precedes AI/planner fallback where practical.

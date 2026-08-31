@@ -1,6 +1,6 @@
 # Home Automation Project Status
 
-Last Updated: 2026-08-23
+Last Updated: 2026-08-31
 
 ## Overview
 
@@ -16,8 +16,8 @@ Home Assistant remains the owner of physical orchestration, integrations, dashbo
 
 | Component | Current status | Notes |
 |---|---|---|
-| Butler Core | Available | `0.1.4` released baseline; `main` is on `0.1.5.dev0` development line |
-| Wilfred | Available / Public Alpha | `0.2.1` current Public Alpha |
+| Butler Core | Available | `0.2.0` released baseline with provider-neutral execution, async-job, tracing and domain-contribution contracts |
+| Wilfred | Available / Public Alpha | `0.2.1` current Public Alpha; Core 0.2 contract adoption remains a separate Wilfred development task |
 | wilfred-home-assistant | In development | public plugin on `0.1.0.dev0` development line |
 | Alfred | Private operational | `0.4.0` current private released baseline; post-0.4.0 development continues privately |
 | Home Assistant | Operational | physical orchestration owner |
@@ -32,13 +32,13 @@ Release claims use explicit Git/tag/release evidence. Development branches and o
 
 ### Public
 
-Butler Core provides provider-neutral contracts and execution foundations.
+Butler Core `0.2.0` provides the current provider-neutral foundation for tools/registry, planning, deterministic resolution, policy-governed execution, asynchronous jobs, structured tracing, domain/capability contribution declarations and output contracts.
+
+Core remains deliberately smaller than a runtime: plugin discovery/loading/lifecycle, concrete domain behavior, frontend rendering, AI-provider configuration and deployment-specific integrations remain outside Core.
 
 Wilfred builds the reusable runtime on those foundations and currently provides registered tool execution, deterministic-first resolution, planning interfaces, confirmation boundaries, workflows, verified execution, output contracts, standalone interfaces and plugin loading.
 
-The current public consolidation direction is capability-first: capabilities describe what the Butler knows how to do, while domains own related knowledge and behavior.
-
-Open capability-first work remains development direction until merged or released.
+The current public consolidation direction is capability-first: capabilities describe what the Butler knows how to do, while domains own related knowledge and behavior. Core 0.2.0 now supplies reusable declarations for that model, while Wilfred adoption is tracked independently and must not be inferred from the Core release alone.
 
 ### Private proving ground
 
@@ -146,7 +146,7 @@ The retired private development ledger is historical only and does not override 
 
 ## Documentation Status
 
-DOC-003 is refreshing current-state public documentation against explicit repository evidence.
+DOC-005 refreshes the current-state portfolio after the Butler Core 0.2.0 release while preserving the distinction between Core availability and downstream Wilfred adoption.
 
 Historical ADRs, worklogs and dated snapshots remain historical and are not rewritten retroactively.
 

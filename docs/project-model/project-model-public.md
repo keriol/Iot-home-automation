@@ -1,5 +1,5 @@
 HOME AUTOMATION PROJECT CONTEXT - PUBLIC (<8K>)
-UPDATED: 2026-08-23
+UPDATED: 2026-08-31
 
 PURPOSE
 
@@ -31,9 +31,10 @@ Motto: "Alfred non è il software della casa. Alfred è colui che sa parlare con
 
 CURRENT PUBLIC BASELINE
 
-* Butler Core 0.1.4 is the released Core baseline currently consumed by Wilfred 0.2.1.
-* Butler Core main is on the 0.1.5.dev0 development line.
-* Wilfred 0.2.1 is the current Public Alpha.
+* Butler Core 0.2.0 is the current released Core baseline.
+* Core 0.2.0 adds the provider-neutral execution, asynchronous-job, tracing and domain/capability contribution baseline used by higher-level Butler runtimes.
+* Wilfred 0.2.1 remains the current Public Alpha.
+* Wilfred 0.2.1 must not be described as already adopting every Core 0.2.0 contract; consumer adoption is evidenced separately in the Wilfred repository.
 * wilfred-home-assistant is the official Home Assistant plugin and is currently on its 0.1.0.dev0 development line.
 * Alfred 0.4.0 is the current private released baseline; post-0.4.0 development continues privately.
 
@@ -65,8 +66,13 @@ PUBLIC BUTLER STACK
 
 Butler Core:
 
-* provider-neutral contracts and execution foundations;
-* planning/output primitives shared by runtimes and consumers;
+* provider-neutral contracts and small execution primitives;
+* tool/registry, planner, deterministic-resolution and execution contracts;
+* provider-neutral asynchronous job requests/results and lifecycle protocols;
+* structured tracing with trace context, status/severity/levels and fail-safe tracer abstraction;
+* reusable domain, capability, contribution/plugin and goal-expectation declarations with conformance helpers;
+* provider-neutral output contracts;
+* no plugin discovery/loading/lifecycle, concrete domain behavior, provider configuration, frontend rendering or deployment-specific behavior;
 * no Keriol, Alexa or Home Assistant device-specific behavior;
 * provider-neutral and service-agnostic.
 
@@ -78,7 +84,7 @@ Wilfred:
 * planning interfaces and confirmation boundaries;
 * verified execution and output contracts;
 * plugin loading and standalone interfaces;
-* capability-first/domain contracts are the next public consolidation direction.
+* capability-first/domain adoption continues as a Wilfred-owned implementation concern even though Core 0.2.0 now provides reusable declarations.
 
 wilfred-home-assistant:
 
@@ -146,6 +152,7 @@ ARCHITECTURE RULES
 * One owner layer/domain per feature.
 * Home Assistant owns physical orchestration.
 * Butler Core stays provider-neutral and service-agnostic.
+* Core contribution contracts do not imply Core owns runtime plugin discovery/loading/lifecycle.
 * Deterministic behavior precedes AI fallback for known requests.
 * AI receives only the minimum necessary context.
 * ACTION/DANGEROUS operations require confirmation when appropriate.
@@ -228,6 +235,7 @@ Exact household inventory is intentionally outside this public context.
 
 CURRENT DIRECTION
 
+* Adopt Core 0.2.0 contribution contracts in Wilfred without moving runtime discovery/loading ownership into Core.
 * Continue capability-first/domain consolidation in Wilfred.
 * Continue converging reusable Alfred behavior onto Wilfred/Core while keeping Keriol-specific behavior private.
 * Mature Hermes/Alexa privately before considering reusable/public extraction.

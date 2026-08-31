@@ -12,10 +12,10 @@ The portfolio documents architecture, capability maturity, case studies and engi
 
 ## Current Public Baseline
 
-- **Butler Core `0.1.4`** is the released Core baseline consumed by Wilfred `0.2.1`.
-- **Wilfred `0.2.1`** is the current Public Alpha.
+- **Butler Core `0.2.0`** is the current released Core baseline. It establishes the shared provider-neutral execution, asynchronous-job, tracing and domain-contribution contract layer.
+- **Wilfred `0.2.1`** remains the current Public Alpha and still reflects its own released contract adoption state.
 - **wilfred-home-assistant** is the official public Home Assistant plugin and remains on its `0.1.0.dev0` development line.
-- Butler Core `main` has moved on to the `0.1.5.dev0` development line; development state is not presented as a released baseline.
+- Core `0.2.0` being available does not by itself mean Wilfred has already adopted every new Core 0.2 contract. That adoption is tracked and evidenced in the Wilfred repository.
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
@@ -36,9 +36,11 @@ Release claims in this portfolio come from explicit Git/tag/release evidence. Op
 
 ### Butler Core
 
-[Butler Core](https://github.com/keriol/butler-core) owns provider-neutral contracts and execution primitives shared by Butler runtimes and consumers.
+[Butler Core](https://github.com/keriol/butler-core) owns provider-neutral contracts and small execution primitives shared by Butler runtimes and consumers.
 
-It does not know about Keriol Home, Alexa, Home Assistant devices or private household integrations.
+The `0.2.0` baseline includes tool/registry contracts, planning boundaries, deterministic resolution, policy-governed execution, asynchronous job contracts, structured tracing, domain/capability contribution declarations and provider-neutral output contracts.
+
+Core deliberately does not own application routing, plugin discovery/loading/lifecycle, concrete domains, AI-provider configuration, frontend rendering, delivery providers, trace storage or Keriol-specific integrations.
 
 ### Wilfred
 
@@ -46,7 +48,7 @@ It does not know about Keriol Home, Alexa, Home Assistant devices or private hou
 
 Wilfred `0.2.1` is the current Public Alpha. Its released runtime includes registered tools, deterministic-first resolution, planning interfaces, workflows, confirmation boundaries, verified execution and output contracts.
 
-The current public development direction is **capability-first**: capabilities and domains are being consolidated as explicit semantic ownership boundaries, with deterministic resolution remaining ahead of planner fallback. Open development work is documented as direction until merged or released.
+The current public development direction is **capability-first**: capabilities and domains are being consolidated as explicit semantic ownership boundaries, with deterministic resolution remaining ahead of planner fallback. Butler Core `0.2.0` now provides reusable domain/capability contribution contracts, but Wilfred adoption remains a separate implementation milestone and is not inferred from the Core release alone.
 
 The official [Home Assistant plugin](https://github.com/keriol/wilfred-home-assistant) connects Wilfred to Home Assistant without moving physical orchestration out of Home Assistant.
 
