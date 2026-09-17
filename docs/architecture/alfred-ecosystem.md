@@ -1,26 +1,24 @@
 # Alfred Ecosystem
 
-Alfred is the private Keriol Home Butler deployment and the real-world proving ground from which reusable Butler patterns can graduate into Wilfred, Butler Core or official public plugins.
+Alfred is the private Keriol Home Butler runtime and the real-world proving ground from which reusable Butler patterns can graduate into Wilfred, Butler Core or independent public plugins.
 
 ## Runtime Relationship
 
-The current layering is:
+The current relationship is:
 
     Butler Core
-        |
-        v
-      Wilfred
-        |
-        v
-      Alfred
+      /      \
+ Wilfred    Alfred
+
+Reusable platform plugins may also depend on Core-owned contracts and be consumed by either runtime independently.
 
 Butler Core provides provider-neutral contracts and execution foundations.
 
 Wilfred provides the reusable public Butler runtime.
 
-Alfred composes Keriol-specific context, policy, domains, integrations and experimental behavior on top of that reusable stack.
+Alfred provides the private Keriol runtime, composition and proving ground.
 
-Older private paths that predate Wilfred are progressively converging onto this ownership model when doing so improves reuse and clarity.
+Wilfred and Alfred are sibling runtimes. Alfred does not run on or through Wilfred.
 
 ## Capability Model
 
@@ -45,7 +43,8 @@ Its responsibilities include:
 - receiving normalized requests from supported frontends;
 - composing the private runtime and loaded packages;
 - routing Keriol-specific context and policy;
-- invoking reusable Wilfred/Core execution facilities;
+- invoking Core-compatible tools and capabilities;
+- consuming reusable plugins such as HAP where appropriate;
 - exposing private domain capabilities;
 - preserving permissions, confirmation and safety boundaries;
 - providing AI fallback only when deterministic resolution does not already own the request.
@@ -54,17 +53,19 @@ Alfred is not the smart-home platform itself.
 
 Home Assistant remains responsible for physical orchestration, integrations, dashboards and device state.
 
+## Home Assistant Plugin
+
+Home Assistant Plugin (HAP) is a reusable public integration built on Butler Core contracts rather than on Wilfred.
+
+Its role is to own reusable Home Assistant transport, configuration, state and action behavior.
+
+Alfred may consume HAP directly while keeping Keriol semantic routing and policy inside Alfred. Wilfred may consume the same plugin independently.
+
 ## Osvaldo
 
 Osvaldo owns proactive communication policy.
 
-It may:
-
-- allow immediate delivery;
-- defer delivery;
-- aggregate compatible events;
-- deny delivery;
-- apply quiet-hours and related communication policy.
+It may allow immediate delivery, defer delivery, aggregate compatible events, deny delivery, or apply quiet-hours and related communication policy.
 
 A requested asynchronous reply is a continuation of an explicit user interaction and should not be treated as a generic unsolicited notification merely because delivery happens later.
 
@@ -72,7 +73,7 @@ A requested asynchronous reply is a continuation of an explicit user interaction
 
 Charon owns media-domain intelligence and lifecycle behavior.
 
-It may handle discovery, identity, quality policy, playback decisions, observation and lifecycle analysis while exposing media capabilities through the Butler runtime.
+It may handle discovery, identity, quality policy, playback decisions, observation and lifecycle analysis while exposing media capabilities through Alfred.
 
 Charon does not own generic conversation routing or provider delivery.
 
@@ -100,11 +101,16 @@ A private Keriol interaction follows:
 
     Frontend
       -> Alfred
-      -> Wilfred runtime
-      -> Registered capability
+      -> Registered capability / plugin
       -> Domain / Integration
       -> Alfred
       -> Frontend rendering / delivery
+
+For reusable Home Assistant access:
+
+    Alfred
+      -> HAP
+      -> Home Assistant
 
 Frontend-specific speech, SSML and presentation remain frontend concerns.
 
@@ -149,8 +155,9 @@ The retired Umberto ledger remains historical context only.
 ## Component Boundaries
 
 - Butler Core owns provider-neutral foundations.
-- Wilfred owns the reusable Butler runtime and public semantic capability/domain contracts.
-- Alfred owns private Keriol composition, context, routing and AI fallback.
+- Wilfred owns the reusable public Butler runtime.
+- Alfred owns the private Keriol Butler runtime, composition, context, routing and AI fallback.
+- HAP owns reusable Home Assistant integration behavior and is not owned by a concrete runtime.
 - Home Assistant owns physical orchestration and device/integration state.
 - Osvaldo owns proactive communication policy.
 - Charon owns media-domain intelligence and lifecycle behavior.
@@ -158,3 +165,5 @@ The retired Umberto ledger remains historical context only.
 - Frontends own provider-specific input and presentation.
 - Giorgio is an Alexa speech-rendering parameter, not an architectural owner.
 - Domain services should not duplicate policy, execution or provider responsibilities.
+
+See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md).
