@@ -20,11 +20,11 @@
 
 ## Architecture Decision Records
 
-Current governance:
+Current governance and architecture:
 
+- [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
 - [ADR-011 - GitHub as Development Source of Truth](adr/ADR-011-github-development-source-of-truth.md)
 - [ADR-010 - Public Portfolio Documentation Boundary](adr/ADR-010-public-portfolio-documentation-boundary.md)
-- [ADR-008 - Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md)
 
 Foundational ADRs:
 
@@ -36,8 +36,9 @@ Foundational ADRs:
 - [ADR-006 - Proactive Notification Policy](adr/ADR-006-proactive-notification-policy.md)
 - [ADR-007 - Alfred Agent and Tool Registry](adr/ADR-007-alfred-agent-tool-registry.md)
 
-Historical governance:
+Historical / superseded ADRs:
 
+- [ADR-008 - Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md), retained as the historical extraction-stage model and superseded by ADR-012 for the current runtime relationship.
 - [ADR-009 - Development State Sources of Truth](adr/ADR-009-development-state-sources-of-truth.md), retained as the historical record of the former ledger-based model and superseded by ADR-011 for current development-state ownership.
 
 See [Historical Records](HISTORICAL_RECORDS.md) for the ADR lifecycle in the wider project chronology.
