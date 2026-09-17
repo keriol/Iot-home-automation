@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
 
 ## Context
 
