@@ -1,6 +1,6 @@
 # Roadmap
 
-Keriol Home evolves as a local-first smart-home platform with a reusable public Butler stack and a private real-world proving ground.
+Keriol Home evolves as a local-first smart-home platform with reusable public Butler components and a private real-world proving ground.
 
 The roadmap distinguishes **released/public baseline**, **current development direction**, and **private validated capability work**. Open issues and branches do not become portfolio feature claims until supported by merged, released or validated evidence.
 
@@ -15,21 +15,23 @@ The roadmap distinguishes **released/public baseline**, **current development di
 - Tailscale provides private administration.
 - Cloudflare Tunnel provides narrow public integration entrypoints where required.
 
-### Public Butler stack
+### Public Butler components
 
-- Butler Core `0.1.4` is the current released Core baseline used by Wilfred `0.2.1`.
-- Butler Core `main` is on the `0.1.5.dev0` development line.
-- Wilfred `0.2.1` is the current Public Alpha.
+- Butler Core `0.2.0` is the current released Core baseline.
+- Butler Core `main` is on the `0.2.1.dev0` development line.
+- Wilfred `0.2.2` is the current Public Alpha.
+- Wilfred `main` is on the `0.2.3.dev0` development line.
 - Wilfred provides registered tools, deterministic-first resolution, planning interfaces, workflows, confirmation boundaries, verified execution, output contracts and standalone APIs.
-- `wilfred-home-assistant` is the official public Home Assistant plugin and remains on its `0.1.0.dev0` development line.
+- Home Assistant Plugin (HAP) is the canonical reusable Home Assistant integration at `keriol/home-assistant-plugin` and is currently on its `0.2.0.dev0` development line.
+- HAP depends on Butler Core contracts rather than on Wilfred, allowing Butler runtimes to consume it independently.
 - Home Assistant remains the owner of devices and physical orchestration.
 - Observable actions follow READ -> ACTION -> READ -> VERIFY where practical.
 
 ### Private Keriol deployment
 
 - Alfred `0.4.0` is the released private baseline; development continues on `main`.
-- Alfred is the Keriol Home Butler deployment and real-world proving ground.
-- Wilfred provides the reusable Butler runtime layer; Butler Core provides provider-neutral foundations.
+- Alfred is the private Keriol Home Butler runtime and real-world proving ground.
+- Alfred and Wilfred are sibling consumers of Butler Core; neither is the runtime base of the other.
 - Osvaldo owns proactive communication policy.
 - Charon owns media intelligence and lifecycle behavior.
 - Hermes owns delivery framework/provider responsibilities.
@@ -40,36 +42,39 @@ The roadmap distinguishes **released/public baseline**, **current development di
 
 ### Capability-first Wilfred consolidation
 
-The next public consolidation direction is capability-first rather than version-driven.
+The next public consolidation direction remains capability-first rather than version-driven.
 
 Current tracked work includes:
 
-- first-class capability and domain contracts;
-- plugin-declared capability/domain ownership;
+- first-class capability and domain ownership;
+- plugin-declared capability/domain contributions;
 - runtime capability discovery and introspection;
 - deterministic resolvers under capability ownership;
 - capability discovery through CLI and HTTP surfaces;
 - reusable developer validation and drift evidence;
-- reproducible release BOM discipline as a gate for a future coherent release checkpoint.
+- reproducible release BOM discipline as a gate for future coherent release checkpoints.
 
-These are development directions until their owning GitHub issues are completed and implementation evidence is merged.
+These remain development directions until their owning GitHub issues are completed and implementation evidence is merged or released as appropriate.
 
 ### Alfred proving-ground convergence
 
-- Continue moving reusable Alfred behavior toward Wilfred/Core only when ownership and contracts are genuinely reusable.
+- Continue moving reusable Alfred behavior toward Butler Core, Wilfred or independent public plugins only when ownership and contracts are genuinely reusable.
 - Keep Keriol-specific policy, mappings and operations private.
+- Preserve Alfred as an independent sibling runtime rather than introducing a Wilfred runtime dependency.
 - Exercise package-owned frontend contributions and provider-specific compilation privately before public extraction.
 - Mature Alexa input/frontend boundaries separately from Hermes delivery responsibilities.
 - Preserve deterministic behavior before AI fallback.
 - Keep requested outcomes, policy, permissions, confirmation and observable verification explicit.
 
-### Home Assistant plugin
+### Home Assistant Plugin
 
-- Migrate the official plugin to the capability-first model when the public Wilfred contracts are ready.
-- Keep entity mapping and authorization configuration-driven.
+- Continue consolidating HAP as a consumer-neutral Butler integration built on Core-owned contracts.
+- Keep entity/resource mapping and authorization configuration-driven.
+- Keep plugin-owned setup, discovery and provider introspection inside the integration boundary.
 - Preserve READ before ACTION where relevant state exists.
 - Verify observable state after actions when practical.
 - Never move physical orchestration ownership out of Home Assistant.
+- Validate Wilfred and Alfred as independent HAP consumers without coupling the runtimes to one another.
 
 ## Private Validated Domains
 
@@ -148,6 +153,8 @@ Public extraction requires:
 6. clean installation/runtime evidence;
 7. stable ownership demonstrated through real use.
 
+The correct public destination may be Butler Core, Wilfred or an independent plugin.
+
 Until then, the capability remains **Private validated**, **Candidate**, **In testing**, or **Designed to enable**.
 
 ## Release Discipline
@@ -157,7 +164,8 @@ Version numbers are checkpoints, not task containers.
 - One issue or commit does not imply a release.
 - Release scope comes from explicit GitHub/Git/tag/release evidence.
 - Public release claims must distinguish source state, artifact state and observable verification.
-- Wilfred `0.2.1` remains the current Public Alpha until a later release is explicitly completed and verified.
+- Wilfred `0.2.2` remains the current Public Alpha until a later release is explicitly completed and verified.
+- HAP `0.2.0.dev0`, Wilfred `0.2.3.dev0` and Core `0.2.1.dev0` are development lines, not released baselines.
 
 ## Documentation Maintenance
 
