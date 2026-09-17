@@ -24,10 +24,12 @@ Read:
 - [Alfred Ecosystem](architecture/alfred-ecosystem.md)
 - [Alfred Proving Ground](architecture/alfred-proving-ground.md)
 - [Architecture Diagram](diagrams/architecture.md)
-- [ADR-008 — Butler Core, Wilfred and Alfred Layering](adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+- [ADR-012 — Sibling Butler Runtimes and Independent Platform Plugins](adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
 - [ADR-011 — GitHub as Development Source of Truth](adr/ADR-011-github-development-source-of-truth.md)
 
-The current architectural relationship is `Butler Core -> Wilfred -> Alfred`, while Home Assistant remains the owner of physical orchestration and device integrations.
+The current architecture uses Butler Core as the shared provider-neutral foundation. Wilfred and Alfred are sibling runtimes, while reusable platform integrations such as Home Assistant Plugin can be consumed independently by either runtime. Home Assistant remains the owner of physical orchestration and device integrations.
+
+ADR-008 is retained as the historical record of the previous `Butler Core -> Wilfred -> Alfred` layering and is superseded by ADR-012 for current runtime dependency boundaries.
 
 ## If You Are Interested in IoT and Integrations
 
@@ -85,7 +87,8 @@ This portfolio demonstrates:
 
 - local-first smart-home architecture;
 - clear ownership between Home Assistant, integrations/providers and Butler capabilities;
-- Butler Core / Wilfred / Alfred layering;
+- provider-neutral Core contracts shared by sibling Butler runtimes;
+- reusable platform plugins that do not force runtime-to-runtime dependencies;
 - deterministic-first resolution with bounded AI fallback;
 - verified physical-action workflows;
 - MQTT-based telemetry and event boundaries;
