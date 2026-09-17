@@ -36,7 +36,7 @@ The portfolio therefore avoids treating a connected service as equivalent to a p
 
 Home Assistant remains the owner of device integrations, physical orchestration, dashboards and automation wrappers.
 
-Butler layers reason about goals, route requests and invoke typed capabilities. They do not replace the integration owner simply because they can call it.
+Butler runtimes reason about goals, route requests and invoke typed capabilities. They do not replace the integration owner simply because they can call it.
 
 For observable physical actions the preferred execution pattern is:
 
@@ -46,11 +46,13 @@ A successful service call is not treated as proof that the physical device reach
 
 ## Public Plugin Boundary
 
-Reusable Home Assistant interaction belongs in the public `wilfred-home-assistant` plugin when it is sufficiently generalized, tested and documented.
+Reusable Home Assistant interaction belongs in the public **Home Assistant Plugin (HAP)** at `keriol/home-assistant-plugin` when it is sufficiently generalized, tested and documented.
 
-Private Keriol integrations and household-specific behavior do not become public Wilfred features automatically.
+HAP is built around Core-owned Butler contracts rather than around Wilfred as a runtime dependency. Wilfred and Alfred may consume the same plugin independently while keeping their own runtime composition, policy and semantic routing.
 
-An integration may exist privately while the corresponding public capability remains:
+Private Keriol integrations and household-specific behavior do not become public Butler features automatically.
+
+An integration may exist privately while the corresponding reusable capability remains:
 
 - **In testing**, or
 - **Designed to enable**.
@@ -70,6 +72,7 @@ Integrations are chosen with these priorities:
 1. prefer local control and local telemetry where practical;
 2. preserve clear ownership between Home Assistant, providers and Butler capabilities;
 3. keep Butler Core provider-neutral;
-4. use deterministic behavior before AI fallback for known operations;
-5. validate observable physical outcomes when state matters;
-6. treat private validation as evidence, not automatic public availability.
+4. prefer consumer-neutral plugin boundaries when an integration can serve multiple Butler runtimes;
+5. use deterministic behavior before AI fallback for known operations;
+6. validate observable physical outcomes when state matters;
+7. treat private validation as evidence, not automatic public availability.
