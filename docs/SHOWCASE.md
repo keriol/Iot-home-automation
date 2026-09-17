@@ -20,22 +20,34 @@ The goal is not to present every experiment as shipped functionality. Each examp
 
 ## Objective
 
-Separate reusable Butler execution foundations from Keriol-specific household behavior.
+Separate provider-neutral Butler foundations, reusable runtimes and platform integrations from Keriol-specific household behavior.
 
 ## Architecture
 
-`Butler Core -> Wilfred -> Alfred`
+```text
+Butler Core
+├── Wilfred
+├── Alfred
+└── reusable plugins such as Home Assistant Plugin
+```
+
+Wilfred and Alfred are sibling Butler runtimes built on Core-owned contracts. Reusable platform integrations can be consumed independently by either runtime without making one runtime the architectural base of the other.
 
 ## Current result
 
-- Butler Core `0.1.4` is the released provider-neutral foundation consumed by Wilfred `0.2.1`.
-- Wilfred `0.2.1` is the current Public Alpha.
-- Alfred remains the private real-world proving ground.
+- Butler Core `0.2.0` is the current released provider-neutral foundation.
+- Wilfred `0.2.2` is the current Public Alpha.
+- Home Assistant Plugin is an independent public integration package on its `0.2.0.dev0` development line.
+- Alfred remains the private sibling runtime and real-world proving ground.
 - Home Assistant remains the physical orchestration owner.
+
+Development-line versions describe repository state, not released capability claims.
 
 ## Engineering themes
 
 - provider-neutral contracts;
+- sibling runtime composition;
+- independent reusable platform plugins;
 - deterministic-first resolution;
 - capability/domain ownership;
 - confirmation boundaries;
@@ -239,6 +251,7 @@ Across the portfolio, the recurring lessons are:
 
 - local-first architecture where practical;
 - Home Assistant as physical orchestration owner;
+- provider-neutral Core contracts shared by sibling runtimes and reusable plugins;
 - deterministic behavior before AI fallback for known requests;
 - explicit capability/domain ownership;
 - dispatch and observed success kept separate;
