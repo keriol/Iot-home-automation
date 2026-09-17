@@ -2,22 +2,22 @@
 
 Public-safe engineering documentation for **Keriol Home**, a local-first smart-home platform and real-world proving ground for the Butler ecosystem.
 
-The project is intentionally split into reusable public layers and a private household deployment:
+The project is intentionally split into reusable public components and a private household deployment:
 
 - **Butler Core** provides provider-neutral contracts and execution foundations.
 - **Wilfred** is the reusable public Butler runtime built on Core.
-- **Home Assistant Plugin (HAP)** is the public reusable Home Assistant integration, evolving toward a consumer-neutral Butler plugin built on Core contracts.
+- **Home Assistant Plugin (HAP)** is the public reusable Home Assistant integration built on Core contracts.
 - **Keriol Home / Alfred** is the private sibling Butler runtime/deployment where new capabilities, policies and interaction patterns are exercised against real devices and services.
 
 The portfolio documents architecture, capability maturity, case studies and engineering lessons without publishing the private implementation itself.
 
 ## Current Public Baseline
 
-- **Butler Core `0.2.0`** is the current released Core baseline. It establishes the shared provider-neutral execution, asynchronous-job, tracing and domain-contribution contract layer.
-- **Wilfred `0.2.2`** is the current Public Alpha and independently consumes Butler Core `0.2.0`.
-- **Home Assistant Plugin** lives at [keriol/home-assistant-plugin](https://github.com/keriol/home-assistant-plugin) and remains on its `0.1.0.dev0` development line while its consumer-neutral Core boundary is being consolidated.
+- **Butler Core `0.2.0`** is the current released Core baseline. It establishes the shared provider-neutral execution, asynchronous-job, tracing and domain-contribution contract layer. Core `main` is on `0.2.1.dev0`.
+- **Wilfred `0.2.2`** is the current Public Alpha and independently consumes Butler Core `0.2.0`. Wilfred `main` is on `0.2.3.dev0`.
+- **Home Assistant Plugin** lives at [keriol/home-assistant-plugin](https://github.com/keriol/home-assistant-plugin) and is on its `0.2.0.dev0` development line while its consumer-neutral Core boundary is being consolidated.
 - **HAP** is the canonical task namespace for Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
-- Core `0.2.0` being available does not imply that every future Core contract is already adopted by Wilfred, Alfred or HAP. Adoption is tracked and evidenced independently in the owning repository.
+- Core, Wilfred and HAP development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
@@ -59,21 +59,22 @@ Wilfred is one consumer of the Butler plugin model, not the owner of every reusa
 
 It was originally created as a concrete proving example around Wilfred so the plugin/capability model would be exercised against a real smart-home platform rather than only a toy integration.
 
-The project is now evolving into a **consumer-neutral Butler plugin**. The target boundary is:
+The architecture has since matured into a consumer-neutral plugin boundary:
 
 ```text
-                Butler Core
-                    |
-          Home Assistant Plugin
-             /              \
-         Wilfred            Alfred
+                 Butler Core
+                /     |      \
+               /      |       \
+          Wilfred     HAP     Alfred
+                       |
+                 Home Assistant
 ```
 
 Home Assistant remains responsible for devices, integrations, dashboards and physical orchestration. HAP owns reusable Home Assistant transport/configuration/state/action behavior. Wilfred and Alfred independently own their runtime composition, policy and semantic routing.
 
-This also makes the ecosystem extensible beyond Home Assistant. Another home-automation manager can in future be integrated through another dedicated Butler plugin following the same provider-neutral contracts rather than by adding that platform directly to Core or hard-coding it into Wilfred/Alfred.
+This also makes the ecosystem extensible beyond Home Assistant. Another home-automation manager can be integrated through another dedicated Butler plugin following the same provider-neutral contracts rather than by adding that platform directly to Core or hard-coding it into Wilfred/Alfred.
 
-The consumer-neutral HAP migration is active development and is not retroactively claimed as part of released Wilfred or Alfred versions.
+The current HAP development line is not retroactively claimed as part of released Wilfred or Alfred versions.
 
 ### Alfred
 
@@ -83,7 +84,9 @@ Alfred and Wilfred are **sibling consumers of Butler Core**. Alfred does not use
 
 Alfred adds Keriol-specific integrations, policies, domain behavior and experimental capabilities. Reusable behavior moves toward Butler Core, Wilfred or an independent public plugin only after generalization, testing, sanitization and a clear ownership boundary.
 
-The planned HAP adoption follows exactly this model: Alfred may consume the same public Home Assistant Plugin as Wilfred without depending on Wilfred itself.
+Alfred may consume the same public Home Assistant Plugin as Wilfred without depending on Wilfred itself.
+
+See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](docs/adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md).
 
 ## Capability Maturity
 
@@ -115,9 +118,9 @@ A Keriol Home flow is:
 
     Frontend -> Alfred -> Registered Capability / Plugin -> Service
 
-As HAP adoption matures, generic mapped Home Assistant access inside Alfred is intended to converge on:
+For generic mapped Home Assistant access:
 
-    Semantic Owner -> Alfred Composition -> HAP -> Home Assistant
+    Semantic Owner -> Butler Runtime Composition -> HAP -> Home Assistant
 
 For observable physical actions, the preferred lifecycle is:
 
@@ -156,11 +159,11 @@ Private implementation details remain private even when their architectural less
 
 ## For Builders, Founders and Early Adopters
 
-The public Wilfred ecosystem is deliberately smaller than the workshop behind it.
+The public Butler ecosystem is deliberately smaller than the workshop behind it.
 
 Keriol Home continuously exercises new domains, workflows and plugin candidates against a real operating smart home. Some experiments stay household-specific. Others may graduate into Wilfred, Butler Core or an independent official plugin once they have earned a reusable contract, tests, sanitization and clean installation/runtime evidence.
 
-Home Assistant Plugin is an important example of that maturation path: it began as a concrete integration created to prove the model, then earned a separate repository and is now being pushed toward a consumer-neutral boundary so it can become infrastructure used by the project's own runtimes.
+Home Assistant Plugin is an important example of that maturation path: it began as a concrete integration created to prove the model, then earned a separate repository and a consumer-neutral boundary so it can become infrastructure used independently by Butler runtimes.
 
 The same path can support future plugins for other home-automation managers without changing the Butler architecture itself.
 
@@ -263,7 +266,8 @@ Architecture decisions, implementation, testing and production ownership remain 
 - [Alfred Ecosystem](docs/architecture/alfred-ecosystem.md)
 - [Current Architecture Diagram](docs/diagrams/architecture.md)
 - [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
-- [ADR-008 - Butler Core, Wilfred and Alfred Layering](docs/adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+- [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](docs/adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
+- [ADR-008 - Historical Butler Core, Wilfred and Alfred Layering](docs/adr/ADR-008-butler-core-wilfred-alfred-layering.md)
 - [Current Public Project Model](docs/project-model/project-model-public.md)
 
 Historical worklogs, milestone snapshots and previous ADRs are intentionally retained as records of the architecture and decisions that existed at the time.

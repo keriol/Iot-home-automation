@@ -61,20 +61,19 @@ The Home Assistant integration was likewise separated into an official public pl
 Today the relationship is:
 
     Butler Core
-        |
-        v
-      Wilfred
-        |
-        v
-      Alfred
+      |-- Wilfred
+      |-- Alfred
+      `-- reusable plugins such as Home Assistant Plugin
 
-Butler Core provides the shared foundations.
+Butler Core provides the shared provider-neutral foundations.
 
-Wilfred provides the reusable public runtime.
+Wilfred provides the reusable public Butler runtime.
 
-Alfred is the private real-world deployment that uses and extends that runtime for Keriol Home.
+Alfred remains the private Keriol Home sibling runtime and real-world proving ground.
 
-Some older Alfred paths predate Wilfred and are still being converged onto this model.
+Reusable integrations such as Home Assistant Plugin are independent consumers of Core-owned contracts and may be composed by either runtime without making Wilfred and Alfred dependencies of one another.
+
+The earlier `Core -> Wilfred -> Alfred` layering was an important extraction stage and is preserved in historical documentation and superseded ADRs, but it no longer defines the current runtime dependency model.
 
 ## Private Proving Ground, Public Runtime
 
@@ -106,7 +105,7 @@ This repository documents:
 
 - the architecture and evolution of Keriol Home;
 - sanitized real-world case studies;
-- the relationship between Alfred, Wilfred and Butler Core;
+- the relationship between Alfred, Wilfred, Butler Core and reusable public plugins;
 - reusable engineering lessons;
 - public-safe diagrams and conceptual flows.
 

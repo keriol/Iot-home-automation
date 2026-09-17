@@ -11,7 +11,7 @@ The matrix describes **skills demonstrated by documented architecture and eviden
 | Area | Skills / Technologies Demonstrated |
 |---|---|
 | Home Automation | Home Assistant orchestration, automations, scripts, dashboards, integration ownership |
-| Butler Architecture | Butler Core / Wilfred / Alfred layering, provider-neutral contracts, capability/domain ownership |
+| Butler Architecture | Butler Core shared contracts, sibling Wilfred/Alfred runtimes, reusable platform plugins, capability/domain ownership |
 | Capability Design | typed tools, capabilities, domains, goals, deterministic-first resolution, planner fallback boundaries |
 | IoT Integration | heterogeneous sensors, smart plugs, lighting, appliances, climate, cameras and IR devices |
 | Messaging | MQTT, Mosquitto, event-driven telemetry and integration boundaries |
@@ -36,6 +36,8 @@ The matrix describes **skills demonstrated by documented architecture and eviden
 | Verified physical actions | `READ -> ACTION -> READ -> VERIFY`; dispatch alone is not accepted as proof of success |
 | Capability ownership | domain behavior moves toward capability/plugin owners instead of accumulating in conversation code |
 | Provider neutrality | Butler Core remains service-agnostic; frontend/provider concerns stay outside Core |
+| Runtime independence | Wilfred and Alfred share Core contracts without requiring a runtime-to-runtime dependency |
+| Reusable plugin boundaries | platform integrations can depend on Core-owned contracts and serve multiple Butler runtimes |
 | Progressive delivery | focused issues, branches, commits, validation and evidence before integration |
 | Observability | state reads, logs, dashboards, telemetry and post-action verification |
 | Risk management | confirmation for appropriate actions, explicit safety boundaries and cautious physical-control language |
@@ -56,6 +58,7 @@ Examples:
 | Area | Portfolio maturity treatment |
 |---|---|
 | Wilfred public runtime | Available as the current Public Alpha baseline |
+| Home Assistant Plugin | Independent public integration package on an active development line |
 | Verified laundry workflow patterns | Private proving-ground evidence used to demonstrate engineering lessons |
 | Local energy telemetry | In testing |
 | Reliable occupancy/presence automation | Designed to enable |
@@ -85,6 +88,7 @@ The project demonstrates the ability to:
 - design a real-world IoT architecture with clear owner boundaries;
 - extract reusable runtime concepts from a private proving ground;
 - integrate heterogeneous devices and protocols without coupling the core runtime to providers;
+- compose sibling runtimes and reusable platform plugins around provider-neutral contracts;
 - design deterministic and AI-assisted paths with explicit fallback boundaries;
 - verify observable physical outcomes instead of trusting command acknowledgements;
 - troubleshoot hardware, network, integration and delivery failures methodically;

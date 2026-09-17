@@ -11,17 +11,17 @@ flowchart TD
     end
 
     subgraph Private["Keriol Home - Private Deployment"]
-        Alfred[Alfred]
+        Alfred[Alfred Runtime]
         Osvaldo[Osvaldo Policy]
         Charon[Charon Media Intelligence]
         Hermes[Hermes Delivery]
         PrivateCaps[Private Capabilities]
     end
 
-    subgraph Public["Reusable Public Butler Stack"]
-        Wilfred[Wilfred Runtime]
+    subgraph Public["Reusable Public Butler Components"]
         Core[Butler Core]
-        HAPlugin[wilfred-home-assistant]
+        Wilfred[Wilfred Runtime]
+        HAP[Home Assistant Plugin]
     end
 
     subgraph Home["Smart Home Platform"]
@@ -39,11 +39,13 @@ flowchart TD
     Web --> Alfred
     Other --> Alfred
 
-    Alfred --> Wilfred
     Wilfred --> Core
+    Alfred --> Core
+    HAP --> Core
 
-    Wilfred --> HAPlugin
-    HAPlugin --> HA
+    Wilfred --> HAP
+    Alfred --> HAP
+    HAP --> HA
 
     Alfred --> PrivateCaps
     Alfred --> Charon
@@ -63,16 +65,16 @@ flowchart TD
 
 ## Reading the Diagram
 
-The reusable public stack consists of Butler Core, Wilfred and public plugins.
+Butler Core provides the shared provider-neutral contract foundation.
 
-Alfred is the private Keriol Home deployment built above that reusable runtime.
+Wilfred and Alfred are sibling Butler runtimes. Neither runtime is built on the other.
 
-Private capabilities may use Wilfred execution facilities while remaining unavailable from the public distribution.
+Home Assistant Plugin is reusable integration infrastructure built on Core-owned contracts and may be consumed independently by either runtime.
+
+Alfred remains the private Keriol Home runtime and proving ground. Private capabilities can remain household-specific while reusable behavior graduates into Core, Wilfred or independent public plugins.
 
 Osvaldo owns proactive communication policy. Hermes owns private delivery/provider responsibilities after policy approval. Frontend-specific rendering remains outside Butler Core.
 
-The current Alexa voice used for Alfred speech notifications is a provider/frontend rendering parameter and is intentionally not shown as an architectural node.
-
 Home Assistant remains the owner of physical device orchestration.
 
-Capabilities validated privately may later be generalized into Wilfred, Butler Core or an official plugin, but extraction is neither automatic nor a release commitment.
+See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md).
