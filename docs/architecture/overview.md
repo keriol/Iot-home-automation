@@ -1,14 +1,12 @@
 # Architecture Overview
 
-Keriol Home separates reusable Butler runtime concerns from the private household deployment.
+Keriol Home separates provider-neutral Butler contracts, reusable runtimes/plugins and the private household deployment.
 
-## Layers
-
-### Butler Core
+## Butler Core
 
 Butler Core is the lowest reusable layer.
 
-The current `0.2.0` baseline owns provider-neutral contracts and small execution primitives shared by Butler runtimes and consumers, including:
+The current released `0.2.0` baseline owns provider-neutral contracts and small execution primitives shared by Butler runtimes and reusable plugins, including:
 
 - tool definitions, permissions and registration;
 - planner interfaces;
@@ -21,77 +19,75 @@ The current `0.2.0` baseline owns provider-neutral contracts and small execution
 
 Core deliberately does not own plugin discovery/loading/lifecycle, application routing, concrete domain behavior, Home Assistant or Alexa integrations, AI-provider configuration, frontend rendering, trace storage/viewers, delivery providers or Keriol-specific deployment behavior.
 
+## Butler Runtimes
+
 ### Wilfred
 
 Wilfred is the public reusable Butler runtime built on Butler Core.
 
-Its responsibilities include:
+Wilfred `0.2.2` is the current released Public Alpha. Its responsibilities include registered tool execution, deterministic-first resolution, planning interfaces and fallback, confirmation boundaries, workflows, verified execution, output contracts, standalone APIs and plugin loading.
 
-- registered tool execution;
-- deterministic-first resolution;
-- planning interfaces and fallback;
-- confirmation boundaries;
-- workflows;
-- verified execution;
-- output contracts;
-- standalone APIs;
-- plugin loading.
-
-The current public consolidation direction is capability-first: capabilities represent what the Butler knows how to do, domains own related knowledge and behavior, and deterministic resolvers should move under the capability that owns them rather than remaining in global conversation logic.
-
-Butler Core `0.2.0` now supplies reusable domain/capability/contribution contracts for that direction. Wilfred adoption remains a Wilfred-owned implementation milestone and is not automatically implied by the Core release.
-
-Wilfred can run independently of Alfred.
+Wilfred `main` is on the `0.2.3.dev0` development line.
 
 ### Alfred
 
-Alfred is the private Keriol Home deployment and proving ground.
+Alfred is the private Keriol Home Butler runtime and proving ground built on Core-owned contracts.
 
-Wilfred provides its reusable Butler runtime base. Alfred adds household-specific policy, integrations, domains and experimental capabilities.
+Alfred owns household-specific composition, context, routing, policy, domains, integrations and AI fallback.
 
-Reusable behavior is promoted toward Wilfred or Butler Core only after ownership is stable, private assumptions have been removed, tests exist and public-safe extraction is justified.
+Alfred and Wilfred are sibling runtimes. Alfred does not depend on or execute through the Wilfred runtime.
 
-### Home Assistant
+Reusable behavior is promoted toward Butler Core, Wilfred or an independent public plugin only after ownership is stable, private assumptions have been removed, tests exist and public-safe extraction is justified.
+
+## Independent Platform Plugins
+
+Reusable platform integrations may depend directly on the lowest appropriate Core contracts instead of a concrete Butler runtime.
+
+Home Assistant Plugin (HAP) is the first explicit example. It lives at `keriol/home-assistant-plugin`, is currently on the `0.2.0.dev0` development line and is intended to be consumable independently by Butler runtimes.
+
+The reusable boundary is:
+
+    Butler Runtime
+      -> HAP
+      -> Home Assistant API
+      -> Home Assistant
+      -> Device / Integration
+
+Wilfred and Alfred may therefore consume HAP without becoming runtime dependencies of one another.
+
+## Home Assistant
 
 Home Assistant owns physical orchestration, dashboards, integrations, device wrappers and device state.
 
-The Butler layers reason, route and invoke explicit operations. They do not replace Home Assistant as the smart-home platform.
+The Butler runtimes reason, route and invoke explicit operations. They do not replace Home Assistant as the smart-home platform.
 
-## Public Runtime Flow
+## Runtime Flows
 
 A standalone Wilfred request follows:
 
     Client
       -> Wilfred
-      -> Registered Tool / Plugin
+      -> Registered Capability / Plugin
       -> External Service
 
-For Home Assistant:
-
-    Client
-      -> Wilfred
-      -> wilfred-home-assistant
-      -> Home Assistant API
-      -> Home Assistant
-      -> Device / Integration
-
-## Keriol Home Flow
-
-The private deployment adds Alfred above the reusable runtime:
+A private Keriol request follows:
 
     Voice / Web / App / other frontend
       -> Alfred
-      -> Wilfred runtime
-      -> Registered capability / tool
+      -> Registered Capability / Plugin
       -> Domain / Integration
 
-The response returns through the active frontend or delivery provider.
+When the target is Home Assistant, either runtime may use:
 
-Frontend-specific speech, SSML and presentation remain frontend concerns.
+    Butler Runtime
+      -> HAP
+      -> Home Assistant
 
-## Core 0.2 Composition Boundary
+The response returns through the active runtime's frontend or delivery provider. Frontend-specific speech, SSML and presentation remain frontend concerns.
 
-Core 0.2 makes more reusable structure explicit without turning Core into an application framework.
+## Core Composition Boundary
+
+Core makes reusable structure explicit without becoming an application framework.
 
 A host runtime may compose Core contracts in roughly this order:
 
@@ -104,7 +100,7 @@ A host runtime may compose Core contracts in roughly this order:
 7. output is handed to a concrete provider outside Core;
 8. trace context may correlate those boundaries without requiring a Core-owned logger or viewer.
 
-Discovery, loading, lifecycle and runtime verification remain higher-layer responsibilities.
+Discovery, loading, lifecycle and runtime verification remain runtime responsibilities.
 
 ## Deterministic First
 
@@ -150,8 +146,6 @@ Inside the private Keriol deployment:
 
 Alexa is a frontend/provider concern, not a Butler Core responsibility. Speech and SSML are presentation details.
 
-These private components do not redefine Butler Core or Wilfred responsibilities.
-
 ## Development Sources of Truth
 
 Development state is intentionally kept outside the portfolio documentation layer:
@@ -164,15 +158,14 @@ Development state is intentionally kept outside the portfolio documentation laye
 
 The retired Umberto ledger is archival only and cannot override GitHub, Git or runtime evidence.
 
-See [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-development-source-of-truth.md).
-
 ## Design Rules
 
 - One owner layer/domain per feature.
 - Home Assistant owns physical orchestration.
 - Butler Core stays provider-neutral and service-agnostic.
 - Core contribution contracts do not make Core the plugin runtime.
-- Wilfred owns reusable Butler runtime behavior.
+- Wilfred and Alfred are sibling runtimes; neither is the architectural runtime base of the other.
+- Reusable platform integrations should depend on Core-owned contracts when they can be consumer-neutral.
 - Alfred may contain Keriol-specific capabilities and proving-ground experiments.
 - Deterministic behavior precedes AI/planner fallback where practical.
 - Frontends stay replaceable.
@@ -188,5 +181,5 @@ See [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-deve
 - [Alfred Proving Ground](alfred-proving-ground.md)
 - [Architecture Diagram](../diagrams/architecture.md)
 - [Alfred Ecosystem Flow](../diagrams/alfred-ecosystem-flow.md)
-- [ADR-008 - Butler Core, Wilfred and Alfred Layering](../adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+- [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
 - [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-development-source-of-truth.md)
