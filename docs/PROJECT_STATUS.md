@@ -1,14 +1,14 @@
 # Home Automation Project Status
 
-Last Updated: 2026-08-31
+Last Updated: 2026-09-17
 
 ## Overview
 
 Keriol Home is an operational local-first smart-home platform and the private proving ground behind the public Butler ecosystem.
 
-The current architecture separates reusable public runtime components from Keriol-specific deployment behavior:
+The current architecture is centered on Butler Core contracts with sibling Butler runtimes and reusable plugins:
 
-`Butler Core -> Wilfred -> Alfred`
+`Butler Core -> Wilfred / Alfred / reusable plugins`
 
 Home Assistant remains the owner of physical orchestration, integrations, dashboards and device state.
 
@@ -16,9 +16,9 @@ Home Assistant remains the owner of physical orchestration, integrations, dashbo
 
 | Component | Current status | Notes |
 |---|---|---|
-| Butler Core | Available | `0.2.0` released baseline with provider-neutral execution, async-job, tracing and domain-contribution contracts |
-| Wilfred | Available / Public Alpha | `0.2.1` current Public Alpha; Core 0.2 contract adoption remains a separate Wilfred development task |
-| wilfred-home-assistant | In development | public plugin on `0.1.0.dev0` development line |
+| Butler Core | Available | `0.2.0` released baseline; `main` on `0.2.1.dev0` |
+| Wilfred | Available / Public Alpha | `0.2.2` current released Public Alpha; `main` on `0.2.3.dev0` |
+| Home Assistant Plugin (HAP) | In development | canonical repo `keriol/home-assistant-plugin`; `0.2.0.dev0` development line |
 | Alfred | Private operational | `0.4.0` current private released baseline; post-0.4.0 development continues privately |
 | Home Assistant | Operational | physical orchestration owner |
 | MQTT | Operational | event and telemetry transport |
@@ -28,23 +28,29 @@ Home Assistant remains the owner of physical orchestration, integrations, dashbo
 
 Release claims use explicit Git/tag/release evidence. Development branches and open issues are not treated as released capability evidence.
 
-## Butler Runtime
+## Butler Runtime Model
 
-### Public
+### Shared Core
 
 Butler Core `0.2.0` provides the current provider-neutral foundation for tools/registry, planning, deterministic resolution, policy-governed execution, asynchronous jobs, structured tracing, domain/capability contribution declarations and output contracts.
 
 Core remains deliberately smaller than a runtime: plugin discovery/loading/lifecycle, concrete domain behavior, frontend rendering, AI-provider configuration and deployment-specific integrations remain outside Core.
 
-Wilfred builds the reusable runtime on those foundations and currently provides registered tool execution, deterministic-first resolution, planning interfaces, confirmation boundaries, workflows, verified execution, output contracts, standalone interfaces and plugin loading.
+### Wilfred
 
-The current public consolidation direction is capability-first: capabilities describe what the Butler knows how to do, while domains own related knowledge and behavior. Core 0.2.0 now supplies reusable declarations for that model, while Wilfred adoption is tracked independently and must not be inferred from the Core release alone.
+Wilfred is the public reusable Butler runtime built on Core-owned contracts. Its released `0.2.2` baseline includes registered tool execution, deterministic-first resolution, planning interfaces, confirmation boundaries, workflows, verified execution, output contracts, standalone interfaces and adopted public capability/domain contribution contracts.
 
-### Private proving ground
+### Alfred
 
-Alfred composes Keriol-specific context, routing, domains, integrations and AI fallback around the reusable stack.
+Alfred is the private Keriol Home sibling runtime and proving ground. It owns Keriol-specific context, routing, domains, integrations, policies and AI fallback.
 
-Private behavior may run ahead of the public distribution. That does not make it a Wilfred feature automatically.
+Alfred does not use Wilfred as its architectural runtime base. Reusable behavior may graduate toward Butler Core, Wilfred or an independent public plugin after generalization, tests and sanitization.
+
+### Home Assistant Plugin
+
+HAP is the reusable public Home Assistant integration package built on Butler Core contracts rather than on Wilfred.
+
+Wilfred and Alfred may consume HAP independently. HAP owns reusable Home Assistant transport/configuration/state/action behavior while Home Assistant remains the physical orchestration owner.
 
 ## Safety Model
 
@@ -146,7 +152,7 @@ The retired private development ledger is historical only and does not override 
 
 ## Documentation Status
 
-DOC-005 refreshes the current-state portfolio after the Butler Core 0.2.0 release while preserving the distinction between Core availability and downstream Wilfred adoption.
+DOC-006 refreshes the current public project model. DOC-007 aligns current architecture documents with the sibling-runtime and independent-plugin model formalized by ADR-012.
 
 Historical ADRs, worklogs and dated snapshots remain historical and are not rewritten retroactively.
 
