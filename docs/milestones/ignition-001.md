@@ -1,13 +1,15 @@
 # IGNITION-001 — Butler-to-Android Network Baseline
 
-**Status:** release candidate / combined proving
+> One small step for a man, one giant step for a Butler.
+
+**Status:** live proving complete / coordinated release publication pending
 
 Ignition Phase 1 is the first coordinated compatibility checkpoint that reaches
 from a real Android client into the Butler communication network.
 
 ## Compatibility BOM
 
-Target release set:
+Exact proven release set:
 
 | Component | Ignition version | Role |
 | --- | --- | --- |
@@ -17,8 +19,12 @@ Target release set:
 | Butler Core | 0.3.0 | provider-neutral execution/contracts |
 | Home Assistant Plugin | 0.3.0 | reusable Home Assistant integration |
 | Alfred | 0.5.0 | private proving runtime |
+| Asgard | 0.1.0 | Alfred-owned internal Butler ingress compatibility version |
 
 Wilfred is intentionally not part of this BOM.
+
+Asgard 0.1.0 is shipped inside Alfred 0.5.0. It has no independent package,
+repository, tag or artifact lifecycle in IGNITION-001.
 
 ## Public path
 
@@ -39,12 +45,9 @@ Android
   -> Interphone 0.1.0
   -> Bifröst 0.1.0
   -> Midgard 0.1.0
-  -> Butler-owned Asgard
+  -> Butler-owned Asgard 0.1.0
   -> Alfred 0.5.0
 ```
-
-The Asgard implementation used here remains private and is frozen by the Alfred
-release source revision rather than by an independent package version.
 
 ## Version semantics
 
@@ -61,15 +64,38 @@ That statement means:
 - Core and HAP remain Android-agnostic despite being validated inside this
   Android-reaching network.
 
+## Live proving evidence
+
+The final candidate set was assembled on the canonical private proving
+environment and exercised from the signed Android client.
+
+Observed evidence includes:
+
+- client compatibility manifest accepted with no blocking Ignition cards;
+- Android -> Core/HAP state READ;
+- governed Home Assistant ACTION;
+- post-action state READ confirming the expected physical-state transition;
+- Android -> Bifröst -> Midgard -> Asgard -> Alfred request/reply;
+- non-empty request correlation identity visible on the client;
+- canonical `Source Butler: Alfred` returned to the client;
+- long-running media playback retested after propagating Bifröst interaction
+  origin, allowing deferred work to acknowledge within the client transport
+  budget while physical playback completes asynchronously;
+- final private runtime health and exact BOM version alignment verified after
+  deployment.
+
+Private topology, credentials and household identifiers are intentionally not
+part of this public evidence record.
+
 ## Release evidence required
 
-Ignition is complete only after the exact candidate set has:
+At final publication, Ignition requires:
 
 - green component CI;
 - build/package validation;
 - public/private sanitization audit;
 - signed Interphone APK validation;
-- Android in-place install and cold-start/reconnect smoke;
+- Android in-place install and client smoke;
 - Android -> Core/HAP READ proof;
 - Android -> Home Assistant ACTION followed by post-action READ/VERIFY when
   observable;
@@ -77,6 +103,29 @@ Ignition is complete only after the exact candidate set has:
 - preserved request correlation;
 - canonical source Butler identity on the concrete-Butler path;
 - verified final tag targets and release assets.
+
+All live behavior gates above are complete. Final tag/release publication and
+post-tag verification remain release-publication evidence rather than inferred
+from successful runtime proving.
+
+## External I/O boundary
+
+IGNITION-001 proves client input and request/reply output through the reusable
+network boundary.
+
+A later proactive output direction is architecturally supported:
+
+```text
+Alfred/domain
+  -> Georges
+  -> Osvaldo
+  -> Hermes
+  -> Bifröst
+  -> Interphone
+```
+
+That proactive path remains **Designed to enable**, not an IGNITION-001
+implementation claim.
 
 ## Publication boundary
 
