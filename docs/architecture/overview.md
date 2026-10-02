@@ -61,6 +61,28 @@ Home Assistant owns physical orchestration, dashboards, integrations, device wra
 
 The Butler runtimes reason, route and invoke explicit operations. They do not replace Home Assistant as the smart-home platform.
 
+## Ignition Communication Network
+
+Ignition Phase 1 introduces the first coordinated Android-reaching Butler
+network baseline:
+
+```text
+Android
+  -> Butler Interphone
+  -> Bifröst
+  -> Midgard
+  -> Butler Core
+  -> Home Assistant Plugin
+  -> Home Assistant
+```
+
+A separate concrete-Butler branch uses a Butler-owned Asgard boundary to enter a
+runtime such as Alfred. Alfred is the private proving runtime for
+IGNITION-001; Wilfred is not part of this first network BOM.
+
+See [Butler Communication Model](communication-model.md) and
+[IGNITION-001](../milestones/ignition-001.md).
+
 ## Runtime Flows
 
 A standalone Wilfred request follows:
@@ -177,6 +199,8 @@ The retired Umberto ledger is archival only and cannot override GitHub, Git or r
 
 ## Related Documentation
 
+- [Butler Communication Model](communication-model.md)
+- [IGNITION-001](../milestones/ignition-001.md)
 - [Alfred Ecosystem](alfred-ecosystem.md)
 - [Alfred Proving Ground](alfred-proving-ground.md)
 - [Architecture Diagram](../diagrams/architecture.md)
