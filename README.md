@@ -21,6 +21,26 @@ The portfolio documents architecture, capability maturity, case studies and engi
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
+
+### Ignition release finalization
+
+**IGNITION-001** is the first coordinated Butler-to-Android compatibility
+baseline to complete live proving. Its exact proven candidate set is Interphone
+0.1.0, Bifröst 0.1.0, Midgard 0.1.0, Butler Core 0.3.0, Home Assistant Plugin
+0.3.0 and private Alfred 0.5.0 shipping Alfred-owned Asgard compatibility
+version 0.1.0.
+
+Live proving from the signed Android client completed both the Core/HAP
+READ -> ACTION -> READ/VERIFY path and the explicit Alfred path with request
+correlation and canonical source-Butler identity.
+
+Until the coordinated tags/releases are published and verified, these versions
+remain an exact **proven release candidate set**, not a retroactive replacement
+for the released-baseline statements above.
+
+See [IGNITION-001](docs/milestones/ignition-001.md) and the
+[Butler Communication Model](docs/architecture/communication-model.md).
+
 ## Goals
 
 - Local-first smart-home orchestration
