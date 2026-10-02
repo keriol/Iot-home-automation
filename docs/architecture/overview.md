@@ -77,8 +77,13 @@ Android
 ```
 
 A separate concrete-Butler branch uses a Butler-owned Asgard boundary to enter a
-runtime such as Alfred. Alfred is the private proving runtime for
-IGNITION-001; Wilfred is not part of this first network BOM.
+runtime such as Alfred. IGNITION-001 uses Alfred 0.5.0 with its internal
+Asgard compatibility boundary at 0.1.0. Alfred is the private proving runtime;
+Wilfred is not part of this first network BOM.
+
+The final candidate has completed real Android live proving for both the
+Core/HAP path and the explicit Alfred path. Coordinated tag/release publication
+remains distinct release evidence and is not inferred from runtime success.
 
 See [Butler Communication Model](communication-model.md) and
 [IGNITION-001](../milestones/ignition-001.md).
