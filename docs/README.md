@@ -12,6 +12,8 @@
 ## Architecture
 
 - [Architecture Overview](architecture/overview.md)
+- [Butler Communication Model](architecture/communication-model.md)
+- [IGNITION-001 - Butler-to-Android Network Baseline](milestones/ignition-001.md)
 - [Alfred Ecosystem](architecture/alfred-ecosystem.md)
 - [Alfred Proving Ground](architecture/alfred-proving-ground.md)
 - [Architecture Diagram](diagrams/architecture.md)
