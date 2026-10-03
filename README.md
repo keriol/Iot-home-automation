@@ -13,30 +13,35 @@ The portfolio documents architecture, capability maturity, case studies and engi
 
 ## Current Public Baseline
 
-- **Butler Core `0.2.0`** is the current released Core baseline. It establishes the shared provider-neutral execution, asynchronous-job, tracing and domain-contribution contract layer. Core `main` is on `0.2.1.dev0`.
-- **Wilfred `0.2.2`** is the current Public Alpha and independently consumes Butler Core `0.2.0`. Wilfred `main` is on `0.2.3.dev0`.
-- **Home Assistant Plugin** lives at [keriol/home-assistant-plugin](https://github.com/keriol/home-assistant-plugin) and is on its `0.2.0.dev0` development line while its consumer-neutral Core boundary is being consolidated.
+- **Butler Core `0.3.0`** is the current released Core baseline. Core `main` is on `0.3.1.dev0`.
+- **Wilfred `0.2.2`** remains the current Public Alpha and is not part of the Ignition BOM.
+- **Home Assistant Plugin `0.3.0`** is the current released Home Assistant integration baseline. HAP `main` is on `0.3.1.dev0`.
+- **Bifröst `0.1.0`** is the released Butler client/API bridge baseline.
+- **Midgard `0.1.0`** is the released communication and cross-Butler routing baseline.
+- **Butler Interphone `0.1.0`** is the released Android client baseline.
 - **HAP** is the canonical task namespace for Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
 - Core, Wilfred and HAP development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
 
-### Ignition release finalization
+### Ignition release baseline
 
-**IGNITION-001** is the first coordinated Butler-to-Android compatibility
-baseline to complete live proving. Its exact proven candidate set is Interphone
-0.1.0, Bifröst 0.1.0, Midgard 0.1.0, Butler Core 0.3.0, Home Assistant Plugin
-0.3.0 and private Alfred 0.5.0 shipping Alfred-owned Asgard compatibility
-version 0.1.0.
+**IGNITION-001** is the first released coordinated Butler-to-Android
+compatibility baseline.
 
-Live proving from the signed Android client completed both the Core/HAP
-READ -> ACTION -> READ/VERIFY path and the explicit Alfred path with request
-correlation and canonical source-Butler identity.
+Its exact released set is Interphone 0.1.0, Bifröst 0.1.0, Midgard 0.1.0,
+Butler Core 0.3.0, Home Assistant Plugin 0.3.0 and private Alfred 0.5.0,
+with Alfred-owned Asgard compatibility version 0.1.0.
 
-Until the coordinated tags/releases are published and verified, these versions
-remain an exact **proven release candidate set**, not a retroactive replacement
-for the released-baseline statements above.
+The signed Android client proved both canonical paths:
+
+- Core/HAP: `READ -> ACTION -> READ -> VERIFY`;
+- concrete Butler: Interphone -> Bifröst -> Midgard -> Asgard -> Alfred,
+  with preserved request correlation and canonical source-Butler identity.
+
+Bifröst is documented as the Butler client/API boundary, while Midgard and
+Asgard are documented as communication/runtime architecture.
 
 See [IGNITION-001](docs/milestones/ignition-001.md) and the
 [Butler Communication Model](docs/architecture/communication-model.md).
