@@ -1,3 +1,18 @@
+---
+title: Midgard
+kind: architecture
+owner: midgard
+scope: public
+status: released
+baseline: 0.1.0
+depends_on:
+  - butler-core
+related:
+  - ../api/bifrost.md
+  - asgard.md
+  - ../milestones/ignition-001.md
+---
+
 # Midgard
 
 Midgard is the provider-neutral communication and cross-Butler routing layer of
