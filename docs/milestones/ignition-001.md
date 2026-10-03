@@ -1,3 +1,19 @@
+---
+title: IGNITION-001
+kind: evidence
+scope: public
+status: released
+baseline: ignition-001
+components:
+  - interphone-0.1.0
+  - bifrost-0.1.0
+  - midgard-0.1.0
+  - butler-core-0.3.0
+  - hap-0.3.0
+  - alfred-0.5.0
+  - asgard-0.1.0
+---
+
 # IGNITION-001 — Butler-to-Android Network Baseline
 
 > One small step for a man, one giant step for a Butler.
