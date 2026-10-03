@@ -30,9 +30,9 @@ It includes:
 - Alexa/Hermes delivery;
 - the Android-reaching Ignition network.
 
-## What is public today?
+## Released public ecosystem
 
-The current released public building blocks include:
+The components a reader can evaluate from public repositories today are:
 
 - Butler Core;
 - Wilfred;
@@ -41,8 +41,21 @@ The current released public building blocks include:
 - Midgard;
 - Butler Interphone.
 
-The private Keriol deployment, Alfred and its Alfred-owned Asgard remain the
-real-world proving ground rather than a readable public source mirror.
+[Released Public Ecosystem →](../ecosystem/released.md)
+
+## Development & proving ground
+
+Alfred and Keriol-specific behavior are documented separately as private proving
+work.
+
+That section explains concepts, maturity and reusable lessons without exposing
+private implementation details or implying that Wilfred already ships them.
+
+[Development & Proving Ground →](../ecosystem/development.md)
+
+**Asgard is the deliberate exception:** the boundary is part of the released
+Ignition architecture, while the Ignition implementation remains Alfred-owned
+and is not a standalone public package.
 
 [See current project status →](../PROJECT_STATUS.md)
 
