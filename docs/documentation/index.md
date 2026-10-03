@@ -27,6 +27,18 @@ Discover
 
 You can jump directly to any level. The layers are a reading aid, not a gate.
 
+## Released vs development
+
+For installable/public components, start from the
+[Released Public Ecosystem](../ecosystem/released.md).
+
+Alfred and private proving work live separately under
+[Development & Proving Ground](../ecosystem/development.md).
+
+The deliberate bridge is Asgard: the boundary is part of the released Ignition
+architecture, while the Ignition implementation remains Alfred-owned and is not
+a standalone public package.
+
 <div class="grid cards" markdown>
 
 -   **Architecture**
