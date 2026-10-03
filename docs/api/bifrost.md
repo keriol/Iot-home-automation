@@ -1,3 +1,18 @@
+---
+title: Bifröst API
+kind: api
+owner: bifrost
+scope: public
+status: released
+baseline: 0.1.0
+depends_on:
+  - midgard
+related:
+  - ../architecture/midgard.md
+  - ../architecture/asgard.md
+  - ../milestones/ignition-001.md
+---
+
 # Bifröst API
 
 Bifröst is the external/client bridge of the Butler ecosystem.
