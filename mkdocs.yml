@@ -96,3 +96,7 @@ nav:
       - Metrics: METRICS.md
       - Skills Matrix: SKILLS_MATRIX.md
       - AI Collaboration: AI_COLLABORATION.md
+
+
+extra:
+  site_version: 0.1.0.dev0

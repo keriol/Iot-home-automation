@@ -5,8 +5,15 @@ ROOT = Path(__file__).resolve().parents[1]
 MKDOCS = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
 LLMS = (ROOT / "docs" / "llms.txt").read_text(encoding="utf-8")
 RUFY = (ROOT / "docs" / "rufy" / "index.md").read_text(encoding="utf-8")
+SITE_VERSION = (ROOT / "docs" / "site-version.txt").read_text(encoding="utf-8").strip()
 
 errors = []
+
+if not SITE_VERSION:
+    errors.append("documentation site version is empty")
+
+if f"site_version: {SITE_VERSION}" not in MKDOCS:
+    errors.append("mkdocs.yml site_version does not match docs/site-version.txt")
 
 for forbidden in ("rufy/index.md", "There is no king of the pirates"):
     if forbidden.lower() in MKDOCS.lower():

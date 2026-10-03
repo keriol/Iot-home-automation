@@ -7,6 +7,14 @@ SITE = ROOT / "site"
 
 errors = []
 
+site_version = (ROOT / "docs" / "site-version.txt").read_text(encoding="utf-8").strip()
+home_html = SITE / "index.html"
+if home_html.exists():
+    html = home_html.read_text(encoding="utf-8")
+    marker = f'name="butler-docs-version" content="{site_version}"'
+    if marker not in html:
+        errors.append("generated HTML does not expose the expected documentation site version")
+
 rufy_html = SITE / "rufy" / "index.html"
 if not rufy_html.exists():
     errors.append("secret page was not built")
