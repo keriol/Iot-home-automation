@@ -3,6 +3,8 @@ title: Butler
 kind: landing
 scope: public
 status: current
+hide:
+  - toc
 ---
 
 # Talk to your home through a Butler
@@ -17,8 +19,9 @@ and turns a request for an **outcome** into governed actions.
 
 You should not need to think in entity IDs, service calls or integration APIs.
 
-> **Tell the Butler what you want. Let the Butler figure out which systems need
-> to be involved.**
+> **The Butler knows the house. You only need to ask for the outcome.**
+>
+> Tell it what you want. Let the Butler figure out which systems need to be involved.
 
 The goal is not to replace Home Assistant or the software already running the
 house. The goal is to give the house a coherent interaction layer that knows how
