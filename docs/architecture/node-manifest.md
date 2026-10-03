@@ -146,3 +146,18 @@ The exact directory/self-description surfaces may continue to evolve on
 development lines. Open issues or development branches must not be interpreted
 as additional released compatibility claims beyond their owning component's
 published release evidence.
+
+
+## GitHub lineage
+
+The self-description model was assembled across several owners:
+
+- [BIF-010 — transport Butler directory](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/18)
+- [BIF-011 — compose node manifest](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/20)
+- [MID-006 — derive Butler directory from visible Asgard identities](https://github.com/keriol/butler-core-midgard-plugin/issues/9)
+- [MID-008 — expose Core stack metadata and Butler descriptors](https://github.com/keriol/butler-core-midgard-plugin/issues/12)
+- [ALF-205 — mount the Bifröst node manifest on Alfred's authenticated host](https://github.com/keriol/alfred/issues/339)
+- [ALF-207 — complete Alfred/Asgard self-description](https://github.com/keriol/alfred/issues/342)
+
+Use the owning issue tracker for active follow-up rather than inferring issue
+status from this page.
