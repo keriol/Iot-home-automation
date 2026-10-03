@@ -90,6 +90,7 @@ nav:
   - For Agents:
       - Agent Guide: agent/index.md
       - Sources of Truth: agent/source-of-truth.md
+      - First Installation Assistance: agent/first-installation.md
       - Feature Design Workflow: agent/feature-design.md
   - Project History:
       - Timeline: history/index.md
