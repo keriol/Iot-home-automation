@@ -67,9 +67,11 @@ The `docs/project-model/` directory contains dated public-safe snapshots created
 
 Browse the [project-model archive](project-model/) and its [maintenance README](project-model/README.md).
 
-The active model is:
+The compact public context remains available as a compatibility summary:
 
-- [Current Public Project Model](project-model/project-model-public.md)
+- [Current Public Project Context](project-model/project-model-public.md)
+
+The active project model is now the versioned documentation corpus as a whole.
 
 Dated files such as `project-model-public-YYYY-MM-DD.md` are immutable historical snapshots. They may mention versions, ownership or planning mechanisms that were correct at the time but are no longer current.
 
@@ -131,6 +133,37 @@ The 2026-08-23 portfolio refresh itself is part of the historical engineering re
 - [DOC-003 analysis trail](analysis/portfolio-refresh-2026-08-23/README.md)
 
 It includes baseline drift, governance, ownership, maturity, public/private sanitization, delivery/frontend boundaries, rejected alternatives, case-study review and final safety audit.
+
+---
+
+## 8. Ignition and the Butler Communication Network
+
+September and October 2026 introduced the first released Android-reaching Butler
+network.
+
+Current historical anchors:
+
+- [IGNITION-001](milestones/ignition-001.md)
+- [Ignition Engineering Lessons](lessons-learned/ignition-001-engineering-lessons.md)
+- [Butler Communication Model](architecture/communication-model.md)
+- [Node Manifest and Self-Description](architecture/node-manifest.md)
+
+This period introduced Bifröst, Midgard, Butler-owned Asgard and Butler
+Interphone as explicit communication boundaries and produced the first
+coordinated end-to-end compatibility baseline.
+
+---
+
+## 9. Documentation-System Transition
+
+On 2026-10-03 the repository documentation became the durable project model.
+
+- [Project History](history/index.md)
+- [Retirement of the Local Project Model](history/local-project-model-retirement-2026-10-03.md)
+- [Agent Guide](agent/index.md)
+
+The final private/local compact model is not published raw because it contains
+operational details unnecessary for public architectural history.
 
 ---
 
