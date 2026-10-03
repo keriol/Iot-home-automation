@@ -85,6 +85,9 @@ The public ecosystem currently includes:
 If you want to understand the system, continue with
 [Fundamental Concepts](fundamentals.md).
 
+If you want to put one in your own home, follow
+[Install a Butler in your home](../install/index.md).
+
 If you want the engineering detail, jump to the
 [Architecture Overview](../architecture/overview.md).
 
