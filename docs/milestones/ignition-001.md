@@ -2,7 +2,7 @@
 
 > One small step for a man, one giant step for a Butler.
 
-**Status:** live proving complete / coordinated release publication pending
+**Status:** released / closed
 
 Ignition Phase 1 is the first coordinated compatibility checkpoint that reaches
 from a real Android client into the Butler communication network.
@@ -87,9 +87,9 @@ Observed evidence includes:
 Private topology, credentials and household identifiers are intentionally not
 part of this public evidence record.
 
-## Release evidence required
+## Release evidence
 
-At final publication, Ignition requires:
+The released baseline was closed only after:
 
 - green component CI;
 - build/package validation;
@@ -104,9 +104,9 @@ At final publication, Ignition requires:
 - canonical source Butler identity on the concrete-Butler path;
 - verified final tag targets and release assets.
 
-All live behavior gates above are complete. Final tag/release publication and
-post-tag verification remain release-publication evidence rather than inferred
-from successful runtime proving.
+All live behavior gates above completed and the coordinated releases were
+published and verified. IGNITION-001 is therefore a closed compatibility
+baseline rather than an open release candidate.
 
 ## External I/O boundary
 
