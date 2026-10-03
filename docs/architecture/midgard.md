@@ -103,3 +103,18 @@ Alfred paths, with request correlation preserved and canonical source-Butler
 identity visible at the client.
 
 See [IGNITION-001](../milestones/ignition-001.md).
+
+
+## GitHub lineage
+
+Development and follow-up work live in the
+[Midgard issue tracker](https://github.com/keriol/butler-core-midgard-plugin/issues).
+
+Selected issues:
+
+- [MID-001 — bootstrap public-ready Midgard communication contracts](https://github.com/keriol/butler-core-midgard-plugin/issues/1)
+- [MID-002 — discover Asgard identities and route by Butler name](https://github.com/keriol/butler-core-midgard-plugin/issues/3)
+- [MID-003 — emit routing observability through Georges tracing](https://github.com/keriol/butler-core-midgard-plugin/issues/5)
+- [MID-004 — release Midgard 0.1.0 after canonical live proving](https://github.com/keriol/butler-core-midgard-plugin/issues/7)
+- [MID-006 — expose Butler directory from visible Asgard identities](https://github.com/keriol/butler-core-midgard-plugin/issues/9)
+- [MID-008 — expose Core stack metadata and Butler descriptors](https://github.com/keriol/butler-core-midgard-plugin/issues/12)
