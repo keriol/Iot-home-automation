@@ -89,3 +89,11 @@ routing correctness != observability availability
 The request correlation identifier should remain available to safe routing
 events so one request can be followed across Bifröst, Midgard and a concrete
 Butler boundary without logging private payload content.
+
+
+## GitHub lineage
+
+- MID-003, Georges routing observability: https://github.com/keriol/butler-core-midgard-plugin/issues/5
+- MID-002, explicit Butler routing: https://github.com/keriol/butler-core-midgard-plugin/issues/3
+- ALF-204, Bifröst-hosted Butler directory: https://github.com/keriol/alfred/issues/336
+- ALF-220, interaction-origin/deferred client actions: https://github.com/keriol/alfred/issues/361

@@ -71,6 +71,7 @@ for required in (
     "architecture/asgard.md",
     "milestones/ignition-001.md",
     "agent/index.md",
+    "agent/first-installation.md",
     "PROJECT_MODEL.md",
     "history/index.md",
 ):

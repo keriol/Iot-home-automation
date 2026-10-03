@@ -146,3 +146,16 @@ The exact directory/self-description surfaces may continue to evolve on
 development lines. Open issues or development branches must not be interpreted
 as additional released compatibility claims beyond their owning component's
 published release evidence.
+
+
+## GitHub lineage
+
+Selected implementation lineage:
+
+- BIF-011, composed node manifest: https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/20
+- MID-008, Core stack and Butler descriptors: https://github.com/keriol/butler-core-midgard-plugin/issues/12
+- ALF-205, authenticated Bifröst manifest host: https://github.com/keriol/alfred/issues/339
+- ALF-207, Alfred/Asgard self-description: https://github.com/keriol/alfred/issues/342
+
+Use the issue status/history to understand evolution. Use current documentation
+and release evidence for present-tense capability claims.

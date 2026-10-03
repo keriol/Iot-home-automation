@@ -103,3 +103,20 @@ Alfred paths, with request correlation preserved and canonical source-Butler
 identity visible at the client.
 
 See [IGNITION-001](../milestones/ignition-001.md).
+
+
+## GitHub lineage
+
+Repository: https://github.com/keriol/butler-core-midgard-plugin  
+Issue tracker: https://github.com/keriol/butler-core-midgard-plugin/issues
+
+Selected lineage:
+
+- MID-001, communication contracts: https://github.com/keriol/butler-core-midgard-plugin/issues/1
+- MID-002, Asgard identity routing: https://github.com/keriol/butler-core-midgard-plugin/issues/3
+- MID-003, Georges routing observability: https://github.com/keriol/butler-core-midgard-plugin/issues/5
+- MID-004, Ignition release: https://github.com/keriol/butler-core-midgard-plugin/issues/7
+- MID-006, Butler directory: https://github.com/keriol/butler-core-midgard-plugin/issues/9
+- MID-008, node manifest metadata: https://github.com/keriol/butler-core-midgard-plugin/issues/12
+
+Open follow-up work remains development direction, not released capability.
