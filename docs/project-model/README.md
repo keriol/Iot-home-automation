@@ -1,6 +1,8 @@
 # Project Context
 
-The files in this directory retain their historical `project-model` naming for compatibility, but the active document is a **derived architectural context snapshot**, not a development-state database.
+The files in this directory retain their historical `project-model` naming for compatibility.
+
+As of 2026-10-03, **this directory is no longer the active project model**. The active durable project model is the versioned documentation corpus across `docs/`.
 
 ## Sources of Truth
 
@@ -14,17 +16,15 @@ See [ADR-011 - GitHub as Development Source of Truth](../adr/ADR-011-github-deve
 
 ADR-009 remains a historical record of the former Umberto-based development model and is not the current authority.
 
-## Current Public Context
+## Compact Public Context
 
-The current public-safe context is:
+`docs/project-model/project-model-public.md` remains a compact public-safe
+reference snapshot for compatibility and quick ingestion.
 
-`docs/project-model/project-model-public.md`
+It is not authoritative over the fuller current documentation corpus and does
+not duplicate active task or runtime state.
 
-It describes architectural layering, component responsibilities, maturity, public/private boundaries and durable engineering rules.
-
-It intentionally does not duplicate task state or release evidence.
-
-## Refresh Policy
+## Compatibility Summary Refresh Policy
 
 Refresh the current context after significant:
 
