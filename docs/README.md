@@ -6,8 +6,10 @@
 - [Portfolio README](../README.md)
 - [Project Showcase](SHOWCASE.md)
 - [Project Status](PROJECT_STATUS.md)
-- [Current Public Project Model](project-model/project-model-public.md)
+- [Project Model](PROJECT_MODEL.md)
+- [Compact Public Context](project-model/project-model-public.md)
 - [Roadmap](../ROADMAP.md)
+- [Project History](history/index.md)
 - [Historical Records](HISTORICAL_RECORDS.md)
 
 ## Butler Ecosystem
@@ -98,7 +100,11 @@ AI assists research, troubleshooting, design review, documentation and structure
 
 ## Historical Records
 
-The complete historical index is:
+The current web-safe historical entrypoint is:
+
+- **[Project History](history/index.md)**
+
+The repository also retains the broader repo-centric historical index:
 
 - **[Historical Records](HISTORICAL_RECORDS.md)**
 
@@ -111,7 +117,9 @@ It maps:
 - ADR history and supersession;
 - retired development-process records;
 - historical/intermediate case studies;
-- the DOC-003 analysis trail itself.
+- the DOC-003 analysis trail itself;
+- IGNITION-001 and the Bifröst/Midgard/Asgard communication era;
+- the 2026-10-03 retirement of the local compact project model.
 
 Historical records are intentionally preserved rather than rewritten to match current architecture. They are project memory, not current development-state authority.
 

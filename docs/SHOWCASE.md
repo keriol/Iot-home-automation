@@ -35,10 +35,11 @@ Wilfred and Alfred are sibling Butler runtimes built on Core-owned contracts. Re
 
 ## Current result
 
-- Butler Core `0.2.0` is the current released provider-neutral foundation.
-- Wilfred `0.2.2` is the current Public Alpha.
-- Home Assistant Plugin is an independent public integration package on its `0.2.0.dev0` development line.
-- Alfred remains the private sibling runtime and real-world proving ground.
+- Butler Core `0.3.0` is the current released provider-neutral foundation.
+- Wilfred `0.2.2` remains the current Public Alpha.
+- Home Assistant Plugin `0.3.0` is the released reusable Home Assistant integration baseline.
+- Bifröst `0.1.0`, Midgard `0.1.0` and Butler Interphone `0.1.0` form the released client/communication side of IGNITION-001.
+- Alfred `0.5.0` is the private Ignition proving runtime, with Alfred-owned Asgard compatibility `0.1.0`.
 - Home Assistant remains the physical orchestration owner.
 
 Development-line versions describe repository state, not released capability claims.
@@ -242,6 +243,38 @@ Keep voice frontends replaceable while allowing the private deployment to exerci
 The architecture is designed to enable later reusable frontend/provider integrations if private validation, contracts, tests and sanitization justify extraction.
 
 A working private Alexa path is not evidence that Wilfred currently ships an official Alexa integration.
+
+---
+
+# 9. Ignition Butler-to-Android Network
+
+## Status
+
+**Available + privately proven**
+
+## Objective
+
+Prove a reusable external-client path into both shared Core capabilities and a
+concrete Butler runtime.
+
+## Released paths
+
+```text
+Interphone -> Bifröst -> Midgard -> Butler Core -> HAP -> Home Assistant
+Interphone -> Bifröst -> Midgard -> Butler-owned Asgard -> Alfred
+```
+
+## Proven engineering properties
+
+- preserved request correlation;
+- canonical source-Butler identity;
+- observable READ -> ACTION -> READ -> VERIFY;
+- client-safe node self-description;
+- explicit separation of client transport, cross-Butler routing and Butler identity;
+- bounded client acknowledgement for longer verified work.
+
+See [IGNITION-001](milestones/ignition-001.md) and
+[Ignition Engineering Lessons](lessons-learned/ignition-001-engineering-lessons.md).
 
 ---
 

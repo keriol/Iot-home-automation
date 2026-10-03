@@ -1,5 +1,31 @@
 # Project Model Changelog
 
+## 2026-10-03 - Documentation corpus becomes the project model
+
+### Changed
+
+- Retire the compact local project model as an active project authority.
+- Make the versioned documentation corpus the durable project model.
+- Keep `project-model-public.md` as a compact compatibility/reference summary.
+- Preserve dated project-model snapshots as immutable historical artifacts.
+- Preserve the final local-model era through a sanitized historical record.
+- Add agent-friendly entrypoints without creating a parallel AI documentation tree.
+- Publish the same canonical Markdown through MkDocs/GitHub Pages.
+
+## 2026-10-03 - Ignition communication baseline
+
+### Added
+
+- Bifröst client/API boundary.
+- Midgard cross-Butler communication/routing architecture.
+- Butler-owned Asgard ingress/identity boundary.
+- Butler Interphone Android client baseline.
+- IGNITION-001 compatibility BOM and E2E evidence.
+- Node manifest/self-description ownership.
+- Routing failure and Georges observability documentation.
+- Ignition engineering lessons.
+
+
 ## 2026-08-13 - Public portfolio documentation boundary
 
 ### Changed

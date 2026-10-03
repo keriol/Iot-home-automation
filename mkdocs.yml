@@ -44,7 +44,7 @@ nav:
   - Butler Ecosystem:
       - Overview: architecture/overview.md
       - Communication Model: architecture/communication-model.md
-      - Project Model: project-model/project-model-public.md
+      - Project Model: PROJECT_MODEL.md
   - Client API:
       - Overview: api/index.md
       - Bifröst: api/bifrost.md
@@ -91,9 +91,13 @@ nav:
       - Agent Guide: agent/index.md
       - Sources of Truth: agent/source-of-truth.md
       - Feature Design Workflow: agent/feature-design.md
+  - Project History:
+      - Timeline: history/index.md
+      - Local Project Model Retirement: history/local-project-model-retirement-2026-10-03.md
   - Project:
       - Project Status: PROJECT_STATUS.md
-      - Project Model: project-model/project-model-public.md
+      - Project Model: PROJECT_MODEL.md
+      - Compact Public Context: project-model/project-model-public.md
       - Integrations: INTEGRATIONS.md
       - Hardware: HARDWARE.md
       - Metrics: METRICS.md

@@ -3,9 +3,11 @@ UPDATED: 2026-10-03
 
 PURPOSE
 
-Public-safe derived architectural context for Keriol Home and the reusable Butler ecosystem.
+Compact public-safe reference context for Keriol Home and the reusable Butler ecosystem.
 
-This file is not a task ledger, roadmap database, release evidence store or runtime-status source. It provides compact context about architecture, responsibilities, maturity and engineering principles.
+As of 2026-10-03, the active durable project model is the versioned documentation corpus, not this single file. This file remains a concise compatibility/reference summary.
+
+It is not a task ledger, roadmap database, release evidence store or runtime-status source.
 
 SOURCES OF TRUTH
 
@@ -13,7 +15,8 @@ SOURCES OF TRUTH
 * Git main is authoritative for merged implementation and versioned documentation.
 * Commits, tags, workflows and releases provide implementation and release evidence.
 * Live systems are authoritative for deployed behavior, service health and physical state.
-* This file is a derived public snapshot refreshed after meaningful architectural, boundary or release changes.
+* The versioned documentation corpus is the durable project model.
+* This file is a compact derived summary refreshed after meaningful architectural, boundary or release changes.
 
 VISION
 
@@ -73,7 +76,7 @@ Butler Core:
 * provider-neutral asynchronous job requests/results and lifecycle protocols;
 * structured tracing with trace context, status/severity/levels and fail-safe tracer abstraction;
 * reusable domain, capability, plugin/contribution and goal-expectation declarations with conformance helpers;
-* provider-neutral readiness/capability-availability and explicit user-authorization development contracts may exist on Core main after the released 0.2.0 baseline, but remain development state until released;
+* provider-neutral readiness/capability-availability and explicit user-authorization contracts evolve on Core development lines; development state is not a release claim;
 * provider-neutral output contracts;
 * no plugin discovery/loading/lifecycle, concrete domain behavior, provider configuration, frontend rendering or deployment-specific behavior;
 * no Keriol, Alexa or Home Assistant device-specific behavior;
@@ -248,7 +251,7 @@ REFERENCE MAP
 
 STACK
 
-* Butler: Butler Core, Wilfred, Home Assistant Plugin and the private Alfred proving ground.
+* Butler: Butler Core, Wilfred, Home Assistant Plugin, Bifröst, Midgard, Butler Interphone and the private Alfred proving ground with Alfred-owned Asgard.
 * Automation: Home Assistant, MQTT, Node-RED, HACS.
 * Services: Python/FastAPI and provider integrations.
 * Media/storage validation: Plex, Tautulli and network storage.
@@ -275,7 +278,9 @@ The former Umberto development ledger is retired and archive-only. Historical Um
 
 CONTEXT MAINTENANCE
 
-Refresh this file for durable architecture, ownership, public/private boundary, maturity-model or release-baseline changes.
+Refresh the canonical documentation corpus for durable architecture, ownership, public/private boundary, maturity-model or release-baseline changes.
+
+Refresh this compact summary when those changes materially affect quick-reference context.
 
 Task state belongs in GitHub Issues. Implementation evidence belongs in Git. Release evidence belongs in tags/releases/workflows. Runtime evidence belongs in live systems.
 

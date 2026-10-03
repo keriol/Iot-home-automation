@@ -95,6 +95,26 @@ In the private deployment, **Giorgio** is the configured Alexa voice used when A
 
 Changing or replacing the configured voice does not change the Butler architecture.
 
+## External Client Communication
+
+The released Ignition communication path reaches Alfred through reusable
+client/communication boundaries:
+
+```text
+Butler Interphone / external client
+  -> Bifröst
+  -> Midgard
+  -> Alfred-owned Asgard
+  -> Alfred
+```
+
+Bifröst owns client transport/protocol concerns. Midgard owns provider-neutral
+communication and cross-Butler routing. Alfred owns its Butler identity and
+projects it through Alfred-owned Asgard.
+
+Alfred therefore composes the communication stack without acquiring Bifröst or
+Midgard ownership.
+
 ## Interactive Flow
 
 A private Keriol interaction follows:
@@ -154,6 +174,9 @@ The retired Umberto ledger remains historical context only.
 
 ## Component Boundaries
 
+- Bifröst owns the external/client API and transport boundary.
+- Midgard owns provider-neutral communication and cross-Butler routing.
+- Alfred-owned Asgard projects Alfred identity and governs concrete-Butler ingress/egress.
 - Butler Core owns provider-neutral foundations.
 - Wilfred owns the reusable public Butler runtime.
 - Alfred owns the private Keriol Butler runtime, composition, context, routing and AI fallback.

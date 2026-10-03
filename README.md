@@ -20,7 +20,7 @@ The portfolio documents architecture, capability maturity, case studies and engi
 - **Midgard `0.1.0`** is the released communication and cross-Butler routing baseline.
 - **Butler Interphone `0.1.0`** is the released Android client baseline.
 - **HAP** is the canonical task namespace for Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
-- Core, Wilfred and HAP development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
+- Development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
@@ -66,7 +66,7 @@ See [IGNITION-001](docs/milestones/ignition-001.md) and the
 
 [Butler Core](https://github.com/keriol/butler-core) owns provider-neutral contracts and small execution primitives shared by Butler runtimes and consumers.
 
-The `0.2.0` baseline includes tool/registry contracts, planning boundaries, deterministic resolution, policy-governed execution, asynchronous job contracts, structured tracing, domain/capability contribution declarations and provider-neutral output contracts.
+The `0.3.0` released baseline is the Core foundation used by IGNITION-001. It includes provider-neutral tool/registry, planning, deterministic resolution, policy-governed execution, asynchronous-job, tracing and domain/capability contribution contracts. Core `main` is currently on `0.3.1.dev0`.
 
 Core deliberately does not own application routing, plugin discovery/loading/lifecycle, concrete domains, AI-provider configuration, frontend rendering, delivery providers, trace storage or Keriol-specific integrations.
 
@@ -117,13 +117,13 @@ See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](docs/ad
 
 Portfolio capabilities use three maturity levels:
 
-- **Public**: released or merged in Butler Core, Wilfred or an official public plugin.
-- **Private validated**: implemented and tested in the real Alfred deployment but not currently part of the public Wilfred/plugin distribution.
-- **Candidate**: a capability or pattern being evaluated for later generalization.
+- **Available**: public, documented and usable in the relevant public component;
+- **In testing**: implemented or exercised privately/under validation, but not a public release promise;
+- **Designed to enable**: architecturally supported direction without an implementation claim.
 
-Candidate status is not a release commitment.
+Open issues, branches and private experiments do not become Available merely because they exist.
 
-This keeps the portfolio useful without pretending that every private experiment is already a public Wilfred feature.
+This keeps the portfolio useful without pretending that every private experiment is already a public Butler feature.
 
 ## Smart-Home Ownership
 
@@ -159,7 +159,10 @@ Dispatch alone is not considered physical success.
 - Butler Core
 - Wilfred
 - Home Assistant Plugin (HAP)
-- Alfred (private Keriol runtime)
+- Bifröst
+- Midgard
+- Butler Interphone
+- Alfred (private Keriol runtime, with Alfred-owned Asgard)
 - Python / FastAPI
 - Mosquitto MQTT
 - Node-RED
@@ -269,7 +272,7 @@ Development state is owned by the repositories where the work happens:
 - **Git / `main`** owns merged implementation and versioned documentation.
 - **Commits, tags, releases and workflows** provide implementation and release evidence.
 - **Live systems** own deployed runtime behavior and health.
-- **Project models and this portfolio** are derived architectural documentation only.
+- **This versioned documentation corpus** is the active project model for durable architecture, boundaries and engineering knowledge. Historical project-model snapshots are retained only as compatibility/history artifacts.
 
 The retired Umberto ledger is historical context and does not override GitHub, Git or runtime evidence.
 
@@ -293,6 +296,7 @@ Architecture decisions, implementation, testing and production ownership remain 
 - [Alfred Ecosystem Flow](docs/diagrams/alfred-ecosystem-flow.md)
 - [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](docs/adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
 - [ADR-008 - Historical Butler Core, Wilfred and Alfred Layering](docs/adr/ADR-008-butler-core-wilfred-alfred-layering.md)
+- [Documentation Index](docs/README.md)
 - [Current Public Project Model](docs/project-model/project-model-public.md)
 
 Historical worklogs, milestone snapshots and previous ADRs are intentionally retained as records of the architecture and decisions that existed at the time.

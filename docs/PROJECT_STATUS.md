@@ -35,7 +35,7 @@ Release claims use explicit Git/tag/release evidence. Development branches and o
 
 ### Shared Core
 
-Butler Core `0.2.0` provides the current provider-neutral foundation for tools/registry, planning, deterministic resolution, policy-governed execution, asynchronous jobs, structured tracing, domain/capability contribution declarations and output contracts.
+Butler Core `0.3.0` is the current released provider-neutral foundation for the Ignition baseline. Core `main` is on `0.3.1.dev0`. It owns provider-neutral tools/registry, planning, deterministic resolution, policy-governed execution, asynchronous jobs, tracing, domain/capability contribution declarations and output contracts.
 
 Core remains deliberately smaller than a runtime: plugin discovery/loading/lifecycle, concrete domain behavior, frontend rendering, AI-provider configuration and deployment-specific integrations remain outside Core.
 
@@ -177,8 +177,13 @@ The retired private development ledger is historical only and does not override 
 
 ## Documentation Status
 
-DOC-006 refreshes the current public project model. DOC-007 aligns current architecture documents with the sibling-runtime and independent-plugin model formalized by ADR-012.
+The repository-backed documentation corpus is now the active durable project model.
 
-Historical ADRs, worklogs and dated snapshots remain historical and are not rewritten retroactively.
+- current architecture, API, ownership and maturity live in versioned Markdown;
+- `AGENTS.md`, `docs/agent/` and `docs/llms.txt` provide agent-oriented entrypoints without creating a second source of truth;
+- MkDocs/GitHub Pages is a presentation layer over the same Markdown;
+- historical ADRs, worklogs and dated project-model snapshots remain immutable historical records.
+
+The legacy local compact project model is retired as an active source and preserved only through sanitized historical context.
 
 The portfolio intentionally documents architecture, case studies and reusable lessons rather than mirroring private implementation.
