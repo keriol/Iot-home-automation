@@ -1,192 +1,108 @@
-# Alfred Ecosystem
+---
+title: Alfred Development Architecture
+kind: development
+scope: public-safe
+status: in-testing
+---
 
-Alfred is the private Keriol Home Butler runtime and the real-world proving ground from which reusable Butler patterns can graduate into Wilfred, Butler Core or independent public plugins.
+# Alfred Development Architecture
 
-## Runtime Relationship
+Alfred is the private Keriol Home Butler runtime and proving ground.
 
-The current relationship is:
+This page explains **development concepts and ownership boundaries** that are
+being exercised privately. It does not document the private implementation and
+must not be read as an installation guide or as evidence that Wilfred already
+ships the same behavior.
 
-    Butler Core
-      /      \
- Wilfred    Alfred
-
-Reusable platform plugins may also depend on Core-owned contracts and be consumed by either runtime independently.
-
-Butler Core provides provider-neutral contracts and execution foundations.
-
-Wilfred provides the reusable public Butler runtime.
-
-Alfred provides the private Keriol runtime, composition and proving ground.
-
-Wilfred and Alfred are sibling runtimes. Alfred does not run on or through Wilfred.
-
-## Capability Model
-
-Wilfred and Alfred use a capability-first model:
-
-- an **integration/provider** connects to an external service;
-- a **tool** is a typed executable operation;
-- a **capability** describes something the Butler knows how to do;
-- a **domain** owns related knowledge and behavior;
-- a **goal** is the outcome requested by the user.
-
-Known requests should resolve deterministically before planner fallback. Policy, permissions, confirmation and verification still govern execution regardless of how a goal was resolved.
-
-Conversation and frontend code should not become the owner of domain behavior.
-
-## Alfred
-
-Alfred owns private Keriol composition, context, routing and AI fallback.
-
-Its responsibilities include:
-
-- receiving normalized requests from supported frontends;
-- composing the private runtime and loaded packages;
-- routing Keriol-specific context and policy;
-- invoking Core-compatible tools and capabilities;
-- consuming reusable plugins such as HAP where appropriate;
-- exposing private domain capabilities;
-- preserving permissions, confirmation and safety boundaries;
-- providing AI fallback only when deterministic resolution does not already own the request.
-
-Alfred is not the smart-home platform itself.
-
-Home Assistant remains responsible for physical orchestration, integrations, dashboards and device state.
-
-## Home Assistant Plugin
-
-Home Assistant Plugin (HAP) is a reusable public integration built on Butler Core contracts rather than on Wilfred.
-
-Its role is to own reusable Home Assistant transport, configuration, state and action behavior.
-
-Alfred may consume HAP directly while keeping Keriol semantic routing and policy inside Alfred. Wilfred may consume the same plugin independently.
-
-## Osvaldo
-
-Osvaldo owns proactive communication policy.
-
-It may allow immediate delivery, defer delivery, aggregate compatible events, deny delivery, or apply quiet-hours and related communication policy.
-
-A requested asynchronous reply is a continuation of an explicit user interaction and should not be treated as a generic unsolicited notification merely because delivery happens later.
-
-## Charon
-
-Charon owns media-domain intelligence and lifecycle behavior.
-
-It may handle discovery, identity, quality policy, playback decisions, observation and lifecycle analysis while exposing media capabilities through Alfred.
-
-Charon does not own generic conversation routing or provider delivery.
-
-## Hermes
-
-Hermes is the private delivery framework for provider-specific output paths.
-
-It owns delivery providers, routing and transport-specific rendering where appropriate.
-
-Hermes does not own domain semantics or proactive communication policy. Osvaldo decides whether communication may occur; Hermes handles how an approved or requested output reaches a provider.
-
-Alexa is the current voice frontend and first Hermes target exercised by Keriol Home. Speech and SSML are frontend details, not Butler architecture.
-
-## Alexa Voice Rendering
-
-Named Alexa voices remain frontend rendering parameters rather than architectural components.
-
-In the private deployment, **Giorgio** is the configured Alexa voice used when Alfred speech notifications are rendered through the Alexa delivery path. That voice selection must survive delivery composition, but it does not own capability behavior, communication policy or delivery routing.
-
-Changing or replacing the configured voice does not change the Butler architecture.
-
-## External Client Communication
-
-The released Ignition communication path reaches Alfred through reusable
-client/communication boundaries:
+## Relationship to the public ecosystem
 
 ```text
-Butler Interphone / external client
-  -> Bifröst
-  -> Midgard
-  -> Alfred-owned Asgard
-  -> Alfred
+                Butler Core
+                /        \
+        Wilfred            Alfred
+   public runtime      private proving runtime
 ```
 
-Bifröst owns client transport/protocol concerns. Midgard owns provider-neutral
-communication and cross-Butler routing. Alfred owns its Butler identity and
-projects it through Alfred-owned Asgard.
+Wilfred and Alfred are sibling consumers of Core-owned contracts.
 
-Alfred therefore composes the communication stack without acquiring Bifröst or
-Midgard ownership.
+Reusable plugins may be consumed by either runtime without making one runtime a
+dependency of the other.
 
-## Interactive Flow
+## What Alfred is used to prove
 
-A private Keriol interaction follows:
+Alfred is where Keriol-specific work can move faster than the public runtime.
 
-    Frontend
-      -> Alfred
-      -> Registered capability / plugin
-      -> Domain / Integration
-      -> Alfred
-      -> Frontend rendering / delivery
+Typical proving themes include:
 
-For reusable Home Assistant access:
+- domain-owned behavior instead of conversation-owned special cases;
+- deterministic resolution before AI fallback;
+- policy and confirmation boundaries;
+- verified physical actions;
+- proactive communication policy;
+- media-domain reasoning;
+- replaceable frontend/delivery paths;
+- interaction patterns that may later justify reusable contracts.
 
-    Alfred
-      -> HAP
-      -> Home Assistant
+These themes are **In testing** unless a public repository release provides
+separate evidence of availability.
 
-Frontend-specific speech, SSML and presentation remain frontend concerns.
+## Public/private boundary
 
-## Proactive Flow
+Public documentation may explain:
 
-A proactive domain event follows:
+- architectural ownership;
+- the problem being tested;
+- maturity;
+- engineering lessons;
+- the route a reusable pattern could take toward public extraction.
 
-    Domain Event
-      -> Osvaldo policy
-      -> Hermes delivery
-      -> Provider / Frontend
+It must not expose:
 
-The originating domain describes the event.
+- readable Alfred source;
+- private endpoints;
+- household identifiers;
+- configuration values;
+- deployment topology;
+- secrets or credentials;
+- private acquisition implementation.
 
-Osvaldo decides whether and when it may be communicated.
+## Asgard exception
 
-Hermes and its providers deliver the approved output without acquiring domain or policy ownership.
+IGNITION-001 proved a Butler-owned Asgard boundary end to end through Alfred.
 
-For Alexa speech notifications, the provider-specific rendering step applies the configured voice parameter after policy and before delivery.
+Therefore Asgard remains part of the public communication architecture even
+though the Ignition implementation is Alfred-owned.
 
-## Capability Status
+```text
+Bifröst -> Midgard -> Butler-owned Asgard -> concrete Butler
+```
 
-Portfolio wording should distinguish:
+For IGNITION-001:
 
-- **Available**: public, documented and usable;
-- **In testing**: exercised privately but not yet a public release promise;
-- **Designed to enable**: architecturally supported direction without an implementation claim.
+- Asgard compatibility version is `0.1.0`;
+- Alfred owns the concrete implementation;
+- no standalone public Asgard package is claimed.
 
-Private proving-ground evidence may justify **In testing**, but a branch or issue alone never justifies an availability claim.
+See [Asgard](asgard.md).
 
-## Development State
+## Graduation path
 
-Development state is owned outside the runtime architecture:
+A private Alfred capability becomes public only after:
 
-- GitHub Issues own tasks, priorities, dependencies, planning and active status;
-- Git `main` owns merged implementation and versioned documentation;
-- commits, tags, workflows and releases provide implementation and release evidence;
-- live systems own deployed behavior and operational truth.
+1. reusable ownership is clear;
+2. household assumptions are removed;
+3. contracts are generalized;
+4. tests exist independently of Keriol Home;
+5. public-safe documentation exists;
+6. clean installation/runtime evidence exists;
+7. a public repository release explicitly ships it.
 
-The retired Umberto ledger remains historical context only.
+Possible destinations include Butler Core, Wilfred or an independent public
+plugin.
 
-## Component Boundaries
+## What to read next
 
-- Bifröst owns the external/client API and transport boundary.
-- Midgard owns provider-neutral communication and cross-Butler routing.
-- Alfred-owned Asgard projects Alfred identity and governs concrete-Butler ingress/egress.
-- Butler Core owns provider-neutral foundations.
-- Wilfred owns the reusable public Butler runtime.
-- Alfred owns the private Keriol Butler runtime, composition, context, routing and AI fallback.
-- HAP owns reusable Home Assistant integration behavior and is not owned by a concrete runtime.
-- Home Assistant owns physical orchestration and device/integration state.
-- Osvaldo owns proactive communication policy.
-- Charon owns media-domain intelligence and lifecycle behavior.
-- Hermes owns delivery framework/provider responsibilities.
-- Frontends own provider-specific input and presentation.
-- Giorgio is an Alexa speech-rendering parameter, not an architectural owner.
-- Domain services should not duplicate policy, execution or provider responsibilities.
-
-See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md).
+- [Development & Proving Ground](../ecosystem/development.md)
+- [Alfred Proving Ground](alfred-proving-ground.md)
+- [Released Public Ecosystem](../ecosystem/released.md)
+- [ADR-012](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
