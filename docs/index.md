@@ -40,7 +40,7 @@ to talk to them.
 
     Bifröst, Midgard, Asgard, Core, HAP, contracts, routing and proven baselines.
 
-    [Open the technical map →](PROJECT_MODEL.md)
+    [Open the technical map →](documentation/index.md)
 
 -   :material-rocket-launch-outline: **Install your first Butler**
 
