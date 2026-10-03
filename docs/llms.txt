@@ -11,6 +11,7 @@
 
 ## Butler ecosystem
 
+- docs/PROJECT_MODEL.md
 - docs/architecture/overview.md
 - docs/architecture/communication-model.md
 - docs/project-model/project-model-public.md
@@ -38,6 +39,8 @@
 
 ## Historical context
 
+- docs/history/index.md
+- docs/history/local-project-model-retirement-2026-10-03.md
 - docs/HISTORICAL_RECORDS.md
 
 Do not infer active task state, release state or runtime state from this index.
