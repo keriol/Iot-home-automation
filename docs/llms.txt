@@ -1,0 +1,42 @@
+# Butler documentation
+
+> Public-safe documentation index for agents and language models.
+> Canonical source is repository Markdown under docs/.
+
+## Start here
+
+- docs/agent/index.md
+- docs/agent/source-of-truth.md
+- docs/agent/feature-design.md
+
+## Butler ecosystem
+
+- docs/architecture/overview.md
+- docs/architecture/communication-model.md
+- docs/project-model/project-model-public.md
+
+## Client API
+
+- docs/api/index.md
+- docs/api/bifrost.md
+
+## Communication
+
+- docs/architecture/midgard.md
+- docs/architecture/asgard.md
+
+## Proven baselines
+
+- docs/milestones/ignition-001.md
+
+## Architecture decisions
+
+- docs/adr/
+
+## Historical context
+
+- docs/HISTORICAL_RECORDS.md
+
+Do not infer active task state, release state or runtime state from this index.
+Use GitHub Issues, tags/releases/workflows and live systems according to
+docs/agent/source-of-truth.md.

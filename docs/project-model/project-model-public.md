@@ -1,5 +1,5 @@
 HOME AUTOMATION PROJECT CONTEXT - PUBLIC (<8K>)
-UPDATED: 2026-09-17
+UPDATED: 2026-10-03
 
 PURPOSE
 
@@ -32,13 +32,13 @@ Motto: "Alfred non è il software della casa. Alfred è colui che sa parlare con
 
 CURRENT PUBLIC BASELINE
 
-* Butler Core 0.2.0 is the current released Core baseline.
-* Core 0.2.0 provides the provider-neutral execution, asynchronous-job, tracing and domain/capability contribution baseline used by higher-level Butler consumers.
-* Wilfred 0.2.2 is the current released Public Alpha baseline and adopts the Core 0.2.0 domain/capability/plugin contribution contracts while preserving Wilfred-owned runtime behavior.
-* Wilfred main is on the 0.2.3.dev0 development line; development state is not a release claim.
-* Home Assistant Plugin lives at https://github.com/keriol/home-assistant-plugin and is currently on its 0.2.0.dev0 development line while the consumer-neutral Core boundary is consolidated.
-* HAP is the canonical task namespace for current Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
-* Alfred 0.4.0 is the current private released baseline; post-0.4.0 development continues privately.
+* Butler Core 0.3.0 is the current released Core baseline; Core main is on 0.3.1.dev0.
+* Wilfred 0.2.2 remains the current released Public Alpha and is not part of IGNITION-001.
+* Home Assistant Plugin 0.3.0 is the current released reusable Home Assistant integration baseline; HAP main is on 0.3.1.dev0.
+* Bifröst 0.1.0 is the current released Butler client/API bridge baseline; Bifröst main is on 0.1.1.dev0.
+* Midgard 0.1.0 is the current released provider-neutral communication/cross-Butler routing baseline; Midgard main is on 0.1.1.dev0.
+* Butler Interphone 0.1.0 is the current released Android client baseline; Interphone main is on 0.1.1.dev0.
+* Alfred 0.5.0 is the current private released proving baseline and ships Alfred-owned Asgard compatibility version 0.1.0.
 
 Release claims use explicit tag/release evidence. Open branches and issues describe development direction only.
 
@@ -136,6 +136,10 @@ Alexa:
 Detailed Keriol implementation and operational state remain private.
 
 INTERACTION
+
+Released Butler client/API path:
+
+External Client -> Bifröst -> Midgard -> Butler Core / Butler-owned Asgard
 
 Reusable public runtime path:
 
@@ -237,6 +241,9 @@ REFERENCE MAP
 * Butler Core: https://github.com/keriol/butler-core
 * Wilfred: https://github.com/keriol/butler-wilfred
 * Home Assistant Plugin: https://github.com/keriol/home-assistant-plugin
+* Bifröst: https://github.com/keriol/Butler-Core-Bifrost-Plugin
+* Midgard: https://github.com/keriol/butler-core-midgard-plugin
+* Butler Interphone: https://github.com/keriol/butler-interphone-android
 * Keriol Home portfolio: https://github.com/keriol/Iot-home-automation
 
 STACK
