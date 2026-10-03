@@ -3,6 +3,8 @@
 ## Start Here
 
 - [Meet Butler](meet/index.md)
+- [Choose Your Depth](journey/index.md)
+- [Install a Butler in your home](install/index.md)
 - [Technical Documentation](documentation/index.md)
 - [Portfolio](portfolio/index.md)
 - [Ideas, Experiments and Rabbit Holes](explore/index.md)
