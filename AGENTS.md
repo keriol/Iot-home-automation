@@ -3,7 +3,16 @@
 This repository is the public-safe documentation hub for the Butler ecosystem and
 Keriol Home portfolio.
 
-Before designing or implementing a Butler feature, read:
+Start by classifying the request.
+
+For **first installation / first run assistance**, read:
+
+1. `docs/agent/index.md`
+2. `docs/agent/source-of-truth.md`
+3. `docs/agent/first-installation.md`
+4. the owning repository's installation/onboarding documentation
+
+For **feature design or implementation**, read:
 
 1. `docs/agent/index.md`
 2. `docs/agent/source-of-truth.md`
