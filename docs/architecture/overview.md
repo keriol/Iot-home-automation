@@ -6,7 +6,7 @@ Keriol Home separates provider-neutral Butler contracts, reusable runtimes/plugi
 
 Butler Core is the lowest reusable layer.
 
-The current released `0.2.0` baseline owns provider-neutral contracts and small execution primitives shared by Butler runtimes and reusable plugins, including:
+The current released `0.3.0` baseline owns provider-neutral contracts and small execution primitives shared by Butler runtimes and reusable plugins, including:
 
 - tool definitions, permissions and registration;
 - planner interfaces;
@@ -43,7 +43,7 @@ Reusable behavior is promoted toward Butler Core, Wilfred or an independent publ
 
 Reusable platform integrations may depend directly on the lowest appropriate Core contracts instead of a concrete Butler runtime.
 
-Home Assistant Plugin (HAP) is the first explicit example. It lives at `keriol/home-assistant-plugin`, is currently on the `0.2.0.dev0` development line and is intended to be consumable independently by Butler runtimes.
+Home Assistant Plugin (HAP) is the first explicit example. HAP `0.3.0` is the released Ignition baseline and remains consumable independently by Butler runtimes.
 
 The reusable boundary is:
 
@@ -81,11 +81,17 @@ runtime such as Alfred. IGNITION-001 uses Alfred 0.5.0 with its internal
 Asgard compatibility boundary at 0.1.0. Alfred is the private proving runtime;
 Wilfred is not part of this first network BOM.
 
-The final candidate has completed real Android live proving for both the
-Core/HAP path and the explicit Alfred path. Coordinated tag/release publication
-remains distinct release evidence and is not inferred from runtime success.
+IGNITION-001 is released and closed after real Android end-to-end proving of
+both the Core/HAP path and the explicit Alfred path. The proving preserved
+request correlation, returned canonical source-Butler identity, and verified an
+observable Home Assistant action through READ -> ACTION -> READ -> VERIFY.
 
-See [Butler Communication Model](communication-model.md) and
+Bifröst is the Butler client/API boundary. Midgard owns provider-neutral
+communication and cross-Butler routing. Asgard is the concrete Butler-owned
+ingress/identity boundary.
+
+See [Bifröst API](../api/bifrost.md), [Midgard](midgard.md),
+[Asgard](asgard.md), [Butler Communication Model](communication-model.md) and
 [IGNITION-001](../milestones/ignition-001.md).
 
 ## Runtime Flows
