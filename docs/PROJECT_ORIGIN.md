@@ -56,7 +56,7 @@ Instead of publishing the private Keriol deployment, the reusable execution mode
 
 The Home Assistant integration was likewise separated into an official public plugin.
 
-### Phase 7 - Current architecture
+### Phase 7 - Sibling runtimes and independent plugins
 
 Today the relationship is:
 
@@ -74,6 +74,59 @@ Alfred remains the private Keriol Home sibling runtime and real-world proving gr
 Reusable integrations such as Home Assistant Plugin are independent consumers of Core-owned contracts and may be composed by either runtime without making Wilfred and Alfred dependencies of one another.
 
 The earlier `Core -> Wilfred -> Alfred` layering was an important extraction stage and is preserved in historical documentation and superseded ADRs, but it no longer defines the current runtime dependency model.
+
+### Phase 8 - GitHub as development authority
+
+As the public ecosystem grew, a separate local development ledger and compact
+project model stopped scaling as authoritative development tools.
+
+GitHub Issues became the source of truth for work state, Git `main` for merged
+implementation/documentation, releases/tags/workflows for release evidence and
+live systems for runtime truth.
+
+The old Umberto ledger and dated project-model snapshots were retained as
+history rather than allowed to compete with GitHub.
+
+### Phase 9 - Ignition communication network
+
+IGNITION-001 introduced the first released external-client network spanning:
+
+```text
+Interphone -> Bifröst -> Midgard -> Butler Core -> HAP -> Home Assistant
+```
+
+and the concrete-Butler path:
+
+```text
+Interphone -> Bifröst -> Midgard -> Butler-owned Asgard -> Alfred
+```
+
+This phase established Bifröst as the client/API boundary, Midgard as the
+provider-neutral communication and cross-Butler routing layer, and Asgard as the
+Butler-owned ingress/identity boundary.
+
+The real Android proving cycle also reinforced request correlation, canonical
+Butler identity, observable action verification and the separation between
+client acknowledgement and physical completion.
+
+### Phase 10 - Documentation becomes the project model
+
+The final compact local project model was retired after the repository
+documentation had grown into a versioned, navigable and agent-friendly knowledge
+system.
+
+The active project model is now the documentation corpus itself:
+
+- architecture/API pages explain durable ownership and contracts;
+- ADRs preserve decisions;
+- milestones record proven compatibility checkpoints;
+- historical records preserve superseded stages without rewriting them;
+- AGENTS.md and agent guides explain how automated contributors should navigate
+  the same canonical documentation;
+- MkDocs/GitHub Pages provides presentation, not a second source of truth.
+
+A compact public project-context file remains only as a compatibility/reference
+summary. It is no longer the conceptual center of the project.
 
 ## Private Proving Ground, Public Runtime
 
