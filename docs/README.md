@@ -9,10 +9,14 @@
 - [Roadmap](../ROADMAP.md)
 - [Historical Records](HISTORICAL_RECORDS.md)
 
-## Architecture
+## Butler Ecosystem
 
 - [Architecture Overview](architecture/overview.md)
 - [Butler Communication Model](architecture/communication-model.md)
+- [Butler Client API](api/index.md)
+  - [Bifröst API](api/bifrost.md)
+- [Midgard](architecture/midgard.md)
+- [Asgard](architecture/asgard.md)
 - [IGNITION-001 - Butler-to-Android Network Baseline](milestones/ignition-001.md)
 - [Alfred Ecosystem](architecture/alfred-ecosystem.md)
 - [Alfred Proving Ground](architecture/alfred-proving-ground.md)
