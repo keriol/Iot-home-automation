@@ -22,8 +22,18 @@ errors = []
 required_current = {
     "README.md": ("Butler Core `0.3.0`", "Bifröst `0.1.0`", "Midgard `0.1.0`"),
     "ROADMAP.md": ("Butler Core `0.3.0`", "Alfred `0.5.0`", "IGNITION-001"),
-    "docs/PROJECT_STATUS.md": ("Butler Core | Available | `0.3.0`", "Alfred | Private operational | `0.5.0`"),
-    "docs/SHOWCASE.md": ("Butler Core `0.3.0`", "Ignition Butler-to-Android Network"),
+    "docs/PROJECT_STATUS.md": (
+        "## Released Public Ecosystem",
+        "Butler Core | Available | `0.3.0`",
+        "## Development & Proving Ground",
+        "## Ignition and the Asgard exception",
+    ),
+    "docs/SHOWCASE.md": (
+        "# Released Public Ecosystem",
+        "Butler Core `0.3.0`",
+        "# Development & Private Proving Ground",
+        "## IGNITION-001",
+    ),
     "docs/project-model/project-model-public.md": ("Butler Core 0.3.0", "Bifröst 0.1.0", "Midgard 0.1.0"),
 }
 
@@ -74,6 +84,8 @@ for required in (
     "agent/first-installation.md",
     "PROJECT_MODEL.md",
     "history/index.md",
+    "ecosystem/released.md",
+    "ecosystem/development.md",
 ):
     if required not in MKDOCS:
         errors.append(f"mkdocs nav missing canonical page: {required}")
