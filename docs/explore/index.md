@@ -1,84 +1,108 @@
 ---
-title: Explore
-kind: discovery
+title: Ideas, Experiments and Rabbit Holes
+kind: exploration
 scope: public
 status: current
 ---
 
-# Explore
+# Ideas, experiments and rabbit holes
 
-Not everything interesting belongs under "API reference".
+Not everything interesting belongs in a release.
 
-This part of the site is for the edges of the project: experiments, future
-directions, unusual ideas and the engineering rabbit holes that helped shape the
-current architecture.
+This is the part of the project where validated private behavior, future
+architecture and deliberately unfinished ideas can be explored without pretending
+they already ship.
 
-## Ideas currently around the ecosystem
+## How to read this section
 
-<div class="grid cards" markdown>
+- **In testing** means implementation or real-world validation exists somewhere,
+  but it is not a public release promise.
+- **Designed to enable** means the architecture deliberately leaves room for the
+  idea, but implementation is not claimed.
+- Open GitHub issues describe work, not automatically capability.
 
--   **A Butler on more frontends**
+## In testing
 
-    Android is proven through Interphone. Voice already exists privately.
-    Additional clients remain possible because presentation is kept outside
-    Butler Core.
+### A Butler that knows when to speak
 
-    **Maturity:** Designed to enable
+Osvaldo separates proactive communication policy from delivery.
 
--   **Automatic pairing and device trust**
+The interesting question is not *can the system send a notification?* It is
+*should it interrupt you now, defer it, aggregate it, or stay quiet?*
 
-    Bifröst already separates discovery from trust. Automatic pairing and
-    device credentials remain post-Ignition work.
+[See the showcase →](../SHOWCASE.md#3-proactive-communication-policy)
 
-    **Maturity:** Designed to enable
+### Media as a domain, not a pile of commands
 
--   **Proactive communication**
+Charon explores media identity, discovery, lifecycle, playback and observed
+state as one owned domain rather than scattered conversational logic.
 
-    Private work separates domain events, Osvaldo policy and Hermes delivery.
-    Proactive Android delivery is not part of IGNITION-001.
+[Media intelligence & Plex workflows →](../SHOWCASE.md#4-media-intelligence-and-plex-workflows)
 
-    **Maturity:** In testing / Designed to enable
+### Appliances that can be reasoned about
 
--   **Another home-automation platform**
+Laundry proving work explores how a Butler can expose state, program knowledge,
+safe actions and physical verification without turning the conversation layer
+into the appliance implementation.
 
-    HAP proves that Home Assistant can live behind a reusable plugin boundary.
-    Core is intentionally provider-neutral so another manager could implement a
-    different integration.
+[Laundry workflow →](../SHOWCASE.md#2-alfred-laundry-voice-workflow)
 
-    **Maturity:** Designed to enable
+### Local energy intelligence
 
--   **Privacy-first presence**
+Local photovoltaic, grid and battery telemetry is being validated as a durable
+local-first data source for future reasoning.
 
-    The preferred direction is intentionally modest:
-    `occupied / empty / uncertain`, without requiring continuous room-level
-    tracking.
+[Energy telemetry →](../SHOWCASE.md#6-local-energy-telemetry)
 
-    **Maturity:** Designed to enable
+## Designed to enable
 
--   **Energy-aware household capabilities**
+### Presence without building a surveillance system
 
-    Local photovoltaic and battery telemetry already exist in the proving
-    ground. Energy-aware appliance suggestions and coordination remain future
-    capability ideas.
+The preferred direction is deliberately small:
 
-    **Maturity:** Designed to enable
+```text
+occupied / empty / uncertain
+```
 
--   **Maker capabilities**
+The goal is useful context, not continuous room-level tracking.
 
-    Server/NAS observability and future 3D-printer READ / confirmed ACTION
-    capabilities are natural proving-ground candidates.
+[Privacy-preserving presence →](../SHOWCASE.md#7-privacy-preserving-presence)
 
-    **Maturity:** Designed to enable
+### A reusable standalone Asgard
 
-</div>
+Ignition proved the Asgard boundary inside Alfred. Extracting a standalone
+reusable Asgard remains a post-Ignition direction, not a released package.
 
-## Follow the rabbit holes
+[Asgard →](../architecture/asgard.md)
 
-- [Roadmap](../../ROADMAP.md) for current public/private directions
-- [Showcase](../SHOWCASE.md) for proven and in-testing work
-- [Project History](../history/index.md) for how ideas evolved
-- [ADRs](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md) for architectural decisions
-- [GitHub Issues](https://github.com/keriol/Iot-home-automation/issues) for active tracked work
+### Pairing and trusted client enrollment
 
-Open issues and interesting ideas are not automatically product commitments.
-The maturity label matters.
+Bifröst discovery exists as a client/network concept, while automatic
+pairing/device credentials remain beyond the released 0.1.0 baseline.
+
+[Bifröst API →](../api/bifrost.md)
+
+### Richer interactive and proactive clients
+
+The released network proves request/reply from Android. Proactive Android
+delivery, richer continuation/confirmation UX and polished voice interaction are
+explicitly post-Ignition directions.
+
+[IGNITION-001 deferred scope →](../milestones/ignition-001.md#deferred)
+
+## Why keep the weird ideas visible?
+
+Because architecture becomes sterile if it documents only the parts that already
+worked.
+
+The useful question is whether an idea has:
+
+1. an owner;
+2. a clean boundary;
+3. an evidence level;
+4. a path to proving or rejecting it.
+
+If it does, it can remain visible without being marketed as finished.
+
+For active work, follow the linked GitHub Issues from the relevant architecture
+page.
