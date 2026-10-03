@@ -2,6 +2,10 @@
 
 ## Start Here
 
+- [Meet Butler](meet/index.md)
+- [Technical Documentation](documentation/index.md)
+- [Portfolio](portfolio/index.md)
+- [Ideas, Experiments and Rabbit Holes](explore/index.md)
 - [Agent Guide](agent/index.md)
 - [First Installation Assistance](agent/first-installation.md)
 - [Portfolio README](../README.md)

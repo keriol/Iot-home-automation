@@ -1,5 +1,5 @@
-site_name: Butler Documentation
-site_description: Public-safe architecture, API and engineering documentation for the Butler ecosystem
+site_name: Butler
+site_description: Talk to your home through a Butler. Explore the architecture, engineering portfolio, history and ideas behind the Butler ecosystem.
 site_url: https://keriol.github.io/Iot-home-automation/
 repo_url: https://github.com/keriol/Iot-home-automation
 repo_name: keriol/Iot-home-automation
@@ -19,12 +19,17 @@ theme:
   custom_dir: overrides
   language: en
   features:
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.indexes
     - navigation.top
     - content.code.copy
     - search.suggest
     - search.highlight
+
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - search
@@ -38,72 +43,81 @@ markdown_extensions:
       permalink: true
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
   - Home: index.md
-  - Butler Ecosystem:
-      - Overview: architecture/overview.md
+  - Meet Butler:
+      - Meet Butler: meet/index.md
+      - Fundamental Concepts: meet/fundamentals.md
+      - Architecture Overview: architecture/overview.md
+      - Why This Project Exists: PROJECT_ORIGIN.md
       - Communication Model: architecture/communication-model.md
-      - Project Model: PROJECT_MODEL.md
-  - Client API:
-      - Overview: api/index.md
-      - Bifröst: api/bifrost.md
-  - Communication:
-      - Midgard: architecture/midgard.md
-      - Asgard: architecture/asgard.md
-      - Node Manifest and Self-Description: architecture/node-manifest.md
-      - Routing Failures and Observability: architecture/routing-failures-and-observability.md
-  - Proven Baselines:
       - IGNITION-001: milestones/ignition-001.md
-      - Ignition Engineering Lessons: lessons-learned/ignition-001-engineering-lessons.md
-  - Architecture:
-      - Alfred Ecosystem: architecture/alfred-ecosystem.md
-      - Alfred Proving Ground: architecture/alfred-proving-ground.md
-      - Docker Stack: architecture/docker-stack.md
-  - ADRs:
-      - ADR-001 Home Assistant as Orchestrator: adr/ADR-001-home-assistant-as-orchestrator.md
-      - ADR-002 MQTT as Event Bus: adr/ADR-002-mqtt-as-event-bus.md
-      - ADR-003 Tailscale for Private Access: adr/ADR-003-tailscale-for-private-access.md
-      - ADR-004 Cloudflare Tunnel: adr/ADR-004-cloudflare-tunnel-for-public-integrations.md
-      - ADR-005 AI-Assisted Development: adr/ADR-005-ai-assisted-development.md
-      - ADR-006 Proactive Notification Policy: adr/ADR-006-proactive-notification-policy.md
-      - ADR-007 Alfred Agent and Tool Registry: adr/ADR-007-alfred-agent-tool-registry.md
-      - ADR-008 Historical Butler Layering: adr/ADR-008-butler-core-wilfred-alfred-layering.md
-      - ADR-009 Historical Development Sources: adr/ADR-009-development-state-sources-of-truth.md
-      - ADR-010 Public Portfolio Boundary: adr/ADR-010-public-portfolio-documentation-boundary.md
-      - ADR-011 GitHub Source of Truth: adr/ADR-011-github-development-source-of-truth.md
-      - ADR-012 Sibling Runtimes: adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md
-  - Case Studies:
-      - Alexa Custom Skill Laundry MVP: case-studies/alexa-custom-skill-laundry-mvp.md
-      - Laundry Voice MVP: case-studies/laundry-voice-mvp.md
-      - Alexa HTTPS Bridge: case-studies/alexa-https-bridge.md
-      - Bravia and Dolby Safe Power: case-studies/bravia-dolby-safe-power.md
-  - Diagrams:
-      - Architecture: diagrams/architecture.md
-      - Alfred Ecosystem Flow: diagrams/alfred-ecosystem-flow.md
-      - AI-Assisted Development: diagrams/ai-assisted-development-flow.md
-      - Voice Flow: diagrams/voice-flow.md
-      - Presence Flow: diagrams/presence-flow.md
-      - Energy Flow: diagrams/energy-flow.md
-  - Troubleshooting:
-      - Alexa Custom Skill Checklist: troubleshooting/alexa-custom-skill-checklist.md
-  - For Agents:
-      - Agent Guide: agent/index.md
-      - Sources of Truth: agent/source-of-truth.md
-      - First Installation Assistance: agent/first-installation.md
-      - Feature Design Workflow: agent/feature-design.md
-  - Project History:
-      - Timeline: history/index.md
-      - Local Project Model Retirement: history/local-project-model-retirement-2026-10-03.md
-  - Project:
-      - Project Status: PROJECT_STATUS.md
+  - Documentation:
+      - Technical Map: documentation/index.md
       - Project Model: PROJECT_MODEL.md
-      - Compact Public Context: project-model/project-model-public.md
+      - Client API:
+          - Overview: api/index.md
+          - Bifröst: api/bifrost.md
+      - Communication:
+          - Midgard: architecture/midgard.md
+          - Asgard: architecture/asgard.md
+          - Node Manifest and Self-Description: architecture/node-manifest.md
+          - Routing Failures and Observability: architecture/routing-failures-and-observability.md
+      - Architecture:
+          - Alfred Ecosystem: architecture/alfred-ecosystem.md
+          - Alfred Proving Ground: architecture/alfred-proving-ground.md
+          - Docker Stack: architecture/docker-stack.md
+      - Decisions:
+          - ADR-001 Home Assistant as Orchestrator: adr/ADR-001-home-assistant-as-orchestrator.md
+          - ADR-002 MQTT as Event Bus: adr/ADR-002-mqtt-as-event-bus.md
+          - ADR-003 Tailscale for Private Access: adr/ADR-003-tailscale-for-private-access.md
+          - ADR-004 Cloudflare Tunnel: adr/ADR-004-cloudflare-tunnel-for-public-integrations.md
+          - ADR-005 AI-Assisted Development: adr/ADR-005-ai-assisted-development.md
+          - ADR-006 Proactive Notification Policy: adr/ADR-006-proactive-notification-policy.md
+          - ADR-007 Alfred Agent and Tool Registry: adr/ADR-007-alfred-agent-tool-registry.md
+          - ADR-008 Historical Butler Layering: adr/ADR-008-butler-core-wilfred-alfred-layering.md
+          - ADR-009 Historical Development Sources: adr/ADR-009-development-state-sources-of-truth.md
+          - ADR-010 Public Portfolio Boundary: adr/ADR-010-public-portfolio-documentation-boundary.md
+          - ADR-011 GitHub Source of Truth: adr/ADR-011-github-development-source-of-truth.md
+          - ADR-012 Sibling Runtimes: adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md
+      - Diagrams:
+          - Architecture: diagrams/architecture.md
+          - Alfred Ecosystem Flow: diagrams/alfred-ecosystem-flow.md
+          - AI-Assisted Development: diagrams/ai-assisted-development-flow.md
+          - Voice Flow: diagrams/voice-flow.md
+          - Presence Flow: diagrams/presence-flow.md
+          - Energy Flow: diagrams/energy-flow.md
+      - Troubleshooting:
+          - Alexa Custom Skill Checklist: troubleshooting/alexa-custom-skill-checklist.md
+  - Portfolio:
+      - Portfolio Home: portfolio/index.md
+      - Project Showcase: SHOWCASE.md
+      - Current Status: PROJECT_STATUS.md
+      - Case Studies:
+          - Alexa Custom Skill Laundry MVP: case-studies/alexa-custom-skill-laundry-mvp.md
+          - Laundry Voice MVP: case-studies/laundry-voice-mvp.md
+          - Alexa HTTPS Bridge: case-studies/alexa-https-bridge.md
+          - Bravia and Dolby Safe Power: case-studies/bravia-dolby-safe-power.md
+      - Skills Matrix: SKILLS_MATRIX.md
+      - Metrics: METRICS.md
+      - AI Collaboration: AI_COLLABORATION.md
+  - Explore:
+      - Ideas & Experiments: explore/index.md
+      - Project History: history/index.md
+      - Ignition Engineering Lessons: lessons-learned/ignition-001-engineering-lessons.md
+      - Local Project Model Retirement: history/local-project-model-retirement-2026-10-03.md
       - Integrations: INTEGRATIONS.md
       - Hardware: HARDWARE.md
-      - Metrics: METRICS.md
-      - Skills Matrix: SKILLS_MATRIX.md
-      - AI Collaboration: AI_COLLABORATION.md
+  - For Agents:
+      - Agent Guide: agent/index.md
+      - First Installation Assistance: agent/first-installation.md
+      - Sources of Truth: agent/source-of-truth.md
+      - Feature Design Workflow: agent/feature-design.md
+      - Compact Public Context: project-model/project-model-public.md
 
 
 extra:
