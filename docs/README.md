@@ -3,6 +3,7 @@
 ## Start Here
 
 - [Agent Guide](agent/index.md)
+- [First Installation Assistance](agent/first-installation.md)
 - [Portfolio README](../README.md)
 - [Project Showcase](SHOWCASE.md)
 - [Project Status](PROJECT_STATUS.md)
