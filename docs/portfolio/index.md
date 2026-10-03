@@ -1,71 +1,95 @@
 ---
 title: Portfolio
-kind: portfolio
+kind: landing
 scope: public
 status: current
 ---
 
 # Portfolio
 
-This is the practical side of the Butler story.
+The Butler ecosystem is the reusable result of solving real problems in a real
+home.
 
-Keriol Home is not a reference architecture assembled only for diagrams. It is a
-real household proving ground where reusable Butler components are exercised
-against devices, media, appliances, energy telemetry, voice frontends and
-Home Assistant.
+This section is for people who want to evaluate the engineering rather than read
+the entire architecture manual from page one.
 
-## What to browse
+## Start with the showcase
+
+[Project Showcase](../SHOWCASE.md) collects representative work with explicit
+maturity labels.
+
+It includes:
+
+- Butler runtime evolution;
+- laundry and appliance interaction;
+- proactive communication policy;
+- media intelligence;
+- home-theater safe-power orchestration;
+- local energy telemetry;
+- privacy-preserving presence experiments;
+- Alexa/Hermes delivery;
+- the Android-reaching Ignition network.
+
+## What is public today?
+
+The current released public building blocks include:
+
+- Butler Core;
+- Wilfred;
+- Home Assistant Plugin;
+- Bifröst;
+- Midgard;
+- Butler Interphone.
+
+The private Keriol deployment, Alfred and its Alfred-owned Asgard remain the
+real-world proving ground rather than a readable public source mirror.
+
+[See current project status →](../PROJECT_STATUS.md)
+
+## Selected engineering stories
 
 <div class="grid cards" markdown>
 
--   **Project Showcase**
+-   **Physical success is not API success**
 
-    Representative engineering work, with explicit maturity labels so private
-    proving is not confused with shipped public functionality.
+    Laundry and home-control work drove the verified-action pattern.
 
-    [Browse the showcase](../SHOWCASE.md)
+    [Laundry voice case study →](../case-studies/laundry-voice-mvp.md)
 
--   **IGNITION-001**
+-   **Voice is a frontend, not the architecture**
 
-    The first coordinated Android-to-Butler network baseline across Interphone,
-    Bifröst, Midgard, Core/HAP and Alfred-owned Asgard.
+    Alexa evolved from an automation brain into a replaceable entry point.
 
-    [See the proven baseline](../milestones/ignition-001.md)
+    [Alexa HTTPS bridge →](../case-studies/alexa-https-bridge.md)
 
--   **Case Studies**
+-   **Home Assistant owns the physical world**
 
-    Real problems such as laundry voice control, Alexa ingress and safe
-    television/audio startup sequencing.
+    Startup sequencing and recovery stay where device state can be observed.
 
-    [Explore case studies](../case-studies/alexa-custom-skill-laundry-mvp.md)
+    [Bravia & Dolby safe power →](../case-studies/bravia-dolby-safe-power.md)
 
--   **Architecture & Skills**
+-   **A Butler can become a network**
 
-    See the current architecture, engineering themes, integration boundaries
-    and skills demonstrated by the project.
+    Ignition proved Android -> Bifröst -> Midgard -> Core/Asgard end to end.
 
-    [Architecture](../architecture/overview.md) ·
-    [Skills matrix](../SKILLS_MATRIX.md)
+    [IGNITION-001 →](../milestones/ignition-001.md)
 
 </div>
 
-## Maturity matters
+## How the project is engineered
 
-The portfolio uses three simple labels:
+- [Architecture Overview](../architecture/overview.md)
+- [Architecture Diagram](../diagrams/architecture.md)
+- [Engineering Lessons](../lessons-learned/ignition-001-engineering-lessons.md)
+- [ADRs](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md)
+- [AI-Assisted Development](../AI_COLLABORATION.md)
+- [Skills Matrix](../SKILLS_MATRIX.md)
+- [Metrics](../METRICS.md)
 
-- **Available**: public, documented and usable;
-- **In testing**: implemented or privately validated, but not a public promise;
-- **Designed to enable**: an architectural direction, not an implementation claim.
+## Where it came from
 
-That distinction is intentional. A real proving ground should show what is
-working without pretending every experiment is already a product.
+The current architecture makes more sense when you can see the mistakes,
+experiments and intermediate designs that produced it.
 
-## Start from the story
-
-If you are evaluating the project rather than implementing it, the best path is:
-
-1. [Meet Butler](../meet/index.md)
-2. [Project Showcase](../SHOWCASE.md)
-3. [IGNITION-001](../milestones/ignition-001.md)
-4. [Project Origin](../PROJECT_ORIGIN.md)
-5. [Project History](../history/index.md)
+[Read the project origin →](../PROJECT_ORIGIN.md)  
+[Browse the historical timeline →](../history/index.md)
