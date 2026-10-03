@@ -32,6 +32,15 @@ Read:
 
 Do not use the feature-design path to improvise around a broken installation.
 
+## Release boundary
+
+Before proposing installation or capability claims, distinguish:
+
+- [Released Public Ecosystem](../ecosystem/released.md): public, released and usable components;
+- [Development & Proving Ground](../ecosystem/development.md): Alfred/private proving, not a Wilfred availability claim.
+
+Asgard is the explicit exception: the boundary is part of the released Ignition architecture, while its Ignition implementation remains Alfred-owned and non-standalone.
+
 ## Component discovery
 
 | Need | Read first | Likely owner |
