@@ -179,3 +179,20 @@ This milestone describes the coordinated compatibility checkpoint.
 Per-component implementation and release evidence remain authoritative in their
 own repositories. GitHub Issues own active status; Git tags/releases/workflows
 own release evidence; live systems own runtime truth.
+
+
+## GitHub release lineage
+
+IGNITION-001 was coordinated through explicit component issues:
+
+- [DOC-008 — Ignition Phase 1 umbrella](https://github.com/keriol/Iot-home-automation/issues/17)
+- [CORE-016 — Butler Core 0.3.0](https://github.com/keriol/butler-core/issues/41)
+- [HAP-007 — Home Assistant Plugin 0.3.0](https://github.com/keriol/home-assistant-plugin/issues/12)
+- [BIF-008 — Bifröst 0.1.0](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/15)
+- [MID-004 — Midgard 0.1.0](https://github.com/keriol/butler-core-midgard-plugin/issues/7)
+- [INT-025 — Butler Interphone 0.1.0](https://github.com/keriol/butler-interphone-android/issues/49)
+- [ALF-184 — Alfred 0.5.0 proving release](https://github.com/keriol/alfred/issues/300)
+- [ALF-218 — Alfred-owned Asgard 0.1.0](https://github.com/keriol/alfred/issues/359)
+
+These links explain the development/release trail. The milestone BOM above
+remains the compatibility statement.
