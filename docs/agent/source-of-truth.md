@@ -55,3 +55,22 @@ sanitized evidence and engineering lessons.
 It must not expose secrets, credentials, private endpoints, household identifiers,
 sensitive runtime state, private acquisition details or readable private Alfred
 implementation.
+
+
+## Issue links inside documentation
+
+Current architecture/API pages may link directly to GitHub Issues to preserve
+implementation, design and release lineage.
+
+Those links are navigation and traceability aids.
+
+They do not replace the evidence model:
+
+- issue state describes tracked work;
+- merged code/documentation on `main` describes implemented repository state;
+- tags/releases/workflows describe release state;
+- live systems describe runtime state.
+
+Do not turn an open design issue into an implemented capability claim, and do
+not assume that closing an issue automatically proves a release or deployed
+runtime state.
