@@ -12,13 +12,22 @@ without duplicating the documentation itself.
 
 ## Start here
 
-Read in this order:
+Read [Sources of truth](source-of-truth.md), then choose the workflow that
+matches the user's intent.
 
-1. [Sources of truth](source-of-truth.md)
-2. [Feature design workflow](feature-design.md)
-3. [Architecture overview](../architecture/overview.md)
-4. the owning component/API page for the requested work
-5. relevant ADRs, milestones and GitHub issues
+## Choose the path
+
+### First installation / first run
+
+Use [First Installation Assistance](first-installation.md).
+
+This path is for getting a released public Butler working incrementally without
+turning installation debugging into ad-hoc product development.
+
+### Feature design / implementation
+
+Use [Feature Design Workflow](feature-design.md), then read the owning
+component/API page, relevant ADRs/milestones and GitHub Issues/PRs.
 
 ## Component discovery
 
