@@ -165,15 +165,13 @@ A workflow may finish as verified, failed or indeterminate depending on observed
 
 ## Capability Maturity
 
-Capabilities documented from Alfred should be labelled according to evidence:
+Capabilities are labelled according to evidence:
 
-- **Public**: merged/released in a public Butler repository or official plugin;
-- **Private validated**: exercised successfully in the real Alfred deployment;
-- **Candidate**: being evaluated for later generalization;
-- **In testing**: implementation exists but public maturity is not yet established;
-- **Designed to enable**: architecture supports a future direction without claiming implementation.
+- **Available**: public, documented and usable in the relevant public component;
+- **In testing**: implemented or exercised privately/under validation, but not a public release promise;
+- **Designed to enable**: architecture supports the direction without claiming implementation.
 
-Open branches and issues alone do not promote a capability to Public or Available.
+Open branches and issues alone do not promote a capability to Available.
 
 ## Private Domain Components
 
