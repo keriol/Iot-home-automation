@@ -7,6 +7,9 @@ status: current
 
 # First Installation Assistance
 
+This is the agent-assisted companion to the
+[human-facing installation guide](../install/index.md).
+
 Use this path when the user is installing a Butler for the first time.
 
 This is different from feature design. The goal is not to modify architecture:

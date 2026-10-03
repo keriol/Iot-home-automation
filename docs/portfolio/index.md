@@ -93,3 +93,12 @@ experiments and intermediate designs that produced it.
 
 [Read the project origin →](../PROJECT_ORIGIN.md)  
 [Browse the historical timeline →](../history/index.md)
+
+
+## Support the project
+
+If the Butler ecosystem, case studies or documentation are useful to you:
+
+[Support on Ko-fi](https://ko-fi.com/butlerwilfred){ .md-button .md-button--primary }
+[GitHub](https://github.com/keriol){ .md-button }
+[LinkedIn](https://www.linkedin.com/in/marco-carolo/){ .md-button }

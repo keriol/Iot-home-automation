@@ -5,6 +5,10 @@
 
 ## Start here
 
+- docs/journey/index.md
+- docs/meet/index.md
+- docs/meet/fundamentals.md
+- docs/install/index.md
 - docs/agent/index.md
 - docs/agent/source-of-truth.md
 - docs/agent/first-installation.md

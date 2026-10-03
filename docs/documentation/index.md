@@ -9,6 +9,24 @@ status: current
 
 You already know what you are looking for. Good. The machinery is this way. 🎩
 
+## Documentation by depth
+
+```text
+Discover
+  -> Understand
+    -> Install
+      -> Build
+        -> Deep Dive
+```
+
+- **Discover**: [Meet Butler](../meet/index.md)
+- **Understand**: [Fundamental Concepts](../meet/fundamentals.md)
+- **Install**: [Install a Butler in your home](../install/index.md)
+- **Build**: this technical map
+- **Deep Dive**: ADRs, issue lineage, history and [Explore](../explore/index.md)
+
+You can jump directly to any level. The layers are a reading aid, not a gate.
+
 <div class="grid cards" markdown>
 
 -   **Architecture**
@@ -50,6 +68,9 @@ You already know what you are looking for. Good. The machinery is this way. 🎩
     Installing a Butler for the first time? Follow the staged path rather than
     enabling every subsystem at once.
 
+    [Install a Butler in your home](../install/index.md)
+
+    Want guided troubleshooting instead?
     [First Installation Assistance](../agent/first-installation.md)
 
 </div>
