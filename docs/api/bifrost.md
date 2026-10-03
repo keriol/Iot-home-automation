@@ -149,3 +149,18 @@ Those remain post-Ignition work.
 - [Asgard](../architecture/asgard.md)
 - [Communication Model](../architecture/communication-model.md)
 - [IGNITION-001](../milestones/ignition-001.md)
+
+
+## GitHub lineage
+
+Repository: https://github.com/keriol/Butler-Core-Bifrost-Plugin  
+Issue tracker: https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues
+
+Selected lineage:
+
+- BIF-008, Ignition release: https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/15
+- BIF-010, Butler directory transport: https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/18
+- BIF-011, composed node manifest: https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/20
+
+Issue links provide implementation/history traceability. Current capability claims
+still follow repository main and release evidence.
