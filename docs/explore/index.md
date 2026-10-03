@@ -7,6 +7,11 @@ status: current
 
 # Ideas, experiments and rabbit holes
 
+**This page belongs to Development & Proving Ground.**
+
+Nothing here should be assumed to be a released Wilfred/public capability unless
+the linked public repository/release explicitly says so.
+
 Not everything interesting belongs in a release.
 
 This is the part of the project where validated private behavior, future
@@ -30,14 +35,14 @@ Osvaldo separates proactive communication policy from delivery.
 The interesting question is not *can the system send a notification?* It is
 *should it interrupt you now, defer it, aggregate it, or stay quiet?*
 
-[See the showcase →](../SHOWCASE.md#3-proactive-communication-policy)
+[Development & Proving Ground →](../ecosystem/development.md)
 
 ### Media as a domain, not a pile of commands
 
 Charon explores media identity, discovery, lifecycle, playback and observed
 state as one owned domain rather than scattered conversational logic.
 
-[Media intelligence & Plex workflows →](../SHOWCASE.md#4-media-intelligence-and-plex-workflows)
+[Development & Proving Ground →](../ecosystem/development.md)
 
 ### Appliances that can be reasoned about
 
@@ -45,14 +50,14 @@ Laundry proving work explores how a Butler can expose state, program knowledge,
 safe actions and physical verification without turning the conversation layer
 into the appliance implementation.
 
-[Laundry workflow →](../SHOWCASE.md#2-alfred-laundry-voice-workflow)
+[Development & Proving Ground →](../ecosystem/development.md)
 
 ### Local energy intelligence
 
 Local photovoltaic, grid and battery telemetry is being validated as a durable
 local-first data source for future reasoning.
 
-[Energy telemetry →](../SHOWCASE.md#6-local-energy-telemetry)
+[Development & Proving Ground →](../ecosystem/development.md)
 
 ## Designed to enable
 
@@ -66,7 +71,7 @@ occupied / empty / uncertain
 
 The goal is useful context, not continuous room-level tracking.
 
-[Privacy-preserving presence →](../SHOWCASE.md#7-privacy-preserving-presence)
+[Development & Proving Ground →](../ecosystem/development.md)
 
 ### A reusable standalone Asgard
 
