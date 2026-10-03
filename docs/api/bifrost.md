@@ -149,3 +149,18 @@ Those remain post-Ignition work.
 - [Asgard](../architecture/asgard.md)
 - [Communication Model](../architecture/communication-model.md)
 - [IGNITION-001](../milestones/ignition-001.md)
+
+
+## GitHub lineage
+
+Development and follow-up work live in the
+[Bifröst issue tracker](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues).
+
+Selected issues behind this documented boundary:
+
+- [BIF-008 — release Bifröst 0.1.0 after canonical live proving](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/15)
+- [BIF-010 — transport the read-only Butler directory to clients](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/18)
+- [BIF-011 — return a composed node manifest in the client handshake](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/20)
+
+Issue links provide implementation/design lineage. Release and current-state
+claims still follow tags/releases and repository `main`.
