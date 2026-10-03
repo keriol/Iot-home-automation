@@ -59,6 +59,7 @@ nav:
       - Communication Model: architecture/communication-model.md
       - IGNITION-001: milestones/ignition-001.md
   - Documentation:
+      - Released Public Ecosystem: ecosystem/released.md
       - Technical Map: documentation/index.md
       - Project Model: PROJECT_MODEL.md
       - Client API:
@@ -70,8 +71,7 @@ nav:
           - Node Manifest and Self-Description: architecture/node-manifest.md
           - Routing Failures and Observability: architecture/routing-failures-and-observability.md
       - Architecture:
-          - Alfred Ecosystem: architecture/alfred-ecosystem.md
-          - Alfred Proving Ground: architecture/alfred-proving-ground.md
+          - Architecture Overview: architecture/overview.md
           - Docker Stack: architecture/docker-stack.md
       - Decisions:
           - ADR-001 Home Assistant as Orchestrator: adr/ADR-001-home-assistant-as-orchestrator.md
@@ -95,6 +95,11 @@ nav:
           - Energy Flow: diagrams/energy-flow.md
       - Troubleshooting:
           - Alexa Custom Skill Checklist: troubleshooting/alexa-custom-skill-checklist.md
+  - Development:
+      - Development & Proving Ground: ecosystem/development.md
+      - Alfred Development Architecture: architecture/alfred-ecosystem.md
+      - Alfred Proving Ground: architecture/alfred-proving-ground.md
+      - Ideas & Experiments: explore/index.md
   - Portfolio:
       - Portfolio Home: portfolio/index.md
       - Project Showcase: SHOWCASE.md
