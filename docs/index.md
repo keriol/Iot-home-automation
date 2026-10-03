@@ -3,126 +3,190 @@ title: Butler
 kind: landing
 scope: public
 status: current
-hide:
-  - toc
 ---
 
 # Talk to your home through a Butler
 
-Your home already has software for lights, media, appliances, energy, automations and devices.
+**Your home already has software. A Butler gives it someone you can talk to.**
 
-You should not need to remember which system owns what.
+Home Assistant knows the devices. Integrations know the services. Media systems
+know the library. Automations know the routines.
 
-**Tell the Butler what you want.**
+A Butler sits above those systems, understands the capabilities available to it,
+and turns a request for an **outcome** into governed actions.
 
-The Butler knows the house, the services behind it and the boundaries between them. It finds the right capability, routes the request to the right owner, respects policy and confirmation, and verifies the outcome when the result can be observed.
+You should not need to think in entity IDs, service calls or integration APIs.
 
-You ask for the outcome. The Butler handles the plumbing.
+> **Tell the Butler what you want. Let the Butler figure out which systems need
+> to be involved.**
 
-[Meet Butler](meet-butler.md){ .md-button .md-button--primary }
-[Explore the architecture](architecture/overview.md){ .md-button }
+The goal is not to replace Home Assistant or the software already running the
+house. The goal is to give the house a coherent interaction layer that knows how
+to talk to them.
 
----
+<div class="grid cards" markdown>
 
-## What brought you here?
+-   :material-compass-outline: **Meet Butler**
 
-### I want to understand Butler
+    ---
 
-Start with the idea before the internals.
+    Start with the idea, the architecture and why the project exists.
 
-Learn why Home Assistant remains the physical orchestration platform, why Butler Core stays provider-neutral, why Wilfred and Alfred are sibling runtimes, and where Bifröst, Midgard and Asgard fit.
+    [Understand the ecosystem →](architecture/overview.md)
 
-[Meet Butler](meet-butler.md) · [Architecture overview](architecture/overview.md) · [Communication model](architecture/communication-model.md)
+-   :material-book-open-page-variant-outline: **Read the documentation**
 
-### I am looking for technical documentation
+    ---
 
-Go straight to the contracts, APIs, architecture, decisions and proven compatibility baselines.
+    Bifröst, Midgard, Asgard, Core, HAP, contracts, routing and proven baselines.
 
-[Bifröst Client API](api/bifrost.md) · [Midgard](architecture/midgard.md) · [Asgard](architecture/asgard.md) · [IGNITION-001](milestones/ignition-001.md)
+    [Open the technical map →](PROJECT_MODEL.md)
 
-### I want to evaluate the project
+-   :material-rocket-launch-outline: **Install your first Butler**
 
-Browse the project as a portfolio: real engineering problems, architectural choices, reusable components, proving work and lessons learned.
+    ---
 
-[Portfolio](portfolio/index.md) · [Project showcase](SHOWCASE.md) · [Skills matrix](SKILLS_MATRIX.md)
+    Follow the agent-friendly path from a clean runtime to optional integrations
+    and client networking.
 
-### I want to see how this happened
+    [First installation →](agent/first-installation.md)
 
-The architecture did not appear fully formed. It grew from a real smart home, experiments, wrong turns, migrations, private proving and increasingly reusable public boundaries.
+-   :material-briefcase-outline: **Browse the portfolio**
 
-[Project history](history/index.md) · [Project origin](PROJECT_ORIGIN.md) · [Engineering lessons](lessons-learned/ignition-001-engineering-lessons.md)
+    ---
 
-### I want the strange ideas
+    Real engineering work, public components, private proving and reusable
+    lessons.
 
-Some ideas are released. Some are in testing. Some merely fit the architecture and are waiting for their turn.
+    [Explore the portfolio →](portfolio/index.md)
 
-Explore the experiments, future directions and the ideas that may eventually become capabilities.
+-   :material-timeline-clock-outline: **Follow the story**
 
-[Explore ideas](explore/index.md) · [Roadmap](../ROADMAP.md)
+    ---
 
-### I want to install a Butler
+    From a Home Assistant-centered house to Alfred, Wilfred, Core and the
+    Android-reaching Ignition network.
 
-There is a dedicated first-installation path for humans and agents. It starts with a small deterministic runtime and adds integrations only after each boundary is healthy.
+    [Walk through the history →](history/index.md)
 
-[First Installation Assistance](agent/first-installation.md)
+-   :material-flask-outline: **Enter the rabbit holes**
 
----
+    ---
 
-## The Butler idea in one picture
+    Experiments, future directions, parked ideas and concepts that are still
+    being proved.
 
-```text
-You
- |
- |  "What I want"
- v
-Butler
- |
- +-> understands intent and context
- +-> finds the owning capability
- +-> applies policy / confirmation
- +-> invokes the right system
- +-> verifies observable outcomes
- |
- v
-Home Assistant / media / services / devices
-```
+    [Ideas & experiments →](explore/index.md)
 
-The Butler is not the software of the house.
+</div>
 
-**The Butler is the one who knows how to talk to all the software of the house.**
+## The idea in one minute
 
----
-
-## Proven, not just imagined
-
-The architecture has been exercised against a real home and a real Android client.
-
-IGNITION-001 proved both:
+Traditional smart-home interaction often exposes the implementation:
 
 ```text
-Android -> Interphone -> Bifröst -> Midgard -> Core -> HAP -> Home Assistant
-Android -> Interphone -> Bifröst -> Midgard -> Asgard -> Alfred
+find the device
+-> know the integration
+-> know the service
+-> provide the right parameters
+-> hope the command worked
 ```
 
-including request correlation, authoritative Butler identity and observable action verification.
+The Butler model aims for a different conversation:
 
-[See IGNITION-001](milestones/ignition-001.md){ .md-button }
+```text
+"I want this outcome"
+        ↓
+Butler understands the relevant capability/domain
+        ↓
+deterministic path when the request is known
+        ↓
+policy / permission / confirmation
+        ↓
+the owning integration performs the work
+        ↓
+observable actions are verified when possible
+```
+
+That last part matters.
+
+A Butler should not say *done* merely because an API accepted a request.
+
+Where the result can be observed, the preferred pattern is:
+
+```text
+READ -> ACTION -> READ -> VERIFY
+```
+
+## A Butler is not the house
+
+Home Assistant remains the physical orchestration owner.
+
+Butler Core provides reusable contracts. Wilfred is the public reusable Butler
+runtime. Alfred is the private Keriol proving runtime. HAP connects Butler
+runtimes to Home Assistant.
+
+For external clients, the released Ignition network adds:
+
+```text
+Client / Butler Interphone
+        ↓
+      Bifröst
+        ↓
+      Midgard
+      ↙    ↘
+   Core    Butler-owned Asgard
+                    ↓
+              concrete Butler
+```
+
+Bifröst is the client/API boundary. Midgard owns communication and cross-Butler
+routing. Asgard is owned by the concrete Butler and projects its identity and
+ingress boundary.
+
+[See the full communication model →](architecture/communication-model.md)
+
+## This is a real project, not a diagram exercise
+
+The architecture grew out of a functioning home and the problems encountered
+while operating it: voice control, appliances, media, safe power sequencing,
+energy telemetry, physical-state verification, remote access and eventually
+communication with a real Android client.
+
+IGNITION-001 is the first coordinated released baseline proven end to end from
+Android through the Butler network.
+
+[See what IGNITION-001 actually proved →](milestones/ignition-001.md)
+
+## Choose how deep you want to go
+
+If you are evaluating the engineering work, start with the
+[Project Showcase](SHOWCASE.md).
+
+If you want to understand how the architecture became what it is, read
+[Project Origin](PROJECT_ORIGIN.md) and the [Project History](history/index.md).
+
+If you want contracts and boundaries, go straight to the
+[Architecture Overview](architecture/overview.md), [Bifröst API](api/bifrost.md),
+[Midgard](architecture/midgard.md) and [Asgard](architecture/asgard.md).
+
+If you want to build or contribute, use the [Agent Guide](agent/index.md) and
+follow the same canonical documentation used by humans.
+
+## Maturity is explicit
+
+This site distinguishes between:
+
+- **Available**: public, documented and usable;
+- **In testing**: implemented or privately exercised, but not a release promise;
+- **Designed to enable**: a supported direction without an implementation claim.
+
+That means the strange ideas are allowed to be strange without pretending they
+already ship. Explore them anyway.
+
+[Open Ideas & Experiments →](explore/index.md)
 
 ---
 
-## This is also a living engineering notebook
-
-This site intentionally keeps several views of the same project:
-
-- **Documentation** explains what the architecture is now.
-- **Portfolio** shows what was built and why it matters.
-- **History** preserves how the system evolved.
-- **Explore** collects experiments and future directions with explicit maturity.
-- **GitHub Issues** connect the documentation to the work that created it.
-- **Agent guides** teach automated contributors how to navigate the same source of truth.
-
-The Markdown in this repository remains canonical. MkDocs is the front door, not a second truth.
-
----
-
-*Documentation site development line: **0.1.0.dev0***
+**Documentation site:** `0.1.0.dev0`  
+Canonical source: versioned Markdown in the public repository.
