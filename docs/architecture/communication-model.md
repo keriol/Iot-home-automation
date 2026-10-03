@@ -206,3 +206,28 @@ other later version.
 
 Exact proven combinations are recorded as immutable compatibility BOMs such as
 IGNITION-001.
+
+
+## Self-description and client manifests
+
+The communication stack supports owner-declared, client-safe self-description.
+
+Bifröst composes the client-facing manifest and owns protocol/wire metadata.
+Midgard aggregates the shared Core stack and visible Butler descriptors.
+Each concrete Butler owns its identity, description, entities and Butler-local
+components, while Asgard projects that Butler-owned metadata into the network.
+
+Shared Core-side components such as Midgard, Georges and HAP are represented
+once per node rather than duplicated under every Butler.
+
+See [Node Manifest and Self-Description](node-manifest.md).
+
+## Routing failures and observability
+
+Midgard owns structured routing failures and emits safe routing events through
+Butler Core's Georges tracing contracts. Bifröst transports neutral client
+notification descriptors; the client owns localized presentation.
+
+Tracing failures must never alter routing behavior.
+
+See [Routing Failures and Observability](routing-failures-and-observability.md).

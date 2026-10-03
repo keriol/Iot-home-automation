@@ -51,8 +51,11 @@ nav:
   - Communication:
       - Midgard: architecture/midgard.md
       - Asgard: architecture/asgard.md
+      - Node Manifest and Self-Description: architecture/node-manifest.md
+      - Routing Failures and Observability: architecture/routing-failures-and-observability.md
   - Proven Baselines:
       - IGNITION-001: milestones/ignition-001.md
+      - Ignition Engineering Lessons: lessons-learned/ignition-001-engineering-lessons.md
   - Architecture:
       - Alfred Ecosystem: architecture/alfred-ecosystem.md
       - Alfred Proving Ground: architecture/alfred-proving-ground.md

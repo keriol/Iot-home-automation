@@ -1,13 +1,37 @@
+---
+title: Butler Architecture
+kind: diagram
+scope: public
+status: current
+---
+
 # Architecture
 
 ```mermaid
 flowchart TD
     User[User]
 
-    subgraph Frontends
+    subgraph Clients["External Clients / Frontends"]
+        Interphone[Butler Interphone]
         Voice[Voice Frontend]
         Web[Web / App]
         Other[Other Clients]
+    end
+
+    subgraph ClientAPI["Butler Client API"]
+        Bifrost[Bifröst]
+    end
+
+    subgraph Comms["Communication"]
+        Midgard[Midgard]
+        Asgard[Butler-owned Asgard]
+    end
+
+    subgraph Public["Reusable Public Butler Components"]
+        Core[Butler Core]
+        HAP[Home Assistant Plugin]
+        Wilfred[Wilfred Runtime]
+        Georges[Georges Tracing Contracts]
     end
 
     subgraph Private["Keriol Home - Private Deployment"]
@@ -18,12 +42,6 @@ flowchart TD
         PrivateCaps[Private Capabilities]
     end
 
-    subgraph Public["Reusable Public Butler Components"]
-        Core[Butler Core]
-        Wilfred[Wilfred Runtime]
-        HAP[Home Assistant Plugin]
-    end
-
     subgraph Home["Smart Home Platform"]
         HA[Home Assistant]
         MQTT[MQTT]
@@ -31,29 +49,35 @@ flowchart TD
         Devices[Devices and Integrations]
     end
 
+    User --> Interphone
     User --> Voice
     User --> Web
     User --> Other
 
-    Voice --> Alfred
-    Web --> Alfred
-    Other --> Alfred
+    Interphone --> Bifrost
+    Other --> Bifrost
+    Bifrost --> Midgard
+
+    Midgard --> Core
+    Midgard --> Asgard
+    Asgard --> Alfred
 
     Wilfred --> Core
     Alfred --> Core
     HAP --> Core
+    Georges --> Core
 
-    Wilfred --> HAP
-    Alfred --> HAP
+    Core --> HAP
     HAP --> HA
+
+    Voice --> Alfred
+    Web --> Alfred
 
     Alfred --> PrivateCaps
     Alfred --> Charon
-
     PrivateCaps --> Osvaldo
     Charon --> Osvaldo
     Osvaldo --> Hermes
-    Hermes --> Voice
 
     PrivateCaps --> HA
     Charon --> HA
@@ -63,18 +87,50 @@ flowchart TD
     HA <--> NodeRED
 ```
 
-## Reading the Diagram
+## Reading the diagram
 
-Butler Core provides the shared provider-neutral contract foundation.
+The diagram shows two complementary Butler paths.
 
-Wilfred and Alfred are sibling Butler runtimes. Neither runtime is built on the other.
+### Core-facing client path
 
-Home Assistant Plugin is reusable integration infrastructure built on Core-owned contracts and may be consumed independently by either runtime.
+```text
+Interphone -> Bifröst -> Midgard -> Butler Core -> HAP -> Home Assistant
+```
 
-Alfred remains the private Keriol Home runtime and proving ground. Private capabilities can remain household-specific while reusable behavior graduates into Core, Wilfred or independent public plugins.
+Bifröst owns the external/client API boundary. Midgard owns provider-neutral
+communication and cross-Butler routing. Core owns provider-neutral contracts and
+execution foundations.
 
-Osvaldo owns proactive communication policy. Hermes owns private delivery/provider responsibilities after policy approval. Frontend-specific rendering remains outside Butler Core.
+### Concrete-Butler path
 
-Home Assistant remains the owner of physical device orchestration.
+```text
+Interphone -> Bifröst -> Midgard -> Butler-owned Asgard -> Alfred
+```
 
-See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](../adr/ADR-012-sibling-runtimes-and-independent-platform-plugins.md).
+The concrete Butler owns its identity and behavior. Asgard projects that
+Butler-owned identity and provides the governed Butler ingress/egress boundary.
+
+### Runtime relationship
+
+Wilfred and Alfred are sibling Butler runtimes. Neither runtime is built on the
+other.
+
+### Home Assistant
+
+Home Assistant remains the physical orchestration owner. HAP is the reusable
+integration boundary between Butler runtimes/Core-facing execution and Home
+Assistant.
+
+### Observability
+
+Midgard emits routing observability through Butler Core's Georges tracing
+contracts. A concrete runtime such as Alfred may provide the sink/persistence,
+but the tracing contract remains Core-owned.
+
+See:
+
+- [Bifröst API](../api/bifrost.md)
+- [Midgard](../architecture/midgard.md)
+- [Asgard](../architecture/asgard.md)
+- [Communication Model](../architecture/communication-model.md)
+- [IGNITION-001](../milestones/ignition-001.md)
