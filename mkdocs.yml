@@ -7,6 +7,13 @@ docs_dir: docs
 site_dir: site
 strict: true
 
+# Repository documentation remains canonical even when a legacy/archive page is
+# not yet suitable for the generated public site.
+exclude_docs: |
+  README.md
+  HISTORICAL_RECORDS.md
+  PORTFOLIO_REVIEW.md
+
 theme:
   name: material
   custom_dir: overrides
@@ -82,9 +89,8 @@ nav:
       - Sources of Truth: agent/source-of-truth.md
       - Feature Design Workflow: agent/feature-design.md
   - Project:
-      - Documentation Index: README.md
       - Project Status: PROJECT_STATUS.md
-      - Historical Records: HISTORICAL_RECORDS.md
+      - Project Model: project-model/project-model-public.md
       - Integrations: INTEGRATIONS.md
       - Hardware: HARDWARE.md
       - Metrics: METRICS.md
