@@ -100,20 +100,21 @@ nav:
       - Alfred Development Architecture: architecture/alfred-ecosystem.md
       - Alfred Proving Ground: architecture/alfred-proving-ground.md
       - Ideas & Experiments: explore/index.md
-  - Portfolio:
-      - Portfolio Home: portfolio/index.md
-      - Project Showcase: SHOWCASE.md
-      - Current Status: PROJECT_STATUS.md
-      - Case Studies:
+      - Private Proving Case Studies:
           - Alexa Custom Skill Laundry MVP: case-studies/alexa-custom-skill-laundry-mvp.md
           - Laundry Voice MVP: case-studies/laundry-voice-mvp.md
           - Alexa HTTPS Bridge: case-studies/alexa-https-bridge.md
           - Bravia and Dolby Safe Power: case-studies/bravia-dolby-safe-power.md
+  - Portfolio:
+      - Portfolio Home: portfolio/index.md
+      - Released Public Ecosystem: ecosystem/released.md
+      - IGNITION-001: milestones/ignition-001.md
+      - Project Showcase: SHOWCASE.md
+      - Current Status: PROJECT_STATUS.md
       - Skills Matrix: SKILLS_MATRIX.md
       - Metrics: METRICS.md
       - AI Collaboration: AI_COLLABORATION.md
   - Explore:
-      - Ideas & Experiments: explore/index.md
       - Project History: history/index.md
       - Ignition Engineering Lessons: lessons-learned/ignition-001-engineering-lessons.md
       - Local Project Model Retirement: history/local-project-model-retirement-2026-10-03.md
