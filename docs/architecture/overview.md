@@ -1,3 +1,10 @@
+---
+title: Butler Architecture Overview
+kind: architecture
+scope: public
+status: current
+---
+
 # Architecture Overview
 
 Keriol Home separates provider-neutral Butler contracts, reusable runtimes/plugins and the private household deployment.
