@@ -87,3 +87,19 @@ Asgard does not own:
 A reusable standalone Asgard package is a post-Ignition direction. The released
 Ignition baseline proves the boundary through Alfred-owned Asgard without
 claiming that standalone extraction is already complete.
+
+
+## GitHub lineage
+
+Asgard is Butler-owned, so its implementation lineage spans the concrete Butler
+and the communication-layer extraction work.
+
+Selected issues:
+
+- [ALF-202 — move Alfred Butler identity ownership into the runtime](https://github.com/keriol/alfred/issues/333)
+- [ALF-218 — version Alfred-owned Asgard 0.1.0 for Ignition](https://github.com/keriol/alfred/issues/359)
+- [ALF-207 — complete Alfred/Asgard self-description](https://github.com/keriol/alfred/issues/342)
+- [MID-005 — extract a standalone Asgard package](https://github.com/keriol/butler-core-midgard-plugin/issues/8)
+
+The standalone extraction issue represents post-Ignition direction and must not
+be read as evidence that Asgard already has an independent released package.
