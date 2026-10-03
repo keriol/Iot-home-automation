@@ -32,7 +32,7 @@ to talk to them.
 
     Start with the idea, the architecture and why the project exists.
 
-    [Understand the ecosystem →](architecture/overview.md)
+    [Meet Butler →](meet/index.md)
 
 -   :material-book-open-page-variant-outline: **Read the documentation**
 
