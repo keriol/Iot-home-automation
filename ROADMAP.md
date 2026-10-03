@@ -17,19 +17,20 @@ The roadmap distinguishes **released/public baseline**, **current development di
 
 ### Public Butler components
 
-- Butler Core `0.2.0` is the current released Core baseline.
-- Butler Core `main` is on the `0.2.1.dev0` development line.
-- Wilfred `0.2.2` is the current Public Alpha.
-- Wilfred `main` is on the `0.2.3.dev0` development line.
-- Wilfred provides registered tools, deterministic-first resolution, planning interfaces, workflows, confirmation boundaries, verified execution, output contracts and standalone APIs.
-- Home Assistant Plugin (HAP) is the canonical reusable Home Assistant integration at `keriol/home-assistant-plugin` and is currently on its `0.2.0.dev0` development line.
-- HAP depends on Butler Core contracts rather than on Wilfred, allowing Butler runtimes to consume it independently.
+- Butler Core `0.3.0` is the current released Core baseline; `main` is on `0.3.1.dev0`.
+- Wilfred `0.2.2` remains the current Public Alpha; `main` is on `0.2.3.dev0`.
+- Home Assistant Plugin `0.3.0` is the released reusable Home Assistant integration baseline; `main` is on `0.3.1.dev0`.
+- Bifröst `0.1.0` is the released Butler client/API bridge baseline; `main` is on `0.1.1.dev0`.
+- Midgard `0.1.0` is the released communication/cross-Butler routing baseline; `main` is on `0.1.1.dev0`.
+- Butler Interphone `0.1.0` is the released Android client baseline; `main` is on `0.1.1.dev0`.
+- IGNITION-001 is the released compatibility checkpoint that proves the Android -> Bifröst -> Midgard -> Core/HAP and Android -> Bifröst -> Midgard -> Asgard -> Alfred paths.
 - Home Assistant remains the owner of devices and physical orchestration.
 - Observable actions follow READ -> ACTION -> READ -> VERIFY where practical.
 
 ### Private Keriol deployment
 
-- Alfred `0.4.0` is the released private baseline; development continues on `main`.
+- Alfred `0.5.0` is the released private Ignition baseline; `main` defaults to `0.5.1.dev0`.
+- Alfred 0.5.0 contains Alfred-owned Asgard compatibility version `0.1.0`.
 - Alfred is the private Keriol Home Butler runtime and real-world proving ground.
 - Alfred and Wilfred are sibling consumers of Butler Core; neither is the runtime base of the other.
 - Osvaldo owns proactive communication policy.
@@ -165,7 +166,7 @@ Version numbers are checkpoints, not task containers.
 - Release scope comes from explicit GitHub/Git/tag/release evidence.
 - Public release claims must distinguish source state, artifact state and observable verification.
 - Wilfred `0.2.2` remains the current Public Alpha until a later release is explicitly completed and verified.
-- HAP `0.2.0.dev0`, Wilfred `0.2.3.dev0` and Core `0.2.1.dev0` are development lines, not released baselines.
+- Current development lines such as Core/HAP `0.3.1.dev0`, Bifröst/Midgard/Interphone `0.1.1.dev0`, Alfred `0.5.1.dev0` and Wilfred `0.2.3.dev0` are not release claims.
 
 ## Documentation Maintenance
 
