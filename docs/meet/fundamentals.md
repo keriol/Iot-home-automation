@@ -9,6 +9,8 @@ status: current
 
 ## 1. You ask for an outcome
 
+**You ask to be understood, not to operate the implementation.**
+
 A Butler interaction starts from intent, not infrastructure.
 
 The user should not need to know which service, entity, protocol or provider is
