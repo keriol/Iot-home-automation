@@ -1,0 +1,22 @@
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > ol > li {
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > ol > li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--md-shadow-z2);
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+}
+
+.md-typeset blockquote {
+  font-size: 1.05rem;
+}
+
+.md-typeset .md-button {
+  margin-top: 0.35rem;
+}
