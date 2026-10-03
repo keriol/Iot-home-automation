@@ -120,3 +120,14 @@ and therefore requires separate delivery policy/provider work.
 
 This distinction remains important even where the full interactive-output design
 is still post-Ignition work.
+
+
+## GitHub evidence trail
+
+Selected work behind the lessons above:
+
+- [ALF-220 — preserve Bifröst interaction origin for deferred client actions](https://github.com/keriol/alfred/issues/361)
+- [ALF-184 — Alfred 0.5.0 Butler-to-Android proving release](https://github.com/keriol/alfred/issues/300)
+- [MID-003 — Midgard routing observability through Georges](https://github.com/keriol/butler-core-midgard-plugin/issues/5)
+- [BIF-011 — composed client node manifest](https://github.com/keriol/Butler-Core-Bifrost-Plugin/issues/20)
+- [DOC-012 — consolidate Ignition architecture and engineering lessons](https://github.com/keriol/Iot-home-automation/issues/25)
