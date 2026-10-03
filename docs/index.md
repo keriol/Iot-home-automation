@@ -136,8 +136,11 @@ READ -> ACTION -> READ -> VERIFY
 Home Assistant remains the physical orchestration owner.
 
 Butler Core provides reusable contracts. Wilfred is the public reusable Butler
-runtime. Alfred is the private Keriol proving runtime. HAP connects Butler
-runtimes to Home Assistant.
+runtime. HAP connects public Butler runtimes to Home Assistant.
+
+**Alfred is separate:** it is the private Keriol proving runtime, used to test
+ideas before they earn a reusable public release. Alfred is not part of the
+public installation path.
 
 For external clients, the released Ignition network adds:
 
@@ -158,6 +161,9 @@ routing. Asgard is owned by the concrete Butler and projects its identity and
 ingress boundary.
 
 [See the full communication model →](architecture/communication-model.md)
+
+[Released Public Ecosystem →](ecosystem/released.md) ·
+[Development & Proving Ground →](ecosystem/development.md)
 
 ## This is a real project, not a diagram exercise
 
