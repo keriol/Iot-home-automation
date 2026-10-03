@@ -10,15 +10,27 @@ status: current
 This section tells coding/planning agents how to navigate Butler documentation
 without duplicating the documentation itself.
 
-## Start here
+## Choose the path first
 
-Read in this order:
+### New feature / architecture work
+
+Read:
 
 1. [Sources of truth](source-of-truth.md)
 2. [Feature design workflow](feature-design.md)
 3. [Architecture overview](../architecture/overview.md)
-4. the owning component/API page for the requested work
+4. the owning component/API page
 5. relevant ADRs, milestones and GitHub issues
+
+### First installation / onboarding assistance
+
+Read:
+
+1. [Sources of truth](source-of-truth.md)
+2. [First Installation Assistance](first-installation.md)
+3. the released installation documentation of the owning runtime/integration
+
+Do not use the feature-design path to improvise around a broken installation.
 
 ## Component discovery
 
