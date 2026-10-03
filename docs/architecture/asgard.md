@@ -1,3 +1,16 @@
+---
+title: Asgard
+kind: architecture
+owner: concrete-butler
+scope: public-safe
+status: released-boundary
+baseline: 0.1.0
+related:
+  - ../api/bifrost.md
+  - midgard.md
+  - ../milestones/ignition-001.md
+---
+
 # Asgard
 
 Asgard is the Butler-owned ingress and identity boundary used when Midgard must
