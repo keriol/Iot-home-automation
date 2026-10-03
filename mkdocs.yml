@@ -51,7 +51,9 @@ nav:
   - Home: index.md
   - Meet Butler:
       - Meet Butler: meet/index.md
+      - Choose Your Depth: journey/index.md
       - Fundamental Concepts: meet/fundamentals.md
+      - Install a Butler: install/index.md
       - Architecture Overview: architecture/overview.md
       - Why This Project Exists: PROJECT_ORIGIN.md
       - Communication Model: architecture/communication-model.md
@@ -122,3 +124,13 @@ nav:
 
 extra:
   site_version: 0.1.0.dev0
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/keriol
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/marco-carolo/
+      name: LinkedIn
+    - icon: fontawesome/solid/mug-hot
+      link: https://ko-fi.com/butlerwilfred
+      name: Support Butler on Ko-fi
