@@ -45,14 +45,14 @@ to talk to them.
 
     [Open the technical map →](documentation/index.md)
 
--   :material-rocket-launch-outline: **Install your first Butler**
+-   :material-rocket-launch-outline: **Install a Butler in your home**
 
     ---
 
-    Follow the agent-friendly path from a clean runtime to optional integrations
-    and client networking.
+    Start with Wilfred, prove the base runtime, then add Home Assistant, AI and
+    external clients only if you need them.
 
-    [First installation →](agent/first-installation.md)
+    [Install a Butler →](install/index.md)
 
 -   :material-briefcase-outline: **Browse the portfolio**
 
@@ -82,6 +82,16 @@ to talk to them.
     [Ideas & experiments →](explore/index.md)
 
 </div>
+
+## Choose your depth
+
+The site is designed in layers. Stop wherever your curiosity is satisfied:
+
+```text
+Discover -> Understand -> Install -> Build -> Deep Dive
+```
+
+[Choose your depth →](journey/index.md){ .md-button .md-button--primary }
 
 ## The idea in one minute
 
@@ -193,3 +203,15 @@ already ship. Explore them anyway.
 
 **Documentation site:** `0.1.0.dev0`  
 Canonical source: versioned Markdown in the public repository.
+
+
+## Support the workshop
+
+Butler is an open-source project grown from real home-automation work.
+
+If you find the architecture, documentation or public components useful, you
+can support the project or follow the work elsewhere.
+
+[Support on Ko-fi](https://ko-fi.com/butlerwilfred){ .md-button .md-button--primary }
+[GitHub](https://github.com/keriol){ .md-button }
+[LinkedIn](https://www.linkedin.com/in/marco-carolo/){ .md-button }
