@@ -7,7 +7,13 @@ status: current
 
 # Architecture Overview
 
-Keriol Home separates provider-neutral Butler contracts, reusable runtimes/plugins and the private household deployment.
+This page describes the **released public Butler architecture first**.
+
+Private Alfred/Keriol proving is documented separately so development ideas do
+not look like public Wilfred features.
+
+- [Released Public Ecosystem](../ecosystem/released.md)
+- [Development & Proving Ground](../ecosystem/development.md)
 
 ## Butler Core
 
@@ -26,7 +32,7 @@ The current released `0.3.0` baseline owns provider-neutral contracts and small 
 
 Core deliberately does not own plugin discovery/loading/lifecycle, application routing, concrete domain behavior, Home Assistant or Alexa integrations, AI-provider configuration, frontend rendering, trace storage/viewers, delivery providers or Keriol-specific deployment behavior.
 
-## Butler Runtimes
+## Released Public Runtime
 
 ### Wilfred
 
@@ -36,15 +42,18 @@ Wilfred `0.2.2` is the current released Public Alpha. Its responsibilities inclu
 
 Wilfred `main` is on the `0.2.3.dev0` development line.
 
-### Alfred
+## Private Development Runtime
 
-Alfred is the private Keriol Home Butler runtime and proving ground built on Core-owned contracts.
+Alfred is the private Keriol sibling runtime and proving ground.
 
-Alfred owns household-specific composition, context, routing, policy, domains, integrations and AI fallback.
+It is not part of the public installation path and is not evidence that Wilfred
+ships the same private behavior.
 
-Alfred and Wilfred are sibling runtimes. Alfred does not depend on or execute through the Wilfred runtime.
+Public documentation keeps Alfred at the level of architecture, maturity and
+reusable lessons. Detailed private implementation remains outside this
+repository.
 
-Reusable behavior is promoted toward Butler Core, Wilfred or an independent public plugin only after ownership is stable, private assumptions have been removed, tests exist and public-safe extraction is justified.
+See [Development & Proving Ground](../ecosystem/development.md).
 
 ## Independent Platform Plugins
 
@@ -60,7 +69,8 @@ The reusable boundary is:
       -> Home Assistant
       -> Device / Integration
 
-Wilfred and Alfred may therefore consume HAP without becoming runtime dependencies of one another.
+Public Wilfred can consume HAP independently. Private Alfred may consume the
+same reusable plugin without becoming part of the public Wilfred runtime.
 
 ## Home Assistant
 
@@ -173,16 +183,15 @@ Capabilities are labelled according to evidence:
 
 Open branches and issues alone do not promote a capability to Available.
 
-## Private Domain Components
+## Private Development Context
 
-Inside the private Keriol deployment:
+Private Keriol/Alfred work is intentionally kept outside the released public
+architecture surface.
 
-- Alfred owns Keriol-specific interaction, routing and orchestration;
-- Osvaldo owns proactive communication policy;
-- Charon owns media-domain intelligence and lifecycle behavior;
-- Hermes owns delivery framework/provider responsibilities.
+The portfolio may describe development themes and ownership patterns, but not
+private implementation details.
 
-Alexa is a frontend/provider concern, not a Butler Core responsibility. Speech and SSML are presentation details.
+See [Development & Proving Ground](../ecosystem/development.md).
 
 ## Development Sources of Truth
 
@@ -202,7 +211,7 @@ The retired Umberto ledger is archival only and cannot override GitHub, Git or r
 - Home Assistant owns physical orchestration.
 - Butler Core stays provider-neutral and service-agnostic.
 - Core contribution contracts do not make Core the plugin runtime.
-- Wilfred and Alfred are sibling runtimes; neither is the architectural runtime base of the other.
+- Wilfred and Alfred are sibling runtimes; Alfred remains private and is not part of the public installation path.
 - Reusable platform integrations should depend on Core-owned contracts when they can be consumer-neutral.
 - Alfred may contain Keriol-specific capabilities and proving-ground experiments.
 - Deterministic behavior precedes AI/planner fallback where practical.

@@ -59,6 +59,7 @@ nav:
       - Communication Model: architecture/communication-model.md
       - IGNITION-001: milestones/ignition-001.md
   - Documentation:
+      - Released Public Ecosystem: ecosystem/released.md
       - Technical Map: documentation/index.md
       - Project Model: PROJECT_MODEL.md
       - Client API:
@@ -70,8 +71,7 @@ nav:
           - Node Manifest and Self-Description: architecture/node-manifest.md
           - Routing Failures and Observability: architecture/routing-failures-and-observability.md
       - Architecture:
-          - Alfred Ecosystem: architecture/alfred-ecosystem.md
-          - Alfred Proving Ground: architecture/alfred-proving-ground.md
+          - Architecture Overview: architecture/overview.md
           - Docker Stack: architecture/docker-stack.md
       - Decisions:
           - ADR-001 Home Assistant as Orchestrator: adr/ADR-001-home-assistant-as-orchestrator.md
@@ -95,20 +95,26 @@ nav:
           - Energy Flow: diagrams/energy-flow.md
       - Troubleshooting:
           - Alexa Custom Skill Checklist: troubleshooting/alexa-custom-skill-checklist.md
-  - Portfolio:
-      - Portfolio Home: portfolio/index.md
-      - Project Showcase: SHOWCASE.md
-      - Current Status: PROJECT_STATUS.md
-      - Case Studies:
+  - Development:
+      - Development & Proving Ground: ecosystem/development.md
+      - Alfred Development Architecture: architecture/alfred-ecosystem.md
+      - Alfred Proving Ground: architecture/alfred-proving-ground.md
+      - Ideas & Experiments: explore/index.md
+      - Private Proving Case Studies:
           - Alexa Custom Skill Laundry MVP: case-studies/alexa-custom-skill-laundry-mvp.md
           - Laundry Voice MVP: case-studies/laundry-voice-mvp.md
           - Alexa HTTPS Bridge: case-studies/alexa-https-bridge.md
           - Bravia and Dolby Safe Power: case-studies/bravia-dolby-safe-power.md
+  - Portfolio:
+      - Portfolio Home: portfolio/index.md
+      - Released Public Ecosystem: ecosystem/released.md
+      - IGNITION-001: milestones/ignition-001.md
+      - Project Showcase: SHOWCASE.md
+      - Current Status: PROJECT_STATUS.md
       - Skills Matrix: SKILLS_MATRIX.md
       - Metrics: METRICS.md
       - AI Collaboration: AI_COLLABORATION.md
   - Explore:
-      - Ideas & Experiments: explore/index.md
       - Project History: history/index.md
       - Ignition Engineering Lessons: lessons-learned/ignition-001-engineering-lessons.md
       - Local Project Model Retirement: history/local-project-model-retirement-2026-10-03.md

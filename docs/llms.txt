@@ -16,6 +16,8 @@
 
 ## Butler ecosystem
 
+- docs/ecosystem/released.md
+- docs/ecosystem/development.md
 - docs/PROJECT_MODEL.md
 - docs/architecture/overview.md
 - docs/architecture/communication-model.md

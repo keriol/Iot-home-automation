@@ -1,294 +1,179 @@
 # Project Showcase
 
-## Overview
+## How to read this page
 
-This document highlights representative engineering work across the public Butler stack and the private Keriol Home proving ground.
+The showcase is intentionally split into two worlds.
 
-The goal is not to present every experiment as shipped functionality. Each example is labelled according to current evidence:
+### Released Public Ecosystem
 
-- **Available**: public, documented and usable in the relevant public repository or plugin.
-- **In testing**: exercised privately or under active validation, but not a public release promise.
-- **Designed to enable**: architecturally supported direction that must not be read as implemented functionality.
+These examples are backed by public repositories and release evidence.
 
----
+### Development & Proving Ground
 
-# 1. Butler Runtime Evolution
+These examples come from Alfred/Keriol private validation. They explain problems,
+patterns and lessons without claiming that Wilfred already ships the behavior or
+exposing private implementation details.
 
-## Status
+Maturity labels:
 
-**Available + In testing**
-
-## Objective
-
-Separate provider-neutral Butler foundations, reusable runtimes and platform integrations from Keriol-specific household behavior.
-
-## Architecture
-
-```text
-Butler Core
-├── Wilfred
-├── Alfred
-└── reusable plugins such as Home Assistant Plugin
-```
-
-Wilfred and Alfred are sibling Butler runtimes built on Core-owned contracts. Reusable platform integrations can be consumed independently by either runtime without making one runtime the architectural base of the other.
-
-## Current result
-
-- Butler Core `0.3.0` is the current released provider-neutral foundation.
-- Wilfred `0.2.2` remains the current Public Alpha.
-- Home Assistant Plugin `0.3.0` is the released reusable Home Assistant integration baseline.
-- Bifröst `0.1.0`, Midgard `0.1.0` and Butler Interphone `0.1.0` form the released client/communication side of IGNITION-001.
-- Alfred `0.5.0` is the private Ignition proving runtime, with Alfred-owned Asgard compatibility `0.1.0`.
-- Home Assistant remains the physical orchestration owner.
-
-Development-line versions describe repository state, not released capability claims.
-
-## Engineering themes
-
-- provider-neutral contracts;
-- sibling runtime composition;
-- independent reusable platform plugins;
-- deterministic-first resolution;
-- capability/domain ownership;
-- confirmation boundaries;
-- verified execution;
-- public/private extraction discipline.
+- **Available** — public, documented and released/usable;
+- **In testing** — exercised privately or under active validation;
+- **Designed to enable** — supported direction without an implementation claim.
 
 ---
 
-# 2. Alfred Laundry Voice Workflow
+# Released Public Ecosystem
 
-## Status
+## Butler foundations and reusable runtime
 
-**In testing / privately validated**
+**Status: Available**
 
-## Objective
+Current public building blocks:
 
-Expose washing-machine state, catalog queries and controlled actions through a voice workflow while avoiding false success claims.
+- Butler Core `0.3.0`;
+- Wilfred `0.2.2`;
+- Home Assistant Plugin `0.3.0`;
+- Bifröst `0.1.0`;
+- Midgard `0.1.0`;
+- Butler Interphone `0.1.0`.
 
-## Validated capabilities
+Core owns provider-neutral contracts. Wilfred is the reusable public runtime.
+HAP owns reusable Home Assistant integration behavior. Bifröst and Midgard own
+the released client/communication boundaries.
 
-- appliance status and remaining-time queries;
-- validated local program catalog;
-- translated display names and controlled aliases;
-- keyword search and pagination;
-- allowlisted start/stop actions;
-- cautious command feedback;
-- asynchronous physical-state verification;
-- follow-up communication only after observable state changes when possible.
+[Released Public Ecosystem](ecosystem/released.md)
 
-## Key engineering lesson
+## IGNITION-001
 
-**Dispatch is not physical success.**
+**Status: Available / released compatibility baseline**
 
-The workflow separates command acceptance from observable confirmation and uses the broader pattern:
-
-`READ -> ACTION -> READ -> VERIFY`
-
-This case study is one of the main real-world inputs into the reusable verified-execution model.
-
----
-
-# 3. Proactive Communication Policy
-
-## Status
-
-**In testing**
-
-## Objective
-
-Prevent every domain from inventing its own notification timing, quiet-hours logic and delivery behavior.
-
-## Ownership
-
-- Domains describe what happened.
-- Osvaldo decides whether and when unsolicited communication may occur.
-- Hermes owns provider/delivery routing.
-- Frontends/providers own presentation-specific rendering.
-
-## Supported policy concepts
-
-- allow;
-- defer;
-- aggregate;
-- deny;
-- quiet-hours handling;
-- communication-mode selection.
-
-User-requested asynchronous replies are treated separately from generic unsolicited notifications because they continue an explicit interaction.
-
----
-
-# 4. Media Intelligence and Plex Workflows
-
-## Status
-
-**In testing**
-
-## Objective
-
-Treat media handling as a domain with explicit ownership rather than scattering Plex and playback behavior through conversation code.
-
-## Public-safe capabilities demonstrated
-
-- media identity and discovery;
-- Plex integration;
-- playback-related reasoning;
-- quality and availability policy;
-- lifecycle concepts;
-- observed-state verification;
-- domain-event handoff to communication policy.
-
-## Ownership lesson
-
-Charon owns media-domain intelligence and lifecycle behavior. It does not own generic conversation routing, proactive policy or provider delivery.
-
-Private acquisition implementation is intentionally outside this repository.
-
----
-
-# 5. Home Theater Safe-Power Workflow
-
-## Status
-
-**In testing / privately validated**
-
-## Objective
-
-Prevent audio initialization failures caused by startup timing between the TV and home-theater equipment.
-
-## Technologies
-
-- Home Assistant;
-- smart-plug control;
-- state-based automations;
-- guarded sequencing.
-
-## Outcome
-
-The workflow demonstrates why physical orchestration belongs in Home Assistant: startup ordering, race-condition mitigation and recovery remain local, observable and easy to debug.
-
----
-
-# 6. Local Energy Telemetry
-
-## Status
-
-**In testing**
-
-## Objective
-
-Collect and validate local photovoltaic, grid and battery telemetry without depending exclusively on vendor cloud services.
-
-## Demonstrated work
-
-- local polling and normalization;
-- MQTT publication;
-- Home Assistant sensors and dashboards;
-- directional grid and battery flows;
-- energy-balance comparison against independent observations.
-
-## Current result
-
-The pipeline is stable and usable, but full long-duration validation is not yet complete. It is therefore not presented as production-ready or generally available.
-
----
-
-# 7. Privacy-Preserving Presence
-
-## Status
-
-**Designed to enable**
-
-## Objective
-
-Answer the operational question “is the home occupied?” without turning presence into continuous room-level tracking.
-
-## Private experiments
-
-BLE and presence tooling were evaluated, but the available signals were not reliable enough to become an authoritative automation dependency.
-
-## Current direction
-
-The preferred future model is deliberately small:
-
-`occupied / empty / uncertain`
-
-with no requirement for room-level localization or continuous movement profiling.
-
-The work is currently parked pending better evidence and hardware choices.
-
----
-
-# 8. Alexa / Hermes Delivery Path
-
-## Status
-
-**In testing**
-
-## Objective
-
-Keep voice frontends replaceable while allowing the private deployment to exercise provider-specific speech delivery.
-
-## Current ownership
-
-- Alexa is the current voice frontend and first Hermes target in Keriol Home.
-- Hermes owns the private provider/delivery boundary.
-- Speech and SSML remain frontend details.
-- Provider-specific voice selection remains a rendering parameter, not an architectural component.
-
-## Public direction
-
-The architecture is designed to enable later reusable frontend/provider integrations if private validation, contracts, tests and sanitization justify extraction.
-
-A working private Alexa path is not evidence that Wilfred currently ships an official Alexa integration.
-
----
-
-# 9. Ignition Butler-to-Android Network
-
-## Status
-
-**Available + privately proven**
-
-## Objective
-
-Prove a reusable external-client path into both shared Core capabilities and a
-concrete Butler runtime.
-
-## Released paths
+IGNITION-001 proved:
 
 ```text
 Interphone -> Bifröst -> Midgard -> Butler Core -> HAP -> Home Assistant
+```
+
+and the concrete-Butler branch:
+
+```text
 Interphone -> Bifröst -> Midgard -> Butler-owned Asgard -> Alfred
 ```
 
-## Proven engineering properties
+Released/proven properties include:
 
 - preserved request correlation;
 - canonical source-Butler identity;
-- observable READ -> ACTION -> READ -> VERIFY;
 - client-safe node self-description;
-- explicit separation of client transport, cross-Butler routing and Butler identity;
-- bounded client acknowledgement for longer verified work.
+- observable `READ -> ACTION -> READ -> VERIFY`;
+- separation of client transport, cross-Butler routing and Butler identity.
 
-See [IGNITION-001](milestones/ignition-001.md) and
-[Ignition Engineering Lessons](lessons-learned/ignition-001-engineering-lessons.md).
+### Asgard exception
+
+Asgard is part of the released architectural compatibility model because the
+boundary was proven by IGNITION-001.
+
+The Ignition implementation is Alfred-owned and has compatibility version
+`0.1.0`; no standalone public Asgard package is claimed.
+
+[IGNITION-001](milestones/ignition-001.md) ·
+[Asgard](architecture/asgard.md)
 
 ---
 
-# Key Engineering Themes
+# Development & Private Proving Ground
 
-Across the portfolio, the recurring lessons are:
+The following examples are **not public Wilfred feature claims**.
 
-- local-first architecture where practical;
-- Home Assistant as physical orchestration owner;
-- provider-neutral Core contracts shared by sibling runtimes and reusable plugins;
-- deterministic behavior before AI fallback for known requests;
-- explicit capability/domain ownership;
-- dispatch and observed success kept separate;
-- communication policy separated from delivery;
-- replaceable frontends;
-- public/private boundaries treated as architecture, not redaction afterthought;
-- GitHub/Git/release/runtime evidence used according to responsibility.
+They describe private proving themes and reusable lessons.
+
+## Verified appliance interaction
+
+**Status: In testing**
+
+Private household workflows exercise status reads, controlled actions and
+physical-state verification.
+
+The durable public lesson is:
+
+```text
+READ -> ACTION -> READ -> VERIFY
+```
+
+Successful dispatch alone is not treated as physical success.
+
+[Development & Proving Ground](ecosystem/development.md)
+
+## Proactive communication policy
+
+**Status: In testing**
+
+Private proving separates:
+
+- domain event ownership;
+- communication policy;
+- provider/delivery responsibility;
+- frontend presentation.
+
+The reusable question is not only whether a system can send something, but
+whether it should interrupt, defer, aggregate or remain quiet.
+
+## Media-domain reasoning
+
+**Status: In testing**
+
+Private proving explores media identity, discovery, playback/lifecycle reasoning
+and observed-state verification as domain-owned behavior rather than scattered
+conversation logic.
+
+No private acquisition implementation is published here.
+
+## Home-theater safe-power lessons
+
+**Status: In testing / privately validated**
+
+Real device startup sequencing demonstrated why physical orchestration and
+recovery belong where state can be observed, typically Home Assistant.
+
+## Local energy intelligence
+
+**Status: In testing**
+
+Local photovoltaic/grid/battery telemetry has been used as a proving source for
+future household reasoning, but long-duration general-public readiness is not
+claimed.
+
+## Privacy-preserving presence
+
+**Status: Designed to enable**
+
+The preferred direction is intentionally small:
+
+`occupied / empty / uncertain`
+
+without requiring continuous room-level tracking.
+
+## Frontend and delivery experiments
+
+**Status: In testing / Designed to enable**
+
+Voice and other private delivery paths are used to test replaceable frontend and
+delivery concepts.
+
+A working Alfred path does not imply that Wilfred currently ships that frontend
+integration.
+
+---
+
+# Engineering themes that cross both worlds
+
+- Home Assistant owns physical orchestration;
+- Butler Core remains provider-neutral;
+- deterministic paths precede AI fallback where appropriate;
+- capability/domain ownership is explicit;
+- dispatch and observed success are separate;
+- frontends remain replaceable;
+- public/private boundaries are architectural;
+- private proving can inform public design without becoming public availability.
+
+For implementation/installable status, always return to the
+[Released Public Ecosystem](ecosystem/released.md).
