@@ -47,11 +47,14 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Meet Butler:
-      - The Butler Idea: architecture/overview.md
+      - Meet Butler: meet/index.md
+      - Fundamental Concepts: meet/fundamentals.md
+      - Architecture Overview: architecture/overview.md
       - Why This Project Exists: PROJECT_ORIGIN.md
       - Communication Model: architecture/communication-model.md
       - IGNITION-001: milestones/ignition-001.md
   - Documentation:
+      - Technical Map: documentation/index.md
       - Project Model: PROJECT_MODEL.md
       - Client API:
           - Overview: api/index.md
