@@ -9,9 +9,15 @@ status: current
 
 Keriol Home and the Butler ecosystem did not appear fully formed.
 
-This section preserves the important transitions that explain why the current
-architecture looks the way it does. Historical material is evidence of its time,
-not current task, release or runtime authority.
+This is where the project keeps its scars, detours and turning points.
+
+Browse it as a timeline of how a Home Assistant-centered house gradually grew a
+Butler, then a reusable runtime, then a communication network.
+
+The old material is intentionally not rewritten to make the journey look
+cleaner than it was. Historical documents explain why the current architecture
+looks the way it does; they do not override current task, release or runtime
+truth.
 
 ## Timeline
 
