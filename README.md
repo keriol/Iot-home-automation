@@ -20,7 +20,7 @@ The portfolio documents architecture, capability maturity, case studies and engi
 - **Midgard `0.1.0`** is the released communication and cross-Butler routing baseline.
 - **Butler Interphone `0.1.0`** is the released Android client baseline.
 - **HAP** is the canonical task namespace for Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
-- Core, Wilfred and HAP development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
+- Development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
 
 Release claims in this portfolio come from explicit Git/tag/release evidence. Open branches and issues describe direction or testing state only.
 
@@ -117,13 +117,13 @@ See [ADR-012 - Sibling Butler Runtimes and Independent Platform Plugins](docs/ad
 
 Portfolio capabilities use three maturity levels:
 
-- **Public**: released or merged in Butler Core, Wilfred or an official public plugin.
-- **Private validated**: implemented and tested in the real Alfred deployment but not currently part of the public Wilfred/plugin distribution.
-- **Candidate**: a capability or pattern being evaluated for later generalization.
+- **Available**: public, documented and usable in the relevant public component;
+- **In testing**: implemented or exercised privately/under validation, but not a public release promise;
+- **Designed to enable**: architecturally supported direction without an implementation claim.
 
-Candidate status is not a release commitment.
+Open issues, branches and private experiments do not become Available merely because they exist.
 
-This keeps the portfolio useful without pretending that every private experiment is already a public Wilfred feature.
+This keeps the portfolio useful without pretending that every private experiment is already a public Butler feature.
 
 ## Smart-Home Ownership
 
