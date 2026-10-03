@@ -27,3 +27,12 @@ create a second documentation source of truth.
 
 Development state belongs in GitHub Issues, release evidence belongs in
 tags/releases/workflows, and live systems remain authoritative for runtime state.
+
+
+## Site version
+
+Current documentation-site development line: **0.1.0.dev0**.
+
+The documentation site has its own release lifecycle. A site version becomes
+`0.1.0` only after GitHub Pages deployment succeeds and the live site is
+verified. Documentation-site releases use the `docs-vX.Y.Z` tag namespace.
