@@ -117,3 +117,27 @@ Historical records are intentionally preserved rather than rewritten to match cu
 This documentation repository contains public-safe architecture, ADRs, diagrams, analyses, case studies and engineering lessons.
 
 It is not a readable mirror of the private Alfred implementation. Private source, private endpoints, sensitive operational identifiers, credentials, private acquisition implementation and other non-public deployment details remain excluded.
+
+
+## Documentation Site
+
+The public documentation site is generated from this repository with MkDocs
+Material and GitHub Pages.
+
+Canonical source remains the Markdown under `docs/`.
+
+Local validation:
+
+```bash
+python -m pip install -r requirements-docs.txt
+python scripts/check_docs_source.py
+mkdocs build --strict
+python scripts/check_docs_build.py
+```
+
+The GitHub Actions documentation workflow runs the same source/build checks on
+documentation pull requests and publishes the built `site/` artifact from
+`main`.
+
+Unlinked easter-egg pages may exist in the generated site, but they must remain
+public-safe and must not become a second documentation source of truth.
