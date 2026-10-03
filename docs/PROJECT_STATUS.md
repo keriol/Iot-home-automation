@@ -1,6 +1,6 @@
 # Home Automation Project Status
 
-Last Updated: 2026-09-17
+Last Updated: 2026-10-03
 
 ## Overview
 
@@ -16,10 +16,13 @@ Home Assistant remains the owner of physical orchestration, integrations, dashbo
 
 | Component | Current status | Notes |
 |---|---|---|
-| Butler Core | Available | `0.2.0` released baseline; `main` on `0.2.1.dev0` |
-| Wilfred | Available / Public Alpha | `0.2.2` current released Public Alpha; `main` on `0.2.3.dev0` |
-| Home Assistant Plugin (HAP) | In development | canonical repo `keriol/home-assistant-plugin`; `0.2.0.dev0` development line |
-| Alfred | Private operational | `0.4.0` current private released baseline; post-0.4.0 development continues privately |
+| Butler Core | Available | `0.3.0` released Ignition baseline; `main` on `0.3.1.dev0` |
+| Wilfred | Available / Public Alpha | `0.2.2` current Public Alpha; not part of Ignition |
+| Home Assistant Plugin (HAP) | Available | `0.3.0` released Ignition baseline; `main` on `0.3.1.dev0` |
+| Bifröst | Available | `0.1.0` released Butler client/API bridge |
+| Midgard | Available | `0.1.0` released communication/cross-Butler routing layer |
+| Butler Interphone | Available | `0.1.0` released Android client |
+| Alfred | Private operational | `0.5.0` current private released baseline; includes Asgard compatibility `0.1.0` |
 | Home Assistant | Operational | physical orchestration owner |
 | MQTT | Operational | event and telemetry transport |
 | Node-RED | Operational | selected visual workflows |
@@ -51,6 +54,28 @@ Alfred does not use Wilfred as its architectural runtime base. Reusable behavior
 HAP is the reusable public Home Assistant integration package built on Butler Core contracts rather than on Wilfred.
 
 Wilfred and Alfred may consume HAP independently. HAP owns reusable Home Assistant transport/configuration/state/action behavior while Home Assistant remains the physical orchestration owner.
+
+## Ignition communication baseline
+
+The released Butler-to-Android path is:
+
+```text
+Interphone -> Bifröst -> Midgard -> Butler Core -> HAP -> Home Assistant
+```
+
+For concrete Butler-owned behavior:
+
+```text
+Interphone -> Bifröst -> Midgard -> Butler-owned Asgard -> Alfred
+```
+
+Bifröst is the client/API boundary. Midgard owns provider-neutral communication
+and cross-Butler routing. Asgard is owned by the concrete Butler and provides
+its governed ingress/identity boundary.
+
+IGNITION-001 proved both paths from the real signed Android client, including
+preserved request correlation, canonical `Source Butler: Alfred`, and
+observable `READ -> ACTION -> READ -> VERIFY` for a Home Assistant action.
 
 ## Safety Model
 
