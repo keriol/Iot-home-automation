@@ -24,10 +24,13 @@
 
 - docs/architecture/midgard.md
 - docs/architecture/asgard.md
+- docs/architecture/node-manifest.md
+- docs/architecture/routing-failures-and-observability.md
 
 ## Proven baselines
 
 - docs/milestones/ignition-001.md
+- docs/lessons-learned/ignition-001-engineering-lessons.md
 
 ## Architecture decisions
 
