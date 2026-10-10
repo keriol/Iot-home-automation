@@ -82,11 +82,29 @@ Asgard does not own:
 - global client UX;
 - domain behavior outside the concrete Butler that hosts it.
 
-## Future direction
+## Standalone Asgard adoption after Ignition
 
-A reusable standalone Asgard package is a post-Ignition direction. The released
-Ignition baseline proves the boundary through Alfred-owned Asgard without
-claiming that standalone extraction is already complete.
+The **Butler Asgard Plugin** is now an independently packaged, framework-neutral
+Python boundary (`butler-asgard`, imported as `butler_asgard`). It accepts a
+Butler-owned identity, an async request handler and an availability probe;
+it supports exact name/alias matching and preserves request correlation while
+returning the canonical Butler source name.
+
+On 2026-10-10, Alfred adopted a privately distributed standalone
+`0.1.0.dev0` development package and passed server integration checks,
+a healthy runtime restart and an Android Interphone request/reply test
+(including a laundry request). This proves a **private consumer integration**,
+not a public Asgard release or general multi-Butler compatibility.
+
+The historical **IGNITION-001** release remains unchanged: Alfred `0.5.0`
+shipped its own internal Asgard compatibility boundary `0.1.0`.
+The later standalone adoption must not be retroactively added to that release
+Bill of Materials.
+
+The standalone Asgard repository remains private pending publication audit.
+Wilfred/Manfred as additional network-connected Butler consumers, profile-image
+payload projection, and a public package/tag/release remain separately tracked
+work. No private source or deployment configuration is published here.
 
 
 ## GitHub lineage
