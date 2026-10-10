@@ -70,10 +70,12 @@ Reusable extraction requires:
 Asgard was Alfred-owned inside the immutable Ignition release. A reusable
 standalone `butler-asgard` development package was subsequently adopted by
 Alfred and observed responding through Android Interphone on 2026-10-10.
-That is **private integration evidence**, not public distribution or proof
-that every network Butler can already use the package. The standalone
-repository still requires a publication audit. The ownership boundary remains
-part of the public architectural documentation.
+That is **private integration evidence** for Alfred. The standalone package
+has subsequently been released as
+[Asgard 0.1.0 Public Alpha](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0).
+This public release is not proof that every network Butler can already use it.
+The historical Ignition compatibility baseline is unchanged, and the
+ownership boundary remains part of public architectural documentation.
 
 See:
 
