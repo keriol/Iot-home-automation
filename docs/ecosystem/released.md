@@ -62,6 +62,18 @@ Asgard = documented public architectural boundary
 
 See [Asgard](../architecture/asgard.md).
 
+## Post-Ignition standalone progress
+
+After the Ignition release, a separately packaged `butler-asgard`
+`0.1.0.dev0` development baseline was integrated into private Alfred
+and exercised through the real Android Interphone client on 2026-10-10.
+
+**Status: privately proven, not publicly released.**
+This does not change the immutable IGNITION-001 release composition,
+nor add Asgard to the public released-component table above.
+Publication of the standalone repository remains subject to history and
+metadata sanitization. Further Wilfred/Manfred consumer proving is future work.
+
 ## Not included here
 
 Private Keriol behavior and Alfred-specific domains are intentionally not part of
