@@ -19,6 +19,7 @@ The portfolio documents architecture, capability maturity, case studies and engi
 - **Bifröst `0.1.0`** is the released Butler client/API bridge baseline.
 - **Midgard `0.1.0`** is the released communication and cross-Butler routing baseline.
 - **Butler Interphone `0.1.0`** is the released Android client baseline.
+- **[Butler Asgard Plugin `0.1.0`](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0)** is the independently released Butler-owned ingress/identity Public Alpha.
 - **HAP** is the canonical task namespace for Home Assistant Plugin work. Historical WHA/WILF identifiers remain useful only as historical aliases.
 - Development-line versions are not release claims. Adoption and maturity are tracked independently in the owning repositories.
 
@@ -32,7 +33,9 @@ compatibility baseline.
 
 Its exact released set is Interphone 0.1.0, Bifröst 0.1.0, Midgard 0.1.0,
 Butler Core 0.3.0, Home Assistant Plugin 0.3.0 and private Alfred 0.5.0,
-with Alfred-owned Asgard compatibility version 0.1.0.
+with Alfred-owned Asgard compatibility version 0.1.0. The later standalone
+Asgard Plugin 0.1.0 Public Alpha is a **separate release**, not a retroactive
+addition to the Ignition BOM.
 
 The signed Android client proved both canonical paths:
 
