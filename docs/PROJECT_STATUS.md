@@ -25,6 +25,7 @@ Home Assistant remains the physical orchestration owner.
 | Bifröst | Available | `0.1.0` |
 | Midgard | Available | `0.1.0` |
 | Butler Interphone | Available | `0.1.0` |
+| Butler Asgard Plugin | Available / Public Alpha | `0.1.0` |
 
 Current development lines on `main` are not release claims.
 
@@ -52,8 +53,11 @@ However, for IGNITION-001:
 - the implementation is owned internally by Alfred;
 - no independent public Asgard package/repository/tag is claimed.
 
-This makes Asgard a **released architectural compatibility boundary**, not an
-installable standalone public component.
+This defines the **historical Ignition** compatibility boundary. Following
+Ignition, a separately packaged
+[Butler Asgard Plugin 0.1.0 Public Alpha](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0)
+has been publicly released with wheel and sdist. It does not change the
+Ignition BOM or imply a second Butler consumer has been proven.
 
 ## Development & Proving Ground
 
