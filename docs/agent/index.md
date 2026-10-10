@@ -39,7 +39,7 @@ Before proposing installation or capability claims, distinguish:
 - [Released Public Ecosystem](../ecosystem/released.md): public, released and usable components;
 - [Development & Proving Ground](../ecosystem/development.md): Alfred/private proving, not a Wilfred availability claim.
 
-Asgard is the explicit exception: the boundary is part of the released Ignition architecture, while its Ignition implementation remains Alfred-owned and non-standalone.
+Asgard is the explicit exception: the released Ignition boundary was Alfred-owned; a later standalone package has been privately deployed with Alfred, but is not yet a released public Asgard distribution.
 
 ## Component discovery
 
