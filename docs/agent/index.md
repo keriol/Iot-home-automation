@@ -39,7 +39,11 @@ Before proposing installation or capability claims, distinguish:
 - [Released Public Ecosystem](../ecosystem/released.md): public, released and usable components;
 - [Development & Proving Ground](../ecosystem/development.md): Alfred/private proving, not a Wilfred availability claim.
 
-Asgard is the explicit exception: the released Ignition boundary was Alfred-owned; a later standalone package has been privately deployed with Alfred, but is not yet a released public Asgard distribution.
+Asgard has two distinct checkpoints: IGNITION-001's internal Alfred-owned
+compatibility boundary and the independently released
+[Asgard Plugin 0.1.0 Public Alpha](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0).
+Alfred's private consumer uses an earlier pinned development revision.
+Do not equate these with a publicly proven second Butler deployment.
 
 ## Component discovery
 
