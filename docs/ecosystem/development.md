@@ -65,11 +65,15 @@ Reusable extraction requires:
 6. clean installation/runtime evidence;
 7. explicit release evidence.
 
-## Asgard remains the exception
+## Asgard's post-Ignition adoption
 
-Asgard is Alfred-owned in the Ignition implementation, but the boundary itself
-is part of the released communication architecture and therefore remains in the
-public technical documentation.
+Asgard was Alfred-owned inside the immutable Ignition release. A reusable
+standalone `butler-asgard` development package was subsequently adopted by
+Alfred and observed responding through Android Interphone on 2026-10-10.
+That is **private integration evidence**, not public distribution or proof
+that every network Butler can already use the package. The standalone
+repository still requires a publication audit. The ownership boundary remains
+part of the public architectural documentation.
 
 See:
 
