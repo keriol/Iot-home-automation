@@ -21,6 +21,7 @@ runtime.
 | Bifröst | External/client API boundary | 0.1.0 |
 | Midgard | Provider-neutral communication and cross-Butler routing | 0.1.0 |
 | Butler Interphone | Android client | 0.1.0 |
+| [Butler Asgard Plugin](https://github.com/keriol/butler-asgard-plugin) | Butler-owned identity and ingress boundary | [0.1.0 Public Alpha](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0) |
 
 Development-line versions on `main` are not release claims.
 
@@ -41,38 +42,23 @@ Wilfred
 For a first installation, use
 [Install a Butler in your home](../install/index.md).
 
-## The Asgard exception
+## Asgard: standalone Public Alpha after Ignition
 
-Asgard belongs to the public architecture model because IGNITION-001 proved the
-Butler-owned ingress/identity boundary end to end.
+[Butler Asgard Plugin 0.1.0](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0)
+is now a publicly released, standalone Python package for per-Butler identity
+projection and governed ingress composition. The release contains a wheel and
+source archive and is not a claim that it is published on PyPI.
 
-However, in the Ignition release:
+The historical IGNITION-001 bill of materials is **unchanged**: that release
+used an internal Alfred-owned Asgard compatibility boundary, not the later
+standalone distribution. Alfred privately adopted the earlier standalone
+`0.1.0.dev0` development revision through its own adapter.
 
-- Asgard compatibility version is `0.1.0`;
-- the implementation is owned internally by Alfred;
-- there is no independent public Asgard package/repository/tag;
-- a future standalone reusable Asgard remains post-Ignition direction.
-
-Therefore:
-
-```text
-Asgard = documented public architectural boundary
-      != standalone public installable package
-```
+The Public Alpha does **not** provide network transport or Midgard routing,
+profile-image loading/projection, an independently proven second Butler
+consumer, or runtime-owned policy and authentication.
 
 See [Asgard](../architecture/asgard.md).
-
-## Post-Ignition standalone progress
-
-After the Ignition release, a separately packaged `butler-asgard`
-`0.1.0.dev0` development baseline was integrated into private Alfred
-and exercised through the real Android Interphone client on 2026-10-10.
-
-**Status: privately proven, not publicly released.**
-This does not change the immutable IGNITION-001 release composition,
-nor add Asgard to the public released-component table above.
-Publication of the standalone repository remains subject to history and
-metadata sanitization. Further Wilfred/Manfred consumer proving is future work.
 
 ## Not included here
 
