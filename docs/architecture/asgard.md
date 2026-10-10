@@ -3,7 +3,7 @@ title: Asgard
 kind: architecture
 owner: concrete-butler
 scope: public-safe
-status: released-boundary
+status: public-alpha
 baseline: 0.1.0
 related:
   - ../api/bifrost.md
@@ -101,10 +101,15 @@ shipped its own internal Asgard compatibility boundary `0.1.0`.
 The later standalone adoption must not be retroactively added to that release
 Bill of Materials.
 
-The standalone Asgard repository remains private pending publication audit.
-Wilfred/Manfred as additional network-connected Butler consumers, profile-image
-payload projection, and a public package/tag/release remain separately tracked
-work. No private source or deployment configuration is published here.
+The independently packaged [Asgard 0.1.0 Public Alpha](https://github.com/keriol/butler-asgard-plugin/releases/tag/v0.1.0)
+is now available from a public repository with a verified wheel and sdist.
+This new checkpoint does not retroactively alter IGNITION-001 or upgrade the
+older development commit pinned by Alfred.
+
+A second Wilfred/Manfred network consumer and client-facing profile image
+projection remain unproven. Transport, routing, authorization and domain policy
+belong to their respective owners. No private runtime configuration is part
+of the standalone distribution.
 
 
 ## GitHub lineage
