@@ -35,9 +35,9 @@ For installable/public components, start from the
 Alfred and private proving work live separately under
 [Development & Proving Ground](../ecosystem/development.md).
 
-The deliberate bridge is Asgard: the boundary is part of the released Ignition
-architecture, while the Ignition implementation remains Alfred-owned and is not
-a standalone public package.
+The deliberate bridge is Asgard: IGNITION-001 released its Alfred-owned
+compatibility boundary; a separate standalone package has since been adopted
+by Alfred in private development, but is not yet a public Asgard release.
 
 <div class="grid cards" markdown>
 
