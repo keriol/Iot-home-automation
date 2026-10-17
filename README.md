@@ -1,5 +1,7 @@
 # Home Automation Portfolio
 
+**[Explore the public Butler documentation website](https://keriol.github.io/Iot-home-automation/)** · [Released components](https://keriol.github.io/Iot-home-automation/ecosystem/released/) · [Install a Butler](https://keriol.github.io/Iot-home-automation/install/)
+
 Public-safe engineering documentation for **Keriol Home**, a local-first smart-home platform and real-world proving ground for the Butler ecosystem.
 
 The project is intentionally split into reusable public components and a private household deployment:

@@ -83,6 +83,14 @@ to talk to them.
 
 </div>
 
+## Explore the public releases
+
+Want to see what is actually available today? Start with the
+[Released Public Ecosystem](ecosystem/released.md), then follow the
+[Install a Butler](install/index.md) guide to set up Wilfred and add only the
+integrations you need. Private development experiments are documented separately
+and are not part of the public installation.
+
 ## Choose your depth
 
 The site is designed in layers. Stop wherever your curiosity is satisfied:
